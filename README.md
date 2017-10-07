@@ -165,7 +165,9 @@ warm: 添加的方法需要在@interface中声明
 
 #### 添加可执行文件的依赖动态注入
 此处用到是[insert_dylib](https://github.com/Tyilo/insert_dylib)，先从gitHUb下载insert_dylib，编译后将product下的insert_dylib以及其他两个文件拷贝到同一目录下，执行以下命令:
-`./insert_dylib @executable_path/WeChatPlugin.dylib /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat`
+`
+./insert_dylib @executable_path/WeChatPlugin.dylib /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat
+`
 以下为执行步骤
 ```
 localhost:debug apple$ ./insert_dylib @executable_path/WeChatPlugin.dylib /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat
