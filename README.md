@@ -88,7 +88,7 @@ tweak 安装完成后需要重启的应用名`[iphone/tweak] List of application
 
 - 安装完成后进入cd wechatplugin/, 执行`ls -l`, 可以看到里面有四个文件:
 完成后会看到四个文件(make 后将生成 .theos 、obj 文件夹).
-``` Makefile          TKDemo.plist  Tweak.xm          control ```
+``` Makefile          WeChatPlugin.plist  Tweak.xm          control ```
 
 - 对Makefile文件进行修改
 Makefile : 工程用到的文件、框架、库等信息。
@@ -126,6 +126,58 @@ Logos 常用语法：
 `%new`: 在`%hook`内部使用，给class添加新方法，与class_addMethod相同; 在Category中添加方法的区别: Category为编译时添加，class_addMethod为d动态添加
 warm: 添加的方法需要在@interface中声明
 `%c`：获取一个类，等同于objc_getClass、NSClassFromString
+
+
+#### 定制Tweak.xm
+- 以微信中的设置页面为例: `NewSettingViewController`是微信的设置页面，我们hook它的`viewDidAppear:`方法
+```
+%hook NewSettingViewController
+
+- (void)viewDidAppear:(BOOL)animated {
+    %orig;
+    [self helloWorld];
+}
+
+%new
+- (void)helloWorld {
+    UIAlertController *alc = [UIAlertController alertControllerWithTitle:@"hello world" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alc addAction:[UIAlertAction actionWithTitle:@"ok" style:UIAlertActionStyleDefault handler:NULL]];
+    [alc addAction:[UIAlertAction actionWithTitle:@"cancel" style:UIAlertActionStyleCancel handler:NULL]];
+    [self presentViewController:alc animated:YES completion:NULL];
+}
+
+%end
+```
+- 编写代码完成后，使用`make`命令对其进行编译，注意:执行命令前先cd到项目文件夹
+如果是在之前编写的基础上行修改，则需要重新编译，这时需要先执行`make clean`，再执行`make`,
+执行完成后，会在项目多两个文件夹:`.theos`和`obj`，那么在`.theos`->`obj`->`debug`中有一个`WeChatPlugin.dylib`就是我们生成的dylib动态库;
+
+#### 修改生成的.dylib动态库中的依赖
+- 通过 otool -L命令查看生成的.dylib文件
+结果中的一段`/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate (offset 24)`
+可以看到这里还有对CydiaSubstrate的依赖，这是不行的 , 这个是theos在越狱机上特有的, 在非越狱机上需要更改此依赖
+- 修改依赖，将libsubstrate.dylib文件(该文件应该在/opt/thoes/lib/目录下),拷贝到与你生成的的.dylib一个目录下,通过下面的指令修改依赖,
+`cd /Users/mofeini/Desktop/weChat/Project/wechatplugin/.theos/obj/debug
+`
+`install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @loader_path/libsubstrate.dylib WeChatPlugin.dylib
+`
+然后重新查看`WeChatPlugin.dylib`，会发现依赖已经修改成`@loader_path/libsubstrate.dylib (offset 24)`
+
+#### 添加可执行文件的依赖动态注入
+此处用到是[insert_dylib](https://github.com/Tyilo/insert_dylib)，先从gitHUb下载insert_dylib，编译后将product下的insert_dylib以及其他两个文件拷贝到同一目录下，执行以下命令:
+`./insert_dylib @executable_path/WeChatPlugin.dylib /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat`
+以下为执行步骤
+```
+localhost:debug apple$ ./insert_dylib @executable_path/WeChatPlugin.dylib /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat
+/Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat_patched already exists. Overwrite it? [y/n] y
+Binary is a fat binary with 2 archs.
+LC_CODE_SIGNATURE load command found. Remove it? [y/n] n
+LC_CODE_SIGNATURE load command found. Remove it? [y/n] n
+Added LC_LOAD_DYLIB to all archs in /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat_patched
+```
+此步骤会将将自制的.dylib 和libsubstrate.dylib拷贝进你的WeChat.app
+
+#### 重签名、安装到iPhone
 
 
 
