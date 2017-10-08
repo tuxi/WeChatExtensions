@@ -1,8 +1,8 @@
 //
 //  ViewController.h
-//  WeChatPlugin
+//  WeChatExtensions
 //
-//  Created by Swae on 2017/10/7.
+//  Created by Swae on 2017/10/8.
 //  Copyright © 2017年 Ossey. All rights reserved.
 //
 
