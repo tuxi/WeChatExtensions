@@ -49,6 +49,8 @@
 		18F0A0A91F8A2E8A00520154 /* com.ossey.ioswechat_0.0.1-2+debug_iphoneos-arm.deb in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F0A0781F8A2E8A00520154 /* com.ossey.ioswechat_0.0.1-2+debug_iphoneos-arm.deb */; };
 		18F0A0AA1F8A2E8A00520154 /* com.ossey.ioswechat_0.0.1-3+debug_iphoneos-arm.deb in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F0A0791F8A2E8A00520154 /* com.ossey.ioswechat_0.0.1-3+debug_iphoneos-arm.deb */; };
 		18F0A0B11F8A2E8A00520154 /* Tweak.xm in Resources */ = {isa = PBXBuildFile; fileRef = 18F0A0871F8A2E8A00520154 /* Tweak.xm */; };
+		18F0A0B71F8A30E200520154 /* XYExtensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A0B61F8A30E200520154 /* XYExtensionsViewController.m */; };
+		18F0A0BB1F8A366C00520154 /* XYExtensionMoudle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A0BA1F8A366C00520154 /* XYExtensionMoudle.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +100,11 @@
 		18F0A0781F8A2E8A00520154 /* com.ossey.ioswechat_0.0.1-2+debug_iphoneos-arm.deb */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "com.ossey.ioswechat_0.0.1-2+debug_iphoneos-arm.deb"; sourceTree = "<group>"; };
 		18F0A0791F8A2E8A00520154 /* com.ossey.ioswechat_0.0.1-3+debug_iphoneos-arm.deb */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "com.ossey.ioswechat_0.0.1-3+debug_iphoneos-arm.deb"; sourceTree = "<group>"; };
 		18F0A0871F8A2E8A00520154 /* Tweak.xm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Tweak.xm; sourceTree = "<group>"; };
+		18F0A0B51F8A30E200520154 /* XYExtensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYExtensionsViewController.h; sourceTree = "<group>"; };
+		18F0A0B61F8A30E200520154 /* XYExtensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYExtensionsViewController.m; sourceTree = "<group>"; };
+		18F0A0B81F8A32C900520154 /* WeChatHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeChatHeaders.h; sourceTree = "<group>"; };
+		18F0A0B91F8A366C00520154 /* XYExtensionMoudle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYExtensionMoudle.h; sourceTree = "<group>"; };
+		18F0A0BA1F8A366C00520154 /* XYExtensionMoudle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYExtensionMoudle.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -357,6 +364,11 @@
 		18F0A07A1F8A2E8A00520154 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				18F0A0B51F8A30E200520154 /* XYExtensionsViewController.h */,
+				18F0A0B61F8A30E200520154 /* XYExtensionsViewController.m */,
+				18F0A0B81F8A32C900520154 /* WeChatHeaders.h */,
+				18F0A0B91F8A366C00520154 /* XYExtensionMoudle.h */,
+				18F0A0BA1F8A366C00520154 /* XYExtensionMoudle.m */,
 				18F0A0871F8A2E8A00520154 /* Tweak.xm */,
 			);
 			path = src;
@@ -447,7 +459,9 @@
 			files = (
 				18F09F811F88662500520154 /* ViewController.m in Sources */,
 				18F09F8C1F88662500520154 /* main.m in Sources */,
+				18F0A0B71F8A30E200520154 /* XYExtensionsViewController.m in Sources */,
 				18F0A0A41F8A2E8A00520154 /* Makefile in Sources */,
+				18F0A0BB1F8A366C00520154 /* XYExtensionMoudle.m in Sources */,
 				18F09F7E1F88662500520154 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
