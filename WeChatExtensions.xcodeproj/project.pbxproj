@@ -24,7 +24,7 @@
 		18F0A1201F8A506E00520154 /* com.ossey.ioswechat_0.0.1-2+debug_iphoneos-arm.deb in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F0A10B1F8A506E00520154 /* com.ossey.ioswechat_0.0.1-2+debug_iphoneos-arm.deb */; };
 		18F0A1211F8A506E00520154 /* com.ossey.ioswechat_0.0.1-3+debug_iphoneos-arm.deb in Frameworks */ = {isa = PBXBuildFile; fileRef = 18F0A10C1F8A506E00520154 /* com.ossey.ioswechat_0.0.1-3+debug_iphoneos-arm.deb */; };
 		18F0A1221F8A506E00520154 /* Tweak.xm in Resources */ = {isa = PBXBuildFile; fileRef = 18F0A1121F8A506E00520154 /* Tweak.xm */; };
-		18F0A1231F8A506E00520154 /* XYExtensionMoudle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A1151F8A506E00520154 /* XYExtensionMoudle.m */; };
+		18F0A1231F8A506E00520154 /* XYExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A1151F8A506E00520154 /* XYExtensionConfig.m */; };
 		18F0A1241F8A506E00520154 /* XYExtensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A1171F8A506E00520154 /* XYExtensionsViewController.m */; };
 		18F0A1261F8A507C00520154 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 18F0A1251F8A507C00520154 /* README.md */; };
 /* End PBXBuildFile section */
@@ -51,12 +51,13 @@
 		18F0A10B1F8A506E00520154 /* com.ossey.ioswechat_0.0.1-2+debug_iphoneos-arm.deb */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "com.ossey.ioswechat_0.0.1-2+debug_iphoneos-arm.deb"; sourceTree = "<group>"; };
 		18F0A10C1F8A506E00520154 /* com.ossey.ioswechat_0.0.1-3+debug_iphoneos-arm.deb */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "com.ossey.ioswechat_0.0.1-3+debug_iphoneos-arm.deb"; sourceTree = "<group>"; };
 		18F0A1121F8A506E00520154 /* Tweak.xm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Tweak.xm; sourceTree = "<group>"; };
-		18F0A1131F8A506E00520154 /* WeChatHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatHeaders.h; sourceTree = "<group>"; };
-		18F0A1141F8A506E00520154 /* XYExtensionMoudle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYExtensionMoudle.h; sourceTree = "<group>"; };
-		18F0A1151F8A506E00520154 /* XYExtensionMoudle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYExtensionMoudle.m; sourceTree = "<group>"; };
+		18F0A1141F8A506E00520154 /* XYExtensionConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYExtensionConfig.h; sourceTree = "<group>"; };
+		18F0A1151F8A506E00520154 /* XYExtensionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYExtensionConfig.m; sourceTree = "<group>"; };
 		18F0A1161F8A506E00520154 /* XYExtensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYExtensionsViewController.h; sourceTree = "<group>"; };
 		18F0A1171F8A506E00520154 /* XYExtensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYExtensionsViewController.m; sourceTree = "<group>"; };
 		18F0A1251F8A507C00520154 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		18F0A1271F8A5F3E00520154 /* WeChatHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatHeaders.h; sourceTree = "<group>"; };
+		18F0A1281F8A636B00520154 /* CaptainHook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptainHook.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,10 +179,11 @@
 		18F0A1111F8A506E00520154 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				18F0A1281F8A636B00520154 /* CaptainHook.h */,
 				18F0A1121F8A506E00520154 /* Tweak.xm */,
-				18F0A1131F8A506E00520154 /* WeChatHeaders.h */,
-				18F0A1141F8A506E00520154 /* XYExtensionMoudle.h */,
-				18F0A1151F8A506E00520154 /* XYExtensionMoudle.m */,
+				18F0A1271F8A5F3E00520154 /* WeChatHeaders.h */,
+				18F0A1141F8A506E00520154 /* XYExtensionConfig.h */,
+				18F0A1151F8A506E00520154 /* XYExtensionConfig.m */,
 				18F0A1161F8A506E00520154 /* XYExtensionsViewController.h */,
 				18F0A1171F8A506E00520154 /* XYExtensionsViewController.m */,
 			);
@@ -270,7 +272,7 @@
 				18F0A0FA1F8A4FBC00520154 /* main.m in Sources */,
 				18F0A11B1F8A506E00520154 /* Makefile in Sources */,
 				18F0A0EC1F8A4FBC00520154 /* AppDelegate.m in Sources */,
-				18F0A1231F8A506E00520154 /* XYExtensionMoudle.m in Sources */,
+				18F0A1231F8A506E00520154 /* XYExtensionConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

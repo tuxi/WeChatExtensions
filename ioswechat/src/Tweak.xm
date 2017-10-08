@@ -1,7 +1,7 @@
 
 #import "XYExtensionsViewController.h"
 #import "WeChatHeaders.h"
-#import "XYExtensionMoudle.h"
+#import "XYExtensionConfig.h"
 
 
 %hook NewSettingViewController
@@ -23,21 +23,23 @@
 }
 %end
 
+/* Mark: 已在XYExtensionsViewController中使用CaptainHook hook了WCDeviceStepObject，这里就不必实现了
 %hook WCDeviceStepObject
 - (NSInteger)m7StepCount {
     NSInteger stepCount = %orig;
-    NSInteger newStepCount = [[XYExtensionMoudle sharedInstance] stepCount];
-    BOOL changeStepEnable = [[XYExtensionMoudle sharedInstance] shouldChangeStep];
+    NSInteger newStepCount = [[XYExtensionConfig sharedInstance] stepCount];
+    BOOL changeStepEnable = [[XYExtensionConfig sharedInstance] shouldChangeStep];
 
     return changeStepEnable ? newStepCount : stepCount;
 }
 
 - (NSInteger)hkStepCount {
     NSInteger stepCount = %orig;
-    NSInteger newStepCount = [[XYExtensionMoudle sharedInstance] stepCount];
-    BOOL changeStepEnable = [[XYExtensionMoudle sharedInstance] shouldChangeStep];
+    NSInteger newStepCount = [[XYExtensionConfig sharedInstance] stepCount];
+    BOOL changeStepEnable = [[XYExtensionConfig sharedInstance] shouldChangeStep];
 
     return changeStepEnable ? newStepCount : stepCount;
 }
 
 %end
+*/
