@@ -1,6 +1,6 @@
-# 制作微信插件
+# 非越狱theos的Tweak创建的dylib安装到iOS设备
 
-非越狱环境下iOS版WeChat 逆向研究示例，dylibz(动态库)注入、应用重签名，目的是为了熟悉iOS逆向相关知识点；
+非越狱环境下iOS版WeChat 逆向研究示例，dylibz(动态库)注入、应用重签名
 
 #### 基本原理
 通过app启动时调用我们注入的dylib，进行app hook，最终能够执行我们注入的dylib。
@@ -53,10 +53,6 @@ WeChatWatchNative 未获取到信息
 WeChatWatchNativeExtension cryptid 1
 WeChatShareExtensionNew cryptid 0
 注意: WeChatWatch还是加密的，会影响到下面步骤中的重签名，最简单的办法就是，对对应ipa包解压后，将里面的Watch文件夹删除，再进行重新签名
-
-#### 应用重签名
-将脱壳后的app进行重签名，我使用的是上面步骤中从pp助手下载的越狱版本的微信，如果使用加密的App重签名成功安到设备上也会闪退。
-应用重签名的方法，我使用了[ios-app-signer](https://github.com/DanTheMan827/ios-app-signer)
 
 #### 制作需要注入微信的dylib动态库
 制作dylib动态库的两种方式: [iOSOpenDev](http://www.iosopendev.com) 和 [theos](https://github.com/theos/theos)
@@ -148,8 +144,8 @@ warm: 添加的方法需要在@interface中声明
 
 %end
 ```
-- 编写代码完成后，使用`make`命令对其进行编译，注意:执行命令前先cd到项目文件夹
-如果是在之前编写的基础上行修改，则需要重新编译，这时需要先执行`make clean`，再执行`make`,
+- 编写代码完成后，使用`make package`命令对其进行编译，注意:执行命令前先cd到项目文件夹
+如果是在之前编写的基础上行修改，则需要重新编译, 需要先使用`make clean`，清理make, make package生成的文件
 执行完成后，会在项目多两个文件夹:`.theos`和`obj`，那么在`.theos`->`obj`->`debug`中有一个`WeChatPlugin.dylib`就是我们生成的dylib动态库;
 
 #### 修改生成的.dylib动态库中的依赖
@@ -159,9 +155,16 @@ warm: 添加的方法需要在@interface中声明
 - 修改依赖，将libsubstrate.dylib文件(该文件应该在/opt/thoes/lib/目录下),拷贝到与你生成的的.dylib一个目录下,通过下面的指令修改依赖,
 `cd /Users/mofeini/Desktop/weChat/Project/wechatplugin/.theos/obj/debug
 `
-`install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @loader_path/libsubstrate.dylib WeChatPlugin.dylib
+`
+install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @loader_path/libsubstrate.dylib WeChatPlugin.dylib
 `
 然后重新查看`WeChatPlugin.dylib`，会发现依赖已经修改成`@loader_path/libsubstrate.dylib (offset 24)`
+
+#### 重新签名自制的.dylib 和libsubstrate.dylib(很重要)
+我们需要把生成的dylib和libsubstrate.dylib文件copy到WeChat.app中,然后用codesign开始签名
+```
+codesign -f -s 自己证书名称 要签名的文件
+```
 
 #### 添加可执行文件的依赖动态注入
 此处用到是[insert_dylib](https://github.com/Tyilo/insert_dylib)，先从gitHUb下载insert_dylib，编译后将product下的insert_dylib以及其他两个文件拷贝到同一目录下，执行以下命令:
@@ -170,19 +173,53 @@ warm: 添加的方法需要在@interface中声明
 `
 以下为执行步骤
 ```
-localhost:debug apple$ ./insert_dylib @executable_path/WeChatPlugin.dylib /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat
-/Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat_patched already exists. Overwrite it? [y/n] y
+localhost:debug apple$ insert_dylib @executable_path/wechatplugin.dylib /Users/mofeini/Desktop/weChat/WeChat.app/WeChat
 Binary is a fat binary with 2 archs.
 LC_CODE_SIGNATURE load command found. Remove it? [y/n] n
 LC_CODE_SIGNATURE load command found. Remove it? [y/n] n
-Added LC_LOAD_DYLIB to all archs in /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat_patched
+Added LC_LOAD_DYLIB to all archs in /Users/mofeini/Desktop/weChat/WeChat.app/WeChat_patched
 ```
-此步骤会将将自制的.dylib 和libsubstrate.dylib拷贝进你的WeChat.app
+会生成一个WeChat_patched 这个就是修改了依赖关系的二进制文件，
+#### 注意替换
+注意: 别忘了之前将 自制的.dylib libsubstrate.dylib 拷贝进WeChat.app
+如果WeChat_patched在WeChat.app中，还要将WeChat_patched拷贝进WeChat.app中 替换原来的WeChat, 把WeChat_patched的名字改回来WeChat
 
-#### 重签名、安装到iPhone
+#### 应用重签名
+将脱壳后的app进行重签名，我使用的是上面步骤中从pp助手下载的越狱版本的微信，如果使用加密的App重签名成功安到设备上也会闪退。
+应用重签名的方法，我使用了[ios-app-signer](https://github.com/DanTheMan827/ios-app-signer)
 
 
 
+### 以下是一些错误解决
+使用以下命令编译时候
+```
+make package
+```
+第一次会报以下错误
+```
+> Making stage for tweak ioswechat…
+dpkg-deb: error: obsolete compression type 'lzma'; use xz instead
+
+Type dpkg-deb --help for help about manipulating *.deb files;
+Type dpkg --help for help about installing and deinstalling packages.
+make: *** [internal-package] Error 2
+```
+查找了一些资料后发现，这个错误是dpkg引起的，随着版本的升级，打包格式发生了变化
+```
+dpkg-deb: error: obsolete compression type 'lzma'; use xz instead
+```
+解决方案是按以下路径找到该文件修改其内容
+```
+/opt/theos/makefiles/package/deb.mk
+```
+找到第六行
+```
+_THEOS_PLATFORM_DPKG_DEB_COMPRESSION ?= lzma
+```
+将其改为
+```
+_THEOS_PLATFORM_DPKG_DEB_COMPRESSION ?= xz
+```
 
 
 

@@ -1,0 +1,9 @@
+Package: com.ossey.ioswechat
+Name: ioswechat
+Depends: mobilesubstrate
+Version: 0.0.1
+Architecture: iphoneos-arm
+Description: An awesome MobileSubstrate tweak!
+Maintainer: swae
+Author: swae
+Section: Tweaks
