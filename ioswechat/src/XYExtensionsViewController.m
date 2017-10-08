@@ -27,6 +27,7 @@
     [self setupUI];
 }
 
+
 - (void)setupUI {
     self.title = @"扩展";
     MMTableView *tableView = [self.wx_tableViewInfo getTableView];
@@ -97,6 +98,11 @@
                                    [self reloadTableViewData];
                                }];
 
+}
+
+/// 更改经纬度cell
+- (void)addModifyCell {
+    
 }
 
 ////////////////////////////////////////////////////////////////////////

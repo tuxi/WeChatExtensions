@@ -27,6 +27,10 @@
 		18F0A1231F8A506E00520154 /* XYExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A1151F8A506E00520154 /* XYExtensionConfig.m */; };
 		18F0A1241F8A506E00520154 /* XYExtensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A1171F8A506E00520154 /* XYExtensionsViewController.m */; };
 		18F0A1261F8A507C00520154 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 18F0A1251F8A507C00520154 /* README.md */; };
+		18F0A12B1F8A6BF200520154 /* SuspensionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A12A1F8A6BF100520154 /* SuspensionControl.m */; };
+		18F0A1401F8A6E3E00520154 /* FoldersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A13E1F8A6E3E00520154 /* FoldersViewController.m */; };
+		18F0A1491F8A6EA600520154 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A1481F8A6EA600520154 /* DirectoryWatcher.m */; };
+		18F0A14C1F8A6EB800520154 /* UIAlertView+Blocks.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A14A1F8A6EB800520154 /* UIAlertView+Blocks.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +62,14 @@
 		18F0A1251F8A507C00520154 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		18F0A1271F8A5F3E00520154 /* WeChatHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatHeaders.h; sourceTree = "<group>"; };
 		18F0A1281F8A636B00520154 /* CaptainHook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptainHook.h; sourceTree = "<group>"; };
+		18F0A1291F8A6BF100520154 /* SuspensionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuspensionControl.h; sourceTree = "<group>"; };
+		18F0A12A1F8A6BF100520154 /* SuspensionControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuspensionControl.m; sourceTree = "<group>"; };
+		18F0A13E1F8A6E3E00520154 /* FoldersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldersViewController.m; sourceTree = "<group>"; };
+		18F0A13F1F8A6E3E00520154 /* FoldersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldersViewController.h; sourceTree = "<group>"; };
+		18F0A1471F8A6EA600520154 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
+		18F0A1481F8A6EA600520154 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
+		18F0A14A1F8A6EB800520154 /* UIAlertView+Blocks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+Blocks.m"; sourceTree = "<group>"; };
+		18F0A14B1F8A6EB800520154 /* UIAlertView+Blocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+Blocks.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +191,14 @@
 		18F0A1111F8A506E00520154 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				18F0A14B1F8A6EB800520154 /* UIAlertView+Blocks.h */,
+				18F0A14A1F8A6EB800520154 /* UIAlertView+Blocks.m */,
+				18F0A1471F8A6EA600520154 /* DirectoryWatcher.h */,
+				18F0A1481F8A6EA600520154 /* DirectoryWatcher.m */,
+				18F0A13F1F8A6E3E00520154 /* FoldersViewController.h */,
+				18F0A13E1F8A6E3E00520154 /* FoldersViewController.m */,
+				18F0A1291F8A6BF100520154 /* SuspensionControl.h */,
+				18F0A12A1F8A6BF100520154 /* SuspensionControl.m */,
 				18F0A1281F8A636B00520154 /* CaptainHook.h */,
 				18F0A1121F8A506E00520154 /* Tweak.xm */,
 				18F0A1271F8A5F3E00520154 /* WeChatHeaders.h */,
@@ -267,11 +287,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18F0A1401F8A6E3E00520154 /* FoldersViewController.m in Sources */,
 				18F0A0EF1F8A4FBC00520154 /* ViewController.m in Sources */,
+				18F0A1491F8A6EA600520154 /* DirectoryWatcher.m in Sources */,
 				18F0A1241F8A506E00520154 /* XYExtensionsViewController.m in Sources */,
 				18F0A0FA1F8A4FBC00520154 /* main.m in Sources */,
 				18F0A11B1F8A506E00520154 /* Makefile in Sources */,
 				18F0A0EC1F8A4FBC00520154 /* AppDelegate.m in Sources */,
+				18F0A14C1F8A6EB800520154 /* UIAlertView+Blocks.m in Sources */,
+				18F0A12B1F8A6BF200520154 /* SuspensionControl.m in Sources */,
 				18F0A1231F8A506E00520154 /* XYExtensionConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
