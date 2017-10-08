@@ -13,7 +13,6 @@ static NSString * const XYStepCount = @"DeviceStepKey";
 
 @implementation XYExtensionMoudle
 
-//@synthesize shouldChangeStep = _shouldChangeStep, stepCount = _stepCount;
 @dynamic sharedInstance;
 
 + (XYExtensionMoudle *)sharedInstance {
@@ -29,29 +28,27 @@ static NSString * const XYStepCount = @"DeviceStepKey";
 {
     self = [super init];
     if (self) {
-        _shouldChangeStep = [[NSUserDefaults standardUserDefaults] boolForKey:XYShouldChangeStepKey];
-        _stepCount = [[NSUserDefaults standardUserDefaults] integerForKey:XYStepCount];
+        self.shouldChangeStep = [[NSUserDefaults standardUserDefaults] boolForKey:XYShouldChangeStepKey];
+        self.stepCount = [[NSUserDefaults standardUserDefaults] integerForKey:XYStepCount];
         
     }
     return self;
 }
 
-//- (BOOL)shouldChangeStep {
-//    return [[NSUserDefaults standardUserDefaults] boolForKey:XYShouldChangeStepKey];
-//}
+- (BOOL)shouldChangeStep {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:XYShouldChangeStepKey];
+}
 
 - (void)setShouldChangeStep:(BOOL)shouldChangeStep {
-    _shouldChangeStep = shouldChangeStep;
     [[NSUserDefaults standardUserDefaults] setBool:shouldChangeStep forKey:XYShouldChangeStepKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-//- (NSInteger)stepCount {
-//    return [[NSUserDefaults standardUserDefaults] integerForKey:XYStepCount];
-//}
+- (NSInteger)stepCount {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:XYStepCount];
+}
 
 - (void)setStepCount:(NSInteger)stepCount {
-    _stepCount = stepCount;
     [[NSUserDefaults standardUserDefaults] setInteger:stepCount forKey:XYStepCount];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
