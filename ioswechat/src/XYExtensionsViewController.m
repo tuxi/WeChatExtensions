@@ -73,7 +73,7 @@
 }
 
 - (MMTableViewCellInfo *)createStepCountCell {
-    NSInteger deviceStep = [[XYExtensionMoudle sharedInstance] shouldChangeStep];
+    NSInteger deviceStep = [[XYExtensionMoudle sharedInstance] stepCount];
     MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(updateStepCount) target:self title:@"微信运动步数" rightValue:[NSString stringWithFormat:@"%ld", (long)deviceStep] accessoryType:1];
     
     return cellInfo;

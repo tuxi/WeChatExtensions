@@ -22,3 +22,22 @@
     [self.navigationController PushViewController:extensionVc animated:YES];
 }
 %end
+
+%hook WCDeviceStepObject
+- (NSInteger)m7StepCount {
+    NSInteger stepCount = %orig;
+    NSInteger newStepCount = [[XYExtensionMoudle sharedInstance] stepCount];
+    BOOL changeStepEnable = [[XYExtensionMoudle sharedInstance] shouldChangeStep];
+
+    return changeStepEnable ? newStepCount : stepCount;
+}
+
+- (NSInteger)hkStepCount {
+    NSInteger stepCount = %orig;
+    NSInteger newStepCount = [[XYExtensionMoudle sharedInstance] stepCount];
+    BOOL changeStepEnable = [[XYExtensionMoudle sharedInstance] shouldChangeStep];
+
+    return changeStepEnable ? newStepCount : stepCount;
+}
+
+%end
