@@ -44,6 +44,9 @@
     [tableViewInfo clearAllSection];
     
     [self addModifyWeChatSportsStepsCell];
+    
+    MMTableView *tableView = [self.wx_tableViewInfo getTableView];
+    [tableView reloadData];
 }
 
 ////////////////////////////////////////////////////////////////////////
