@@ -27,17 +27,6 @@ static NSString * const XYLongitudeValueKey = @"longitude";
     return instance;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.shouldChangeStep = [[NSUserDefaults standardUserDefaults] boolForKey:XYShouldChangeStepKey];
-        self.stepCount = [[NSUserDefaults standardUserDefaults] integerForKey:XYStepCount];
-        
-    }
-    return self;
-}
-
 - (BOOL)shouldChangeStep {
     return [[NSUserDefaults standardUserDefaults] boolForKey:XYShouldChangeStepKey];
 }
@@ -61,7 +50,7 @@ static NSString * const XYLongitudeValueKey = @"longitude";
 }
 
 - (void)setShouldChangeCoordinate:(BOOL)shouldChangeCoordinate {
-    [[NSUserDefaults standardUserDefaults] setBool:shouldChangeCoordinate forKey:XYStepCount];
+    [[NSUserDefaults standardUserDefaults] setBool:shouldChangeCoordinate forKey:XYShouldChangeCoordinateKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

@@ -11,6 +11,7 @@
 #import "WeChatHeaders.h"
 #import "XYExtensionConfig.h"
 #import "CaptainHook.h"
+#import "LocationConverter.h"
 
 #pragma mark *** 微信扩展控制器 ***
 
@@ -22,6 +23,9 @@
 
 @implementation XYExtensionsViewController
 
+////////////////////////////////////////////////////////////////////////
+#pragma mark -
+////////////////////////////////////////////////////////////////////////
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -49,6 +53,7 @@
     [tableViewInfo clearAllSection];
     
     [self addModifyWeChatSportsStepsCell];
+    [self addModifyCoordinateCell];
     
     MMTableView *tableView = [self.wx_tableViewInfo getTableView];
     [tableView reloadData];
@@ -105,11 +110,80 @@
 
 }
 
-/// 更改经纬度cell
-- (void)addModifyCell {
+////////////////////////////////////////////////////////////////////////
+#pragma mark - 更新经纬度信息
+////////////////////////////////////////////////////////////////////////
+- (void)addModifyCoordinateCell {
+    MMTableViewSectionInfo *sectionInfo = [objc_getClass("MMTableViewSectionInfo") sectionInfoHeader:@"" Footer:nil];
+    [sectionInfo addCell:[self createChangeCoordinateSwitchCell]];
     
+    BOOL shouldChangeCoordinate = [[XYExtensionConfig sharedInstance] shouldChangeCoordinate];
+    if (shouldChangeCoordinate) {
+        [sectionInfo addCell:[self createadLatitudeCell]];
+        [sectionInfo addCell:[self createadLongitudeCell]];
+    }
+    [self.wx_tableViewInfo addSection:sectionInfo];
 }
 
+- (MMTableViewCellInfo *)createadLatitudeCell {
+    NSInteger latitude = [[XYExtensionConfig sharedInstance] latitude];
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(updateLatitude) target:self title:@"修改的经度(latitude)" rightValue:[NSString stringWithFormat:@"%ld", (long)latitude] accessoryType:1];
+    
+    return cellInfo;
+}
+    
+- (MMTableViewCellInfo *)createadLongitudeCell {
+    NSInteger longitude = [[XYExtensionConfig sharedInstance] longitude];
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(updateLongitude) target:self title:@"修改的纬度(longitude)" rightValue:[NSString stringWithFormat:@"%ld", (long)longitude] accessoryType:1];
+    
+    return cellInfo;
+}
+    
+/// 更新经度
+- (void)updateLatitude {
+    
+    NSInteger latitude = [[XYExtensionConfig sharedInstance] latitude];
+    [self alertControllerWithTitle:@"修改经度(longitude)"
+                           message:@"请同时修改经度和纬度，若其中一个小于0则无效，关于经纬度的获取可去高德地图或百度地区，并转换为Wgs84"
+                           content:[NSString stringWithFormat:@"%ld", (long)latitude]
+                       placeholder:@"请输入经度"
+                      keyboardType:UIKeyboardTypeDecimalPad
+                               blk:^(UITextField *textField) {
+                                   [[XYExtensionConfig sharedInstance] setLatitude:MAX(0.0, textField.text.integerValue)];
+                                   [self reloadTableViewData];
+                               }];
+}
+    
+/// 更新纬度
+- (void)updateLongitude {
+    NSInteger longitude = [[XYExtensionConfig sharedInstance] longitude];
+    [self alertControllerWithTitle:@"修改纬度(longitude)"
+                           message:@""
+                           content:[NSString stringWithFormat:@"%ld", (long)longitude]
+                       placeholder:@"请输入纬度"
+                      keyboardType:UIKeyboardTypeDecimalPad
+                               blk:^(UITextField *textField) {
+                                   [[XYExtensionConfig sharedInstance] setLongitude:MAX(0.0, textField.text.integerValue)];
+                                   [self reloadTableViewData];
+                               }];
+}
+    
+/// 创建是否更新经纬度cell
+- (MMTableViewCellInfo *)createChangeCoordinateSwitchCell {
+    BOOL shouldChangeCoordinate = [[XYExtensionConfig sharedInstance] shouldChangeCoordinate];
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo") switchCellForSel:@selector(setShouldChangeCoordinate:) target:self title:@"修改经纬度" on:shouldChangeCoordinate];
+    
+    return cellInfo;
+}
+    
+    
+- (void)setShouldChangeCoordinate:(UISwitch *)sw {
+    
+    [XYExtensionConfig sharedInstance].shouldChangeCoordinate = sw.on;
+    [self reloadTableViewData];
+    
+}
+    
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - Alert
 ////////////////////////////////////////////////////////////////////////
@@ -180,7 +254,62 @@
 
 @end
 
+#pragma mark *** 用于修改微信内部经纬度的分类 ***
 
+@implementation CLLocation (XYLocationExtensions)
+    
++ (void)load {
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        Class class = [self class];
+        
+        SEL originalSelector = @selector(coordinate);
+        SEL swizzledSelector = @selector(xy_coordinate);
+        
+        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+        
+        BOOL didAddMethod =
+        class_addMethod(class,
+                        originalSelector,
+                        method_getImplementation(swizzledMethod),
+                        method_getTypeEncoding(swizzledMethod));
+        
+        if (didAddMethod) {
+            class_replaceMethod(class,
+                                swizzledSelector,
+                                method_getImplementation(originalMethod),
+                                method_getTypeEncoding(originalMethod));
+            
+        } else {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
+    
+- (CLLocationCoordinate2D)xy_coordinate {
+    
+    CLLocationCoordinate2D oldCoordinate = [self xy_coordinate];
+    BOOL shouldChangeCoordinate = [[XYExtensionConfig sharedInstance] shouldChangeCoordinate];
+    if (!shouldChangeCoordinate) {
+        return oldCoordinate;
+    }
+    
+    double longitude = [[XYExtensionConfig sharedInstance] longitude];
+    double latitude = [[XYExtensionConfig sharedInstance] latitude];
+    if (latitude <= 0.0 || latitude <= 0.0) {
+        return oldCoordinate;
+    }
+    
+    oldCoordinate.latitude = latitude;
+    oldCoordinate.longitude = longitude;
+    
+    return oldCoordinate;
+    
+}
+@end
 
 #pragma mark *** 微信运动步数修改 ***
 /**
