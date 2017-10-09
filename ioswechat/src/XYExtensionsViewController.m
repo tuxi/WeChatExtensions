@@ -126,15 +126,15 @@
 }
 
 - (MMTableViewCellInfo *)createadLatitudeCell {
-    NSInteger latitude = [[XYExtensionConfig sharedInstance] latitude];
-    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(updateLatitude) target:self title:@"修改的经度(latitude)" rightValue:[NSString stringWithFormat:@"%ld", (long)latitude] accessoryType:1];
+    double latitude = [[XYExtensionConfig sharedInstance] latitude];
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(updateLatitude) target:self title:@"修改的经度(latitude)" rightValue:[NSString stringWithFormat:@"%f", latitude] accessoryType:1];
     
     return cellInfo;
 }
     
 - (MMTableViewCellInfo *)createadLongitudeCell {
-    NSInteger longitude = [[XYExtensionConfig sharedInstance] longitude];
-    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(updateLongitude) target:self title:@"修改的纬度(longitude)" rightValue:[NSString stringWithFormat:@"%ld", (long)longitude] accessoryType:1];
+    double longitude = [[XYExtensionConfig sharedInstance] longitude];
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(updateLongitude) target:self title:@"修改的纬度(longitude)" rightValue:[NSString stringWithFormat:@"%f", longitude] accessoryType:1];
     
     return cellInfo;
 }
@@ -142,28 +142,28 @@
 /// 更新经度
 - (void)updateLatitude {
     
-    NSInteger latitude = [[XYExtensionConfig sharedInstance] latitude];
+    double latitude = [[XYExtensionConfig sharedInstance] latitude];
     [self alertControllerWithTitle:@"修改经度(latitude)"
                            message:@"请同时修改经度和纬度，若其中一个小于0则无效，关于经纬度的获取可去高德地图或百度地区，并转换为Wgs84"
-                           content:[NSString stringWithFormat:@"%ld", (long)latitude]
+                           content:[NSString stringWithFormat:@"%f", latitude]
                        placeholder:@"请输入经度"
                       keyboardType:UIKeyboardTypeDecimalPad
                                blk:^(UITextField *textField) {
-                                   [[XYExtensionConfig sharedInstance] setLatitude:MAX(0.0, textField.text.integerValue)];
+                                   [[XYExtensionConfig sharedInstance] setLatitude:MAX(0.0, textField.text.doubleValue)];
                                    [self reloadTableViewData];
                                }];
 }
     
 /// 更新纬度
 - (void)updateLongitude {
-    NSInteger longitude = [[XYExtensionConfig sharedInstance] longitude];
+    double longitude = [[XYExtensionConfig sharedInstance] longitude];
     [self alertControllerWithTitle:@"修改纬度(longitude)"
                            message:@""
-                           content:[NSString stringWithFormat:@"%ld", (long)longitude]
+                           content:[NSString stringWithFormat:@"%f", longitude]
                        placeholder:@"请输入纬度"
                       keyboardType:UIKeyboardTypeDecimalPad
                                blk:^(UITextField *textField) {
-                                   [[XYExtensionConfig sharedInstance] setLongitude:MAX(0.0, textField.text.integerValue)];
+                                   [[XYExtensionConfig sharedInstance] setLongitude:MAX(0.0, textField.text.doubleValue)];
                                    [self reloadTableViewData];
                                }];
 }
