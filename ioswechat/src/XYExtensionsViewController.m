@@ -143,7 +143,7 @@
 - (void)updateLatitude {
     
     NSInteger latitude = [[XYExtensionConfig sharedInstance] latitude];
-    [self alertControllerWithTitle:@"修改经度(longitude)"
+    [self alertControllerWithTitle:@"修改经度(latitude)"
                            message:@"请同时修改经度和纬度，若其中一个小于0则无效，关于经纬度的获取可去高德地图或百度地区，并转换为Wgs84"
                            content:[NSString stringWithFormat:@"%ld", (long)latitude]
                        placeholder:@"请输入经度"
