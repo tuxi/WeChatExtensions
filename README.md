@@ -61,13 +61,25 @@ WeChatShareExtensionNew cryptid 0
 - 使用终端命令，安装配置theos，将其Cloning into '/opt/theos'...
 安装ldid：`brew install dpkg ldid` ，在Theos开发插件中，iOS文件的签名是使用ldid工具来完成的，也就是说ldid取代了Xcode自带的Codesign；
 配置$THEOS: `export THEOS=/opt/theos` 等号后面是theos文件所在路径
-Theos安装：`sudo git clone --recursive https://github.com/theos/theos.git $THEOS`，因为我们的Theos一般是安装在/opt/目录下的，所以先cd到/opt目录下，然后从github上相关的地址clone下来即可；
-下载好Theos后，要修改一下文件的权限：`sudo chown -R $(id -u):$(id -g) /opt/theos`
+Theos安装：`sudo git clone --recursive https://github.com/theos/theos.git $THEOS`，Theos一般是安装在/opt/目录下的，Cloning完成后，可cd到/opt目录下查看；
+Cloning完成Theos后，要修改一下文件的权限：`sudo chown -R $(id -u):$(id -g) /opt/theos`
 配置环境变量: 在终端执行`open ~/.bash_profile`打开此文件，在后面加入:
 ```
 export PATH=/opt/theos/bin:$PATH
 export THEOS=/opt/theos
 ```
+
+出现的问题: 当执行`brew install dpkg ldid`提示
+1.
+```
+Updating Homebrew...
+```
+耐心等待即可
+2.
+```
+/usr/local/Homebrew/Library/Homebrew/brew.rb:12:in `<main>': Homebrew must be run under Ruby 2.3! (RuntimeError)
+````
+解决：重新执行`brew install dpkg ldid`
 
 #### 创建tweak
 使用theos来创建工程，创建工程也是比较简单的，就是调用我们theos目录中bin下的nic.pl命令。在执行nic.pl命令后，会让你选择新建工程的模板，目前theos中内置的是12套模板。当然我们此处创建的是tweak类型的工程，所有我们选择11
