@@ -169,14 +169,18 @@ install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubs
 #### 重新签名自制的.dylib 和libsubstrate.dylib(很重要)
 我们需要把生成的dylib和libsubstrate.dylib文件copy到WeChat.app中,然后用codesign开始签名
 ```
-codesign -f -s 自己证书名称 要签名的文件
+codesign -f -s 'iPhone Developer: Xiaoyuan Yang (29H47J82NP)' (自己的证书名)
 ```
 
 #### 添加可执行文件的依赖动态注入
-此处用到是[insert_dylib](https://github.com/Tyilo/insert_dylib)，先从gitHUb下载insert_dylib，编译后将product下的insert_dylib以及其他两个文件拷贝到同一目录下，执行以下命令:
-`
-./insert_dylib @executable_path/WeChatPlugin.dylib /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/WeChat
-`
+此处用到是[insert_dylib](https://github.com/Tyilo/insert_dylib)，先从gitHUb下载insert_dylib，编译后将 insert_dylib 放到`/usr/local/bin`目录中（不放到此目录中需要使用`./insert_dylib`，放在目录中后只需要使用`insert_dylib`）；
+再将自制的dylib和libsubstrate.dylib拷贝到WeChat.app包中，执行以下命令:
+```
+cd /Users/mofeini/Desktop/weChat/WeChat-6.5.18/Payload/WeChat.app/
+```
+```
+insert_dylib @executable_path/WeChatPlugin.dylib WeChat
+```
 以下为执行步骤
 ```
 localhost:debug apple$ insert_dylib @executable_path/wechatplugin.dylib /Users/mofeini/Desktop/weChat/WeChat.app/WeChat
