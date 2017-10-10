@@ -1,5 +1,5 @@
 //
-//  HealthKitManage.h
+//  HealthKitManager.h
 //  WeChatExtensions
 //
 //  Created by Swae on 2017/10/11.
@@ -13,7 +13,7 @@
 #define HKVersion [[[UIDevice currentDevice] systemVersion] doubleValue]
 #define CustomHealthErrorDomain @"com.sdqt.healthError"
 
-@interface HealthKitManage : NSObject
+@interface HealthKitManager : NSObject
 
 @property (nonatomic, strong) HKHealthStore *healthStore;
 
