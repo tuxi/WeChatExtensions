@@ -59,7 +59,7 @@ WeChatShareExtensionNew cryptid 0
 由于iOSOpenDev总是安装失败，所以这里使用theos
 
 - 使用终端命令，安装配置theos，将其Cloning into '/opt/theos'...
-安装ldid：`brew install dpkg ldid` ，在Theos开发插件中，iOS文件的签名是使用ldid工具来完成的，也就是说ldid取代了Xcode自带的Codesign；
+安装ldid：`brew install dpkg ldid` ，在Theos开发插件中，iOS文件的签名是使用ldid工具来完成的，也就是说ldid取代了Xcode自带的Codesign；当出现`Updating Homebrew...`耐心等待即可；
 配置$THEOS: `export THEOS=/opt/theos` 等号后面是theos文件所在路径
 Theos安装：`sudo git clone --recursive https://github.com/theos/theos.git $THEOS`，Theos一般是安装在/opt/目录下的，Cloning完成后，可cd到/opt目录下查看；
 Cloning完成Theos后，要修改一下文件的权限：`sudo chown -R $(id -u):$(id -g) /opt/theos`
@@ -70,12 +70,6 @@ export THEOS=/opt/theos
 ```
 
 出现的问题: 当执行`brew install dpkg ldid`提示
-1.
-```
-Updating Homebrew...
-```
-耐心等待即可
-2.
 ```
 /usr/local/Homebrew/Library/Homebrew/brew.rb:12:in `<main>': Homebrew must be run under Ruby 2.3! (RuntimeError)
 ````
