@@ -10,11 +10,4 @@
 
 @interface XYMapViewController : UIViewController
 
-@property (nonatomic, strong) UIView *backBGView;
-@property (nonatomic, strong) UILabel *addressLabel;
-@property (nonatomic, strong) UILabel *longitudeLabel;//经度
-@property (nonatomic, strong) UILabel *latitudeLabel;//纬度
-
-@property (nonatomic, strong) UIButton *currentLocationBtn;
-
 @end

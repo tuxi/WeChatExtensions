@@ -11,7 +11,18 @@
 #import "XYLocationManager.h"
 #import "XYExtensionConfig.h"
 #import "LocationConverter.h"
-#import "UIView+Helpers.h"
+
+#define UIColorHexFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
+#define UIColorHexFromRGBAlpha(rgbValue,alp) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:alp]
+
+@interface XYMapBottomBackgroundView : UIView
+
+@property (nonatomic, strong) UILabel *addressLabel;
+@property (nonatomic, strong) UILabel *longitudeLabel;//经度
+@property (nonatomic, strong) UILabel *latitudeLabel;//纬度
+
+@end
 
 @interface XYMyAnotation : NSObject <MKAnnotation>
 @property (nonatomic, assign) CLLocationCoordinate2D coordinate;
@@ -25,48 +36,55 @@
 
 @interface XYMapViewController () <MKMapViewDelegate>
 
-@property (strong, nonatomic) MKMapView *mapView;
-@property (strong, nonatomic) LocationConverter *locManager;
+@property (nonatomic, strong) MKMapView *mapView;
+@property (nonatomic, strong) LocationConverter *locManager;
+@property (nonatomic, strong) XYMapBottomBackgroundView *bottomView;
+@property (nonatomic, strong) UIButton *mapCenterBtn;
 
 @end
 
 @implementation XYMapViewController
 
+- (MKMapView *)mapView {
+    if (!_mapView) {
+        _mapView = [[MKMapView alloc] init];
+        _mapView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _mapView;
+}
+
+- (XYMapBottomBackgroundView *)bottomView {
+    if (!_bottomView) {
+        _bottomView = [XYMapBottomBackgroundView new];
+        _bottomView.backgroundColor = UIColorHexFromRGBAlpha(0xffffff, 0.7);
+        _bottomView.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _bottomView;
+}
+- (UIButton *)mapCenterBtn {
+    if (!_mapCenterBtn) {
+        _mapCenterBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _mapCenterBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+        [_mapCenterBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_mapCenterBtn setTitle:@"地图中心" forState:UIControlStateNormal];
+        [_mapCenterBtn addTarget:self action:@selector(currentLocationBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+        _mapCenterBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        _mapCenterBtn.layer.cornerRadius = 50.0*0.5;
+        _mapCenterBtn.layer.masksToBounds = YES;
+        _mapCenterBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    }
+    return _mapCenterBtn;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"地图";
-    _mapView = [[MKMapView alloc]initWithFrame:self.view.bounds];
-    [self.view addSubview:_mapView];
-    
-    _backBGView = [UIView new];
-    _backBGView.backgroundColor = UIColorHexFromRGBAlpha(0xffffff, 0.7);
-    [self.view addSubview:_backBGView];
-    
-    
-    _addressLabel = [UILabel new];
-    _addressLabel.textColor = [UIColor blackColor];
-    _addressLabel.font = [UIFont systemFontOfSize:12];
-    [_backBGView addSubview:_addressLabel];
-    
-    _longitudeLabel = [UILabel new];
-    _longitudeLabel.textColor = [UIColor blackColor];
-    _longitudeLabel.font = [UIFont systemFontOfSize:12];
-    [_backBGView addSubview:_longitudeLabel];
-    
-    _latitudeLabel = [UILabel new];
-    _latitudeLabel.textColor = [UIColor blackColor];
-    _latitudeLabel.font = [UIFont systemFontOfSize:12];
-    [_backBGView addSubview:_latitudeLabel];
-    
-    
-    _currentLocationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    _currentLocationBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    [_currentLocationBtn setTitle:@"定位" forState:UIControlStateNormal];
-    [_currentLocationBtn addTarget:self action:@selector(currentLocationBtnAction:) forControlEvents:UIControlEventTouchUpInside];
-    _currentLocationBtn.frameSize = CGSizeMake(40, 40);
-    [self.view addSubview:_currentLocationBtn];
-    
+    [self.view addSubview:self.mapView];
+    [self.view addSubview:self.bottomView];
+    [self.view addSubview:self.mapCenterBtn];
+    [self setupConstraints];
     
     
     XYLocationManager *loc = [XYLocationManager sharedManager];
@@ -80,18 +98,17 @@
     self.mapView.delegate = self;
     
     
-    
     XYMyAnotation *anno = [[XYMyAnotation alloc] init];
     anno.coordinate = CLLocationCoordinate2DMake([XYExtensionConfig sharedInstance].latitude, [XYExtensionConfig sharedInstance].longitude);
     anno.title = [NSString stringWithFormat:@"经度：%f",[XYExtensionConfig sharedInstance].longitude];
     anno.subtitle = [NSString stringWithFormat:@"纬度：%f",[XYExtensionConfig sharedInstance].latitude];
     
-    self.longitudeLabel.text = [NSString stringWithFormat:@"经度：%f",[XYExtensionConfig sharedInstance].longitude];
-    self.latitudeLabel.text = [NSString stringWithFormat:@"纬度：%f",[XYExtensionConfig sharedInstance].latitude];
+    self.bottomView.longitudeLabel.text = [NSString stringWithFormat:@"经度：%f",[XYExtensionConfig sharedInstance].longitude];
+    self.bottomView.latitudeLabel.text = [NSString stringWithFormat:@"纬度：%f",[XYExtensionConfig sharedInstance].latitude];
     //反地理编码
     _locManager = [[LocationConverter alloc] init];
     [_locManager reverseGeocodeWithlatitude:[XYExtensionConfig sharedInstance].latitude longitude:[XYExtensionConfig sharedInstance].longitude success:^(NSString *address) {
-        self.addressLabel.text = [NSString stringWithFormat:@"%@",address];
+        self.bottomView.addressLabel.text = [NSString stringWithFormat:@"%@",address];
     } failure:^{
         
     }];
@@ -107,25 +124,20 @@
     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
 }
 
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
+- (void)setupConstraints {
+    NSDictionary *viewDict = @{@"bottomView": self.bottomView, @"mapView": self.mapView};
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[mapView]|" options:kNilOptions metrics:nil views:viewDict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[mapView]|" options:kNilOptions metrics:nil views:viewDict]];
     
-    _backBGView.frameSize = CGSizeMake(self.view.frameSizeWidth, 80);
-    [_backBGView bottomAlignForSuperView];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[bottomView]|" options:kNilOptions metrics:nil views:viewDict]];
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[bottomView]|" options:kNilOptions metrics:nil views:viewDict]];
     
-    _addressLabel.frameSize = CGSizeMake(_backBGView.frameSizeWidth, 13);
-    [_addressLabel topAlignForSuperViewOffset:8];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.mapCenterBtn attribute:NSLayoutAttributeTrailing relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTrailing multiplier:1.0 constant:-10.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.mapCenterBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomView attribute:NSLayoutAttributeTop multiplier:1.0 constant:-10.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.mapCenterBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.mapCenterBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50.0]];
     
-    _longitudeLabel.frameSize = CGSizeMake(_backBGView.frameSizeWidth, 13);
-    [_longitudeLabel setFrameOriginYBelowView:_addressLabel offset:8];
-    
-    _latitudeLabel.frameSize = CGSizeMake(_backBGView.frameSizeWidth, 13);
-    [_latitudeLabel  setFrameOriginYBelowView:_longitudeLabel offset:8];
-    
-    [_currentLocationBtn setFrameOriginYAboveView:_backBGView offset:8];
-    
-    
+    [self.view layoutIfNeeded];
 }
 
 /**
@@ -189,6 +201,7 @@
 
 - (void)tap:(UITapGestureRecognizer *)tap
 {
+    [self.view layoutIfNeeded];
     CGPoint touchPoint = [tap locationInView:tap.view];
     CLLocationCoordinate2D coordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
     [XYExtensionConfig sharedInstance].latitude = coordinate.latitude;
@@ -212,15 +225,14 @@
     anno.title = [NSString stringWithFormat:@"经度：%f",coordinate.longitude];
     anno.subtitle = [NSString stringWithFormat:@"纬度：%f",coordinate.latitude];
     
-    self.longitudeLabel.text = [NSString stringWithFormat:@"经度：%f",coordinate.longitude];
-    self.latitudeLabel.text = [NSString stringWithFormat:@"纬度：%f",coordinate.latitude];
+    self.bottomView.longitudeLabel.text = [NSString stringWithFormat:@"经度：%f",coordinate.longitude];
+    self.bottomView.latitudeLabel.text = [NSString stringWithFormat:@"纬度：%f",coordinate.latitude];
     //反地理编码
     [_locManager reverseGeocodeWithlatitude:coordinate.latitude longitude:coordinate.longitude success:^(NSString *address) {
-        self.addressLabel.text = [NSString stringWithFormat:@"%@",address];
+        self.bottomView.addressLabel.text = [NSString stringWithFormat:@"%@",address];
     } failure:^{
         
     }];
-    
     
     
     [self.mapView addAnnotation:anno];
@@ -320,3 +332,84 @@
 }
 
 @end
+
+@implementation XYMapBottomBackgroundView
+
+- (instancetype)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (!self) {
+        return nil;
+    }
+    
+    [self setupViews];
+    [self setupConstraints];
+    return self;
+}
+
+- (void)setupViews {
+    [self addSubview:self.addressLabel];
+    [self addSubview:self.longitudeLabel];
+    [self addSubview:self.latitudeLabel];
+    [self setupConstraints];
+}
+
+- (void)setupConstraints {
+    
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_longitudeLabel attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_longitudeLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:20.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_longitudeLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_longitudeLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0]];
+    
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_addressLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_longitudeLabel attribute:NSLayoutAttributeTop multiplier:1.0 constant:-5.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_addressLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_addressLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_addressLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:20.0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_latitudeLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_longitudeLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:5.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_latitudeLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1.0 constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_latitudeLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1.0 constant:0.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:_latitudeLabel attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:20.0]];
+    
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:_addressLabel attribute:NSLayoutAttributeTop multiplier:1.0 constant:-10.0]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_latitudeLabel attribute:NSLayoutAttributeBottom multiplier:1.0 constant:10.0]];
+}
+
+- (UILabel *)addressLabel {
+    if (!_addressLabel) {
+        
+        _addressLabel = [UILabel new];
+        _addressLabel.textColor = [UIColor blackColor];
+        _addressLabel.font = [UIFont systemFontOfSize:12];
+        _addressLabel.textAlignment = NSTextAlignmentCenter;
+        _addressLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _addressLabel;
+}
+
+- (UILabel *)longitudeLabel {
+    if (!_longitudeLabel) {
+        _longitudeLabel = [UILabel new];
+        _longitudeLabel.textColor = [UIColor blackColor];
+        _longitudeLabel.font = [UIFont systemFontOfSize:12];
+        _longitudeLabel.textAlignment = NSTextAlignmentCenter;
+        _longitudeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _longitudeLabel;
+}
+
+- (UILabel *)latitudeLabel {
+    if (!_latitudeLabel) {
+        _latitudeLabel = [UILabel new];
+        _latitudeLabel.textColor = [UIColor blackColor];
+        _latitudeLabel.font = [UIFont systemFontOfSize:12];
+        _latitudeLabel.textAlignment = NSTextAlignmentCenter;
+        _latitudeLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    }
+    return _latitudeLabel;
+}
+
+@end
+
