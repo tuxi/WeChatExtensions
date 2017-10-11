@@ -11,7 +11,8 @@
 #import "WeChatHeaders.h"
 #import "XYExtensionConfig.h"
 #import "CaptainHook.h"
-#import "LocationConverter.h"
+#import "XYMapViewController.h"
+#import <CoreLocation/CoreLocation.h>
 
 #pragma mark *** 微信扩展控制器 ***
 
@@ -32,6 +33,11 @@
     [self reloadTableViewData];
     [self setupUI];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self reloadTableViewData];
 }
 
 
@@ -121,6 +127,7 @@
     if (shouldChangeCoordinate) {
         [sectionInfo addCell:[self createadLatitudeCell]];
         [sectionInfo addCell:[self createadLongitudeCell]];
+        [sectionInfo addCell:[self createMapViewCell]];
     }
     [self.wx_tableViewInfo addSection:sectionInfo];
 }
@@ -138,6 +145,17 @@
     
     return cellInfo;
 }
+
+- (MMTableViewCellInfo *)createMapViewCell {
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(jumpToMapView) target:self title:@"进入地图页选择位置" accessoryType:1];
+    return cellInfo;
+}
+
+- (void)jumpToMapView {
+    XYMapViewController *mvc = [[XYMapViewController alloc] init];
+    [self showViewController:mvc sender:self];
+}
+
     
 /// 更新经度
 - (void)updateLatitude {

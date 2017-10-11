@@ -169,7 +169,7 @@ install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubs
 #### 重新签名自制的.dylib 和libsubstrate.dylib(很重要)
 我们需要把生成的dylib和libsubstrate.dylib文件copy到WeChat.app中,然后用codesign开始签名
 ```
-codesign -f -s 'iPhone Developer: Xiaoyuan Yang (29H47J82NP)' (自己的证书名)
+codesign -f -s 'iPhone Developer: Xiaoyuan Yang (29H47J82NP)' libsubstrate.dylib
 ```
 
 #### 添加可执行文件的依赖动态注入

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18A2F9FF1F8D2C69007311BE /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2F9FE1F8D2C69007311BE /* HealthKitManager.m */; };
+		18A2FA021F8D2F42007311BE /* XYMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2FA011F8D2F42007311BE /* XYMapViewController.m */; };
+		18A2FA051F8D2FD6007311BE /* XYLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2FA041F8D2FD6007311BE /* XYLocationManager.m */; };
+		18A2FA081F8D308D007311BE /* UIView+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2FA071F8D308D007311BE /* UIView+Helpers.m */; };
 		18A5AC711F8BD86D0027E7B3 /* LocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A5AC6F1F8BD86C0027E7B3 /* LocationConverter.m */; };
 		18A5AC761F8BE92A0027E7B3 /* insert_dylib in Resources */ = {isa = PBXBuildFile; fileRef = 18A5AC731F8BE92A0027E7B3 /* insert_dylib */; };
 		18A5AC771F8BE92A0027E7B3 /* ioswechat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A5AC741F8BE92A0027E7B3 /* ioswechat.dylib */; };
@@ -31,6 +35,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		18A2F9FD1F8D2C69007311BE /* HealthKitManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HealthKitManager.h; sourceTree = "<group>"; };
+		18A2F9FE1F8D2C69007311BE /* HealthKitManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HealthKitManager.m; sourceTree = "<group>"; };
+		18A2FA001F8D2F42007311BE /* XYMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYMapViewController.h; sourceTree = "<group>"; };
+		18A2FA011F8D2F42007311BE /* XYMapViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYMapViewController.m; sourceTree = "<group>"; };
+		18A2FA031F8D2FD6007311BE /* XYLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYLocationManager.h; sourceTree = "<group>"; };
+		18A2FA041F8D2FD6007311BE /* XYLocationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYLocationManager.m; sourceTree = "<group>"; };
+		18A2FA061F8D308D007311BE /* UIView+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Helpers.h"; sourceTree = "<group>"; };
+		18A2FA071F8D308D007311BE /* UIView+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Helpers.m"; sourceTree = "<group>"; };
 		18A5AC6F1F8BD86C0027E7B3 /* LocationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationConverter.m; sourceTree = "<group>"; };
 		18A5AC701F8BD86D0027E7B3 /* LocationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationConverter.h; sourceTree = "<group>"; };
 		18A5AC731F8BE92A0027E7B3 /* insert_dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = insert_dylib; sourceTree = "<group>"; };
@@ -191,6 +203,14 @@
 				18F0A1151F8A506E00520154 /* XYExtensionConfig.m */,
 				18F0A1161F8A506E00520154 /* XYExtensionsViewController.h */,
 				18F0A1171F8A506E00520154 /* XYExtensionsViewController.m */,
+				18A2F9FD1F8D2C69007311BE /* HealthKitManager.h */,
+				18A2F9FE1F8D2C69007311BE /* HealthKitManager.m */,
+				18A2FA001F8D2F42007311BE /* XYMapViewController.h */,
+				18A2FA011F8D2F42007311BE /* XYMapViewController.m */,
+				18A2FA031F8D2FD6007311BE /* XYLocationManager.h */,
+				18A2FA041F8D2FD6007311BE /* XYLocationManager.m */,
+				18A2FA061F8D308D007311BE /* UIView+Helpers.h */,
+				18A2FA071F8D308D007311BE /* UIView+Helpers.m */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -273,8 +293,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				18F0A0EF1F8A4FBC00520154 /* ViewController.m in Sources */,
+				18A2FA081F8D308D007311BE /* UIView+Helpers.m in Sources */,
 				18F0A1241F8A506E00520154 /* XYExtensionsViewController.m in Sources */,
 				18F0A0FA1F8A4FBC00520154 /* main.m in Sources */,
+				18A2F9FF1F8D2C69007311BE /* HealthKitManager.m in Sources */,
+				18A2FA021F8D2F42007311BE /* XYMapViewController.m in Sources */,
+				18A2FA051F8D2FD6007311BE /* XYLocationManager.m in Sources */,
 				18F0A11B1F8A506E00520154 /* Makefile in Sources */,
 				18F0A0EC1F8A4FBC00520154 /* AppDelegate.m in Sources */,
 				18F0A1231F8A506E00520154 /* XYExtensionConfig.m in Sources */,
