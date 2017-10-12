@@ -13,6 +13,7 @@
 #import "CaptainHook.h"
 #import "XYMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
+#import "FoldersViewController.h"
 
 #pragma mark *** 微信扩展控制器 ***
 
@@ -60,6 +61,7 @@
     
     [self addModifyWeChatSportsStepsCell];
     [self addModifyCoordinateCell];
+    [self addOperationSandBoxCell];
     
     MMTableView *tableView = [self.wx_tableViewInfo getTableView];
     [tableView reloadData];
@@ -200,6 +202,29 @@
     [XYExtensionConfig sharedInstance].shouldChangeCoordinate = sw.on;
     [self reloadTableViewData];
     
+}
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark - 沙盒操作
+////////////////////////////////////////////////////////////////////////
+    
+- (void)addOperationSandBoxCell {
+    MMTableViewSectionInfo *sectionInfo = [objc_getClass("MMTableViewSectionInfo") sectionInfoHeader:@"" Footer:nil];
+    [sectionInfo addCell:[self createOperationSandBoxCell]];
+    [self.wx_tableViewInfo addSection:sectionInfo];
+}
+    
+- (MMTableViewCellInfo *)createOperationSandBoxCell {
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo")  normalCellForSel:@selector(goToSandBox) target:self title:@"操作沙盒" accessoryType:1];
+    
+    return cellInfo;
+}
+    
+- (void)goToSandBox {
+    FoldersViewController *vc = [[FoldersViewController alloc] initWithRootDirectory:NSHomeDirectory()];
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:vc action:NSSelectorFromString(@"backButtonClick")];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self showDetailViewController:navController sender:self];
 }
     
 ////////////////////////////////////////////////////////////////////////

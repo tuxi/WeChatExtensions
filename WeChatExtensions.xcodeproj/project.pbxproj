@@ -14,6 +14,13 @@
 		18A5AC761F8BE92A0027E7B3 /* insert_dylib in Resources */ = {isa = PBXBuildFile; fileRef = 18A5AC731F8BE92A0027E7B3 /* insert_dylib */; };
 		18A5AC771F8BE92A0027E7B3 /* ioswechat.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A5AC741F8BE92A0027E7B3 /* ioswechat.dylib */; };
 		18A5AC781F8BE92A0027E7B3 /* libsubstrate.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18A5AC751F8BE92A0027E7B3 /* libsubstrate.dylib */; };
+		18EE1C491F8FCBAF006B00F3 /* NSString+FileExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C3F1F8FCBAD006B00F3 /* NSString+FileExtend.m */; };
+		18EE1C4A1F8FCBAF006B00F3 /* OSFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C421F8FCBAE006B00F3 /* OSFileManager.m */; };
+		18EE1C4B1F8FCBAF006B00F3 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C441F8FCBAE006B00F3 /* DirectoryWatcher.m */; };
+		18EE1C4C1F8FCBAF006B00F3 /* FoldersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C451F8FCBAE006B00F3 /* FoldersViewController.m */; };
+		18EE1C4D1F8FCBAF006B00F3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C461F8FCBAE006B00F3 /* MBProgressHUD.m */; };
+		18EE1C4E1F8FCBAF006B00F3 /* NSObject+IvarList.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C481F8FCBAE006B00F3 /* NSObject+IvarList.m */; };
+		18EE1C511F8FCBB8006B00F3 /* ExceptionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C501F8FCBB8006B00F3 /* ExceptionUtils.m */; };
 		18F0A0EC1F8A4FBC00520154 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A0EB1F8A4FBC00520154 /* AppDelegate.m */; };
 		18F0A0EF1F8A4FBC00520154 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A0EE1F8A4FBC00520154 /* ViewController.m */; };
 		18F0A0F21F8A4FBC00520154 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F0A0F01F8A4FBC00520154 /* Main.storyboard */; };
@@ -45,6 +52,20 @@
 		18A5AC731F8BE92A0027E7B3 /* insert_dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = insert_dylib; sourceTree = "<group>"; };
 		18A5AC741F8BE92A0027E7B3 /* ioswechat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = ioswechat.dylib; sourceTree = "<group>"; };
 		18A5AC751F8BE92A0027E7B3 /* libsubstrate.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsubstrate.dylib; sourceTree = "<group>"; };
+		18EE1C3D1F8FCBAD006B00F3 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
+		18EE1C3E1F8FCBAD006B00F3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		18EE1C3F1F8FCBAD006B00F3 /* NSString+FileExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileExtend.m"; sourceTree = "<group>"; };
+		18EE1C401F8FCBAD006B00F3 /* FoldersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldersViewController.h; sourceTree = "<group>"; };
+		18EE1C411F8FCBAE006B00F3 /* NSString+FileExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FileExtend.h"; sourceTree = "<group>"; };
+		18EE1C421F8FCBAE006B00F3 /* OSFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFileManager.m; sourceTree = "<group>"; };
+		18EE1C431F8FCBAE006B00F3 /* OSFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSFileManager.h; sourceTree = "<group>"; };
+		18EE1C441F8FCBAE006B00F3 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
+		18EE1C451F8FCBAE006B00F3 /* FoldersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldersViewController.m; sourceTree = "<group>"; };
+		18EE1C461F8FCBAE006B00F3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		18EE1C471F8FCBAE006B00F3 /* NSObject+IvarList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+IvarList.h"; sourceTree = "<group>"; };
+		18EE1C481F8FCBAE006B00F3 /* NSObject+IvarList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IvarList.m"; sourceTree = "<group>"; };
+		18EE1C4F1F8FCBB8006B00F3 /* ExceptionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionUtils.h; sourceTree = "<group>"; };
+		18EE1C501F8FCBB8006B00F3 /* ExceptionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionUtils.m; sourceTree = "<group>"; };
 		18F0A0E71F8A4FBC00520154 /* WeChatExtensions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChatExtensions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F0A0EA1F8A4FBC00520154 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18F0A0EB1F8A4FBC00520154 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -191,6 +212,20 @@
 		18F0A1111F8A506E00520154 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				18EE1C4F1F8FCBB8006B00F3 /* ExceptionUtils.h */,
+				18EE1C501F8FCBB8006B00F3 /* ExceptionUtils.m */,
+				18EE1C3D1F8FCBAD006B00F3 /* DirectoryWatcher.h */,
+				18EE1C441F8FCBAE006B00F3 /* DirectoryWatcher.m */,
+				18EE1C401F8FCBAD006B00F3 /* FoldersViewController.h */,
+				18EE1C451F8FCBAE006B00F3 /* FoldersViewController.m */,
+				18EE1C3E1F8FCBAD006B00F3 /* MBProgressHUD.h */,
+				18EE1C461F8FCBAE006B00F3 /* MBProgressHUD.m */,
+				18EE1C471F8FCBAE006B00F3 /* NSObject+IvarList.h */,
+				18EE1C481F8FCBAE006B00F3 /* NSObject+IvarList.m */,
+				18EE1C411F8FCBAE006B00F3 /* NSString+FileExtend.h */,
+				18EE1C3F1F8FCBAD006B00F3 /* NSString+FileExtend.m */,
+				18EE1C431F8FCBAE006B00F3 /* OSFileManager.h */,
+				18EE1C421F8FCBAE006B00F3 /* OSFileManager.m */,
 				18A5AC701F8BD86D0027E7B3 /* LocationConverter.h */,
 				18A5AC6F1F8BD86C0027E7B3 /* LocationConverter.m */,
 				18F0A1281F8A636B00520154 /* CaptainHook.h */,
@@ -287,16 +322,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EE1C511F8FCBB8006B00F3 /* ExceptionUtils.m in Sources */,
+				18EE1C4C1F8FCBAF006B00F3 /* FoldersViewController.m in Sources */,
 				18F0A0EF1F8A4FBC00520154 /* ViewController.m in Sources */,
 				18F0A1241F8A506E00520154 /* XYExtensionsViewController.m in Sources */,
 				18F0A0FA1F8A4FBC00520154 /* main.m in Sources */,
+				18EE1C4A1F8FCBAF006B00F3 /* OSFileManager.m in Sources */,
 				18A2F9FF1F8D2C69007311BE /* HealthKitManager.m in Sources */,
 				18A2FA021F8D2F42007311BE /* XYMapViewController.m in Sources */,
+				18EE1C4D1F8FCBAF006B00F3 /* MBProgressHUD.m in Sources */,
 				18A2FA051F8D2FD6007311BE /* XYLocationManager.m in Sources */,
 				18F0A11B1F8A506E00520154 /* Makefile in Sources */,
 				18F0A0EC1F8A4FBC00520154 /* AppDelegate.m in Sources */,
 				18F0A1231F8A506E00520154 /* XYExtensionConfig.m in Sources */,
 				18A5AC711F8BD86D0027E7B3 /* LocationConverter.m in Sources */,
+				18EE1C4B1F8FCBAF006B00F3 /* DirectoryWatcher.m in Sources */,
+				18EE1C491F8FCBAF006B00F3 /* NSString+FileExtend.m in Sources */,
+				18EE1C4E1F8FCBAF006B00F3 /* NSObject+IvarList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

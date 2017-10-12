@@ -2,6 +2,10 @@
 
 非越狱环境下iOS版WeChat 逆向研究示例，dylibz(动态库)注入、应用重签名
 
+tweak的实质就是ios平台的动态库，iOS平台上有两种形势的动态库，dylib与framework。Framework这种开发者用的比较多，而dylib这种就相对比较少一点，比如libsqlite.dylib，libz.dylib等。而tweak用的正是dylib这种形势的动态库。越狱设备可以在/Library/MobileSubstrate/DynamicLibraries目录下查看iPhone上存在着的所有tweak。这个目录下除dylib外还存在着plist与bundle两种格式的文件，plist文件是用来标识该tweak的作用范围，而bundle是tweak所用到的资源文件
+
+
+
 #### 基本原理
 通过app启动时调用我们注入的dylib，进行app hook，最终能够执行我们注入的dylib。
 
@@ -92,6 +96,8 @@ tweak 安装完成后需要重启的应用名`[iphone/tweak] List of application
 完成后会看到四个文件(make 后将生成 .theos 、obj 文件夹).
 ``` Makefile          WeChatPlugin.plist  Tweak.xm          control ```
 
+Tweak.xm: “xm”中的“x”代表这个文件支持Logos语法，如果后缀名是单独一个“x”，说明源文件支持Logos和C语法；如果后缀名是“xm”，说明源文件支持Logos和C/C++语法“xm”中的“x”代表这个文件支持Logos语法，如果后缀名是单独一个“x”，说明源文件支持Logos和C语法；如果后缀名是“xm”，说明源文件支持Logos和C/C++语法
+
 - 对Makefile文件进行修改
 Makefile : 工程用到的文件、框架、库等信息。
 该文件过于简单，还需要添加一些信息。如
@@ -164,7 +170,8 @@ warm: 添加的方法需要在@interface中声明
 `
 install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @loader_path/libsubstrate.dylib WeChatPlugin.dylib
 `
-然后重新查看`WeChatPlugin.dylib`，会发现依赖已经修改成`@loader_path/libsubstrate.dylib (offset 24)`
+然后重新查看`otool -L WeChatPlugin.dylib`：
+会发现依赖已经修改成`@loader_path/libsubstrate.dylib (offset 24)`
 
 #### 重新签名自制的.dylib 和libsubstrate.dylib(很重要)
 我们需要把生成的dylib和libsubstrate.dylib文件copy到WeChat.app中,然后用codesign开始签名

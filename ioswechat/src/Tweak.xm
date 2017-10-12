@@ -1,6 +1,17 @@
 
 #import "XYExtensionsViewController.h"
 #import "WeChatHeaders.h"
+#import "ExceptionUtils.h"
+
+%hook MicroMessengerAppDelegate
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [ExceptionUtils configExceptionHandler];
+
+    return %orig;
+}
+%end
 
 
 %hook NewSettingViewController
