@@ -21,6 +21,7 @@
 		18EE1C4D1F8FCBAF006B00F3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C461F8FCBAE006B00F3 /* MBProgressHUD.m */; };
 		18EE1C4E1F8FCBAF006B00F3 /* NSObject+IvarList.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C481F8FCBAE006B00F3 /* NSObject+IvarList.m */; };
 		18EE1C511F8FCBB8006B00F3 /* ExceptionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C501F8FCBB8006B00F3 /* ExceptionUtils.m */; };
+		18EE1C541F8FCFBA006B00F3 /* SuspensionControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EE1C531F8FCFBA006B00F3 /* SuspensionControl.m */; };
 		18F0A0EC1F8A4FBC00520154 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A0EB1F8A4FBC00520154 /* AppDelegate.m */; };
 		18F0A0EF1F8A4FBC00520154 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A0EE1F8A4FBC00520154 /* ViewController.m */; };
 		18F0A0F21F8A4FBC00520154 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F0A0F01F8A4FBC00520154 /* Main.storyboard */; };
@@ -66,6 +67,8 @@
 		18EE1C481F8FCBAE006B00F3 /* NSObject+IvarList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IvarList.m"; sourceTree = "<group>"; };
 		18EE1C4F1F8FCBB8006B00F3 /* ExceptionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionUtils.h; sourceTree = "<group>"; };
 		18EE1C501F8FCBB8006B00F3 /* ExceptionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionUtils.m; sourceTree = "<group>"; };
+		18EE1C521F8FCFB9006B00F3 /* SuspensionControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuspensionControl.h; sourceTree = "<group>"; };
+		18EE1C531F8FCFBA006B00F3 /* SuspensionControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuspensionControl.m; sourceTree = "<group>"; };
 		18F0A0E71F8A4FBC00520154 /* WeChatExtensions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChatExtensions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18F0A0EA1F8A4FBC00520154 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18F0A0EB1F8A4FBC00520154 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 		18F0A1111F8A506E00520154 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				18EE1C521F8FCFB9006B00F3 /* SuspensionControl.h */,
+				18EE1C531F8FCFBA006B00F3 /* SuspensionControl.m */,
 				18EE1C4F1F8FCBB8006B00F3 /* ExceptionUtils.h */,
 				18EE1C501F8FCBB8006B00F3 /* ExceptionUtils.m */,
 				18EE1C3D1F8FCBAD006B00F3 /* DirectoryWatcher.h */,
@@ -324,6 +329,7 @@
 			files = (
 				18EE1C511F8FCBB8006B00F3 /* ExceptionUtils.m in Sources */,
 				18EE1C4C1F8FCBAF006B00F3 /* FoldersViewController.m in Sources */,
+				18EE1C541F8FCFBA006B00F3 /* SuspensionControl.m in Sources */,
 				18F0A0EF1F8A4FBC00520154 /* ViewController.m in Sources */,
 				18F0A1241F8A506E00520154 /* XYExtensionsViewController.m in Sources */,
 				18F0A0FA1F8A4FBC00520154 /* main.m in Sources */,
