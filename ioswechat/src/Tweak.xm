@@ -9,6 +9,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     [ExceptionUtils configExceptionHandler];
+if ([UIDevice currentDevice].systemVersion.floatValue < 11.0f) {
+
+
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),  ^{
         UIViewController *vc = [[UIApplication sharedApplication].delegate.window rootViewController];
         CGFloat SUSPENSIONVIEW_WH = 60;
@@ -22,6 +25,7 @@
         sv.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
         [vc setSuspensionImageWithImageNamed:@"Icon" forState:UIControlStateNormal];
     });
+}
     return %orig;
 }
 %end

@@ -326,9 +326,12 @@
 
 - (void)xy_viewDidAppear:(BOOL)animated {
     [self xy_viewDidAppear:animated];
-    if (self.suspensionView) {
-        [self.view bringSubviewToFront:self.suspensionView];
+    if ([UIDevice currentDevice].systemVersion.floatValue < 11.0f) {
+        if (self.suspensionView) {
+            [self.view bringSubviewToFront:self.suspensionView];
+        }
     }
+ 
 }
 
 
