@@ -12,6 +12,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #pragma clang diagnostic ignored "-Wundeclared-selector"
+#pragma clang diagnostic ignored "-Wnonnull"
 
 #define kSCREENT_HEIGHT         [UIScreen mainScreen].bounds.size.height
 #define kSCREENT_WIDTH          [UIScreen mainScreen].bounds.size.width
@@ -763,10 +764,10 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
 - (void)addActions {
     
     self.userInteractionEnabled = YES;
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(_locationChange:)];
-    pan.delaysTouchesBegan = YES;
-    [self addGestureRecognizer:pan];
-    _panGestureRecognizer = pan;
+//    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(_locationChange:)];
+//    pan.delaysTouchesBegan = YES;
+//    [self addGestureRecognizer:pan];
+//    _panGestureRecognizer = pan;
     
     [self addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -1036,7 +1037,7 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
 
 @interface UIResponder ()
 
-@property (nonatomic) SuspensionView *suspensionView;
+
 
 @end
 

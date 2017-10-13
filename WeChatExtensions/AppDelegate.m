@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "ExceptionUtils.h"
+#import "SuspensionControl.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +19,21 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [ExceptionUtils configExceptionHandler];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UIViewController *vc = [[UIApplication sharedApplication].delegate.window rootViewController];
+        CGFloat SUSPENSIONVIEW_WH = 60;
+        CGRect frame = CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - SUSPENSIONVIEW_WH, CGRectGetHeight([UIScreen mainScreen].bounds)-SUSPENSIONVIEW_WH-SUSPENSIONVIEW_WH, SUSPENSIONVIEW_WH, SUSPENSIONVIEW_WH);
+        SuspensionView *sv = [vc showSuspensionViewWithFrame:frame];
+        sv.isOnce = YES;
+        sv.leanEdgeInsets = UIEdgeInsetsMake(20, 0, 20, 0);
+        sv.clickCallBack = ^{
+            [ExceptionUtils openTestWindow];
+        };
+        sv.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
+        [vc setSuspensionImageWithImageNamed:@"Icon" forState:UIControlStateNormal];
+    });
     return YES;
 }
 

@@ -14,7 +14,7 @@
 #import "XYMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "FoldersViewController.h"
-
+#import "SuspensionControl.h"
 #pragma mark *** 微信扩展控制器 ***
 
 @interface XYExtensionsViewController ()
@@ -222,9 +222,12 @@
     
 - (void)goToSandBox {
     FoldersViewController *vc = [[FoldersViewController alloc] initWithRootDirectory:NSHomeDirectory()];
-    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:vc action:NSSelectorFromString(@"backButtonClick")];
+    vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:self action:NSSelectorFromString(@"backButtonClick")];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
     [self showDetailViewController:navController sender:self];
+}
+- (void)backButtonClick {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
     
 ////////////////////////////////////////////////////////////////////////
@@ -297,6 +300,39 @@
 
 @end
 
+
+@implementation UIViewController (XYViewControllerPrivate)
+
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class class = [self class];
+        
+        SEL originalSelector = @selector(viewDidAppear:);
+        SEL swizzledSelector = @selector(xy_viewDidAppear:);
+        
+        Method originalMethod = class_getInstanceMethod(class, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);
+        
+        BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+        if (success) {
+            class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+        } else {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
+
+- (void)xy_viewDidAppear:(BOOL)animated {
+    [self xy_viewDidAppear:animated];
+    if (self.suspensionView) {
+        [self.view bringSubviewToFront:self.suspensionView];
+    }
+}
+
+
+@end
 #pragma mark *** 用于修改微信内部经纬度的分类 ***
 
 @implementation CLLocation (XYLocationExtensions)
