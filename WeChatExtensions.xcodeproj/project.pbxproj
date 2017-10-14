@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		182434DF1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png in Resources */ = {isa = PBXBuildFile; fileRef = 182434DE1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png */; };
 		18A2F9FF1F8D2C69007311BE /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2F9FE1F8D2C69007311BE /* HealthKitManager.m */; };
 		18A2FA021F8D2F42007311BE /* XYMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2FA011F8D2F42007311BE /* XYMapViewController.m */; };
 		18A2FA051F8D2FD6007311BE /* XYLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A2FA041F8D2FD6007311BE /* XYLocationManager.m */; };
@@ -47,6 +48,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		182434DE1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "屏幕快照 2017-10-15 上午12.17.25.png"; sourceTree = "<group>"; };
 		18A2F9FD1F8D2C69007311BE /* HealthKitManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HealthKitManager.h; sourceTree = "<group>"; };
 		18A2F9FE1F8D2C69007311BE /* HealthKitManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HealthKitManager.m; sourceTree = "<group>"; };
 		18A2FA001F8D2F42007311BE /* XYMapViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYMapViewController.h; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 		18B058EB1F924C39004EF394 /* WeChat */ = {
 			isa = PBXGroup;
 			children = (
+				182434DE1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png */,
 				18B059011F925E24004EF394 /* 屏幕快照 2017-10-14 下午10.20.53.png */,
 				18B058EC1F924C39004EF394 /* AppDelegate.h */,
 				18B058ED1F924C39004EF394 /* AppDelegate.m */,
@@ -376,6 +379,7 @@
 				18B058F91F924C39004EF394 /* LaunchScreen.storyboard in Resources */,
 				18B058F61F924C39004EF394 /* Assets.xcassets in Resources */,
 				18B058F41F924C39004EF394 /* Main.storyboard in Resources */,
+				182434DF1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png in Resources */,
 				18B059021F925E24004EF394 /* 屏幕快照 2017-10-14 下午10.20.53.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

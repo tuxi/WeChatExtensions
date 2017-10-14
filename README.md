@@ -223,10 +223,15 @@ cp -rf /Users/mofeini/Desktop/Theos/weChat/success/Payload/WeChat.app /Users/mof
 ![2017-10-14 下午10.20.53.png](https://github.com/Ossey/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-14%20下午10.20.53.png)
 
 - 错误解决:
-1.``` Can't install application
+问题1.``` Can't install application
 xxx.app cannot be installed on iPhone. xxx.app does not contain a valid Info.plist
 “CFBundleExecutable” specifies a file that is not executable```
 解决方法: 这问题应该是执行权限不够，先进入.app包中`cd /Users/mofeini/Desktop/Theos/PinanJinGuanJia/PALifeApp/Payload/WeChat.app`，然后执行`chmod +x WeChat`，执行完成后clean下项目，再运行解决
+
+问题2:
+运行app时报错:```dyld: Library not loaded: @rpath/libswiftCore.dylib Referenced from: /var/co```, 如图
+![屏幕快照 2017-10-15 上午12.17.25](https://github.com/Ossey/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-15%20下午12.17.25.png)
+解决方法：使用ios-app-signer对第三方app进行重新签名生成新的ipa包，然解压ipa，将Run Script中的app路径改成新生成的，然后clean后运行即可
 
 ### 以下是一些错误解决
 使用以下命令编译时候
