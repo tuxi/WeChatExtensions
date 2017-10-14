@@ -230,7 +230,7 @@ xxx.app cannot be installed on iPhone. xxx.app does not contain a valid Info.pli
 
 问题2:
 运行app时报错:```dyld: Library not loaded: @rpath/libswiftCore.dylib Referenced from: /var/co```, 如图
-![屏幕快照 2017-10-15 上午12.17.25](https://github.com/Ossey/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-15%20下午12.17.25.png)
+![屏幕快照 2017-10-15 上午12.17.25](https://github.com/Ossey/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-15%20上午12.17.25.png)
 解决方法：使用ios-app-signer对第三方app进行重新签名生成新的ipa包，然解压ipa，将Run Script中的app路径改成新生成的，然后clean后运行即可
 
 ### 以下是一些错误解决
