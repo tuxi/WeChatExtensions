@@ -219,7 +219,7 @@ cp -rf /Users/mofeini/Desktop/Theos/weChat/success/Payload/WeChat.app /Users/mof
 该脚本将我们砸壳的.app包跟我们创建的项目编译后的.app包替换，
 他首先将第三方app拷贝替换我们新建工程生成的app，然后对第三方app使用我们的证书进行签名，最后将签名后的第三方app安装至物理机器上，就像是是在运行我们自己编写的app。
 4.添加完脚本后，先clean整个工程，然后Run，可以在非越狱机器上
-[2017-10-14 下午10.20.53.png](https://github.com/Ossey/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-14%20下午10.20.53.png)
+![2017-10-14 下午10.20.53.png](https://github.com/Ossey/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-14%20下午10.20.53.png)
 
 
 ### 以下是一些错误解决
