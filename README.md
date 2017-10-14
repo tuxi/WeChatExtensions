@@ -206,6 +206,21 @@ Added LC_LOAD_DYLIB to all archs in /Users/mofeini/Desktop/weChat/WeChat.app/WeC
 应用重签名的方法，我使用了[ios-app-signer](https://github.com/DanTheMan827/ios-app-signer)
 
 
+#### 在Xcode上使用LLDB动态调试第三方app
+前提需要调试的app必须是脱壳(即解密的), 这里以WeChat为例进行动态调试:
+1.新建一个跟需要调试的app相同名称的项目，这里是WeChat
+2.使用真机Command+b编译此项目，先编译的目的是为了生成一个文件，接下来有用的
+3.在WeChat的target中的Build Phases里添加Run Script，
+```
+cp -rf /Users/mofeini/Desktop/Theos/weChat/success/Payload/WeChat.app /Users/mofeini/Library/Developer/Xcode/DerivedData/WeChat-grnvgkuvppvufhblzbxrfsegqzhb/Build/Products/Debug-iphoneos
+```
+注: cp -rf 后面的第一个路径是已经砸壳的WeChat.app包路径，第二个是第二步使用真机编译后生成的.app包所在的文件夹
+此脚本的作用：
+该脚本将我们砸壳的.app包跟我们创建的项目编译后的.app包替换，
+他首先将第三方app拷贝替换我们新建工程生成的app，然后对第三方app使用我们的证书进行签名，最后将签名后的第三方app安装至物理机器上，就像是是在运行我们自己编写的app。
+4.添加完脚本后，先clean整个工程，然后Run，可以在非越狱机器上
+
+
 
 ### 以下是一些错误解决
 使用以下命令编译时候
