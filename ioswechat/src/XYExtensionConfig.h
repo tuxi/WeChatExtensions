@@ -17,8 +17,6 @@
 @property (nonatomic, assign) BOOL shouldChangeStep;
 /// 记录添加的微信运动步数的值，注意: 不能为负数，且添加完成后，下次添加的值只有更多时才会生效，添加后不能取消不能减少
 @property (nonatomic, assign) NSInteger stepCount;
-/// 记录微信步数的日期
-@property (nonatomic, strong) NSDate *stepDate;
 
 /// 是否修改经纬度
 @property (nonatomic, assign) BOOL shouldChangeCoordinate;

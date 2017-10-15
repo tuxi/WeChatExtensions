@@ -15,7 +15,10 @@ static NSString * const XYLatitudeValueKey = @"latitude";
 static NSString * const XYLongitudeValueKey = @"longitude";
 static NSString * const XYStepDateKey = @"stepDate";
 
-@implementation XYExtensionConfig
+@implementation XYExtensionConfig {
+    /// 记录微信步数的日期
+    NSDate *_stepDate;
+}
 
 @dynamic sharedInstance;
 
@@ -38,14 +41,14 @@ static NSString * const XYStepDateKey = @"stepDate";
 }
 
 - (NSInteger)stepCount {
-    if (![self isToday:self.stepDate]) {
+    if (![self isToday:_stepDate]) {
         [self setStepCount:0];
     }
     return [[NSUserDefaults standardUserDefaults] integerForKey:XYStepCount];
 }
 
 - (void)setStepCount:(NSInteger)stepCount {
-    self.stepDate = [NSDate date];
+    _stepDate = [NSDate date];
     [[NSUserDefaults standardUserDefaults] setInteger:stepCount forKey:XYStepCount];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
