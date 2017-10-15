@@ -45,6 +45,19 @@
     }];
     [menuView addAction:item1];
     [item1.hypotenuseButton setTitle:@"操作\n 沙盒" forState:UIControlStateNormal];
+    
+    HypotenuseAction *item3 = [HypotenuseAction actionWithType:1 handler:^(HypotenuseAction * _Nonnull action, SuspensionMenuView * menuView) {
+        FoldersViewController *vc = [[FoldersViewController alloc] initWithRootDirectory:NSHomeDirectory()];
+        vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:vc action:NSSelectorFromString(@"backButtonClick")];
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+        UIViewController *rootVc = [UIApplication sharedApplication].delegate.window.rootViewController;
+        [rootVc showDetailViewController:navController sender:rootVc];
+        [menuView close];
+        
+    }];
+    [menuView addAction:item3];
+    [item3.hypotenuseButton setTitle:@"操作\n 沙盒" forState:UIControlStateNormal];
+    
     [menuView showWithCompetion:NULL];
 
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),  ^{
