@@ -14,7 +14,7 @@
 #import "XYMapViewController.h"
 #import <CoreLocation/CoreLocation.h>
 #import "FoldersViewController.h"
-#import "SuspensionControl.h"
+#import "XYSuspensionMenu.h"
 #pragma mark *** 微信扩展控制器 ***
 
 @interface XYExtensionsViewController ()

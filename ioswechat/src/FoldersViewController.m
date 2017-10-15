@@ -603,7 +603,14 @@ static void * FileProgressObserverContext = &FileProgressObserverContext;
 
 - (void)backButtonClick {
     UINavigationController * navigationController = (UINavigationController *)[UIApplication sharedApplication].delegate.window.rootViewController;
-    if (self.presentedViewController || navigationController.topViewController.presentedViewController) {
+    UIViewController *presentingViewController = nil;
+    if ([navigationController isKindOfClass:[UINavigationController class]]) {
+        presentingViewController = navigationController.topViewController.presentingViewController;
+    }
+    else if (self.navigationController) {
+        presentingViewController = self.navigationController.topViewController.presentingViewController;
+    }
+    if (self.presentingViewController || presentingViewController) {
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
