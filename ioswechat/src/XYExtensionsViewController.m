@@ -107,7 +107,7 @@
 - (void)updateStepCount {
     NSInteger stepCount = [[XYExtensionConfig sharedInstance] stepCount];
     [self alertControllerWithTitle:@"修改微信运动步数"
-                           message:@"本次修改的步数若为负数或且小于已上传的步数时无效，最大值为98800"
+                           message:@"本次修改的步数若为负数或且小于已上传的步数时无效，最大值为98800，且只在当天有效"
                            content:[NSString stringWithFormat:@"%ld", (long)stepCount]
                        placeholder:@"请输入需要修改的步数"
                       keyboardType:UIKeyboardTypeNumberPad

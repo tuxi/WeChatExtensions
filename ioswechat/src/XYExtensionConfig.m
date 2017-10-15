@@ -13,6 +13,7 @@ static NSString * const XYStepCount = @"DeviceStepKey";
 static NSString * const XYShouldChangeCoordinateKey = @"ShouldChangeCoordinate";
 static NSString * const XYLatitudeValueKey = @"latitude";
 static NSString * const XYLongitudeValueKey = @"longitude";
+static NSString * const XYStepDateKey = @"stepDate";
 
 @implementation XYExtensionConfig
 
@@ -37,12 +38,25 @@ static NSString * const XYLongitudeValueKey = @"longitude";
 }
 
 - (NSInteger)stepCount {
+    if (![self isToday:self.stepDate]) {
+        [self setStepCount:0];
+    }
     return [[NSUserDefaults standardUserDefaults] integerForKey:XYStepCount];
 }
 
 - (void)setStepCount:(NSInteger)stepCount {
+    self.stepDate = [NSDate date];
     [[NSUserDefaults standardUserDefaults] setInteger:stepCount forKey:XYStepCount];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setStepDate:(NSDate *)stepDate {
+    [[NSUserDefaults standardUserDefaults] setObject:stepDate forKey:XYStepDateKey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSDate *)stepDate {
+    return [[NSUserDefaults standardUserDefaults] objectForKey:XYStepDateKey];
 }
 
 - (BOOL)shouldChangeCoordinate {
@@ -70,6 +84,15 @@ static NSString * const XYLongitudeValueKey = @"longitude";
 - (void)setLongitude:(double)longitude {
     [[NSUserDefaults standardUserDefaults] setDouble:longitude forKey:XYLongitudeValueKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (BOOL)isToday:(NSDate *)date {
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    int unit = NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear ;
+    NSDateComponents *nowCmps = [calendar components:unit fromDate:[NSDate date]];
+    NSDateComponents *selfCmps = [calendar components:unit fromDate:date];
+    return (selfCmps.year == nowCmps.year) && (selfCmps.month == nowCmps.month) && (selfCmps.day == nowCmps.day);
 }
 
 @end
