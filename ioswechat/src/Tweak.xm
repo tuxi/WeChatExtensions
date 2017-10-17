@@ -35,7 +35,6 @@ if ([UIDevice currentDevice].systemVersion.floatValue < 11.0f) {
     menuView.shouldOpenWhenViewWillAppear = NO;
     menuView.shouldHiddenCenterButtonWhenOpen = YES;
     menuView.shouldCloseWhenDeviceOrientationDidChange = YES;
-    menuView.backgroundImageView.backgroundColor = [UIColor blueColor];
 
     HypotenuseAction *item = [HypotenuseAction actionWithType:1 handler:^(HypotenuseAction * _Nonnull action, SuspensionMenuView * _Nonnull menuView) {
         NSLog(@"%@", menuView);

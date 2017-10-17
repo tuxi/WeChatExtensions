@@ -15,10 +15,14 @@ static NSString * const XYLatitudeValueKey = @"latitude";
 static NSString * const XYLongitudeValueKey = @"longitude";
 static NSString * const XYStepDateKey = @"stepDate";
 
-@implementation XYExtensionConfig {
-    /// 记录微信步数的日期
-    NSDate *_stepDate;
-}
+@interface XYExtensionConfig ()
+
+/// 记录微信步数的日期
+@property (nonatomic, strong) NSDate *stepData;
+
+@end
+
+@implementation XYExtensionConfig
 
 @dynamic sharedInstance;
 
@@ -36,19 +40,25 @@ static NSString * const XYStepDateKey = @"stepDate";
 }
 
 - (void)setShouldChangeStep:(BOOL)shouldChangeStep {
+    if (shouldChangeStep) {
+        self.stepData = [NSDate date];
+    }
+    else {
+        self.stepData = nil;
+    }
     [[NSUserDefaults standardUserDefaults] setBool:shouldChangeStep forKey:XYShouldChangeStepKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (NSInteger)stepCount {
-    if (![self isToday:_stepDate]) {
+    if (!self.stepData || ![self isToday:self.stepData]) {
         [self setStepCount:0];
     }
     return [[NSUserDefaults standardUserDefaults] integerForKey:XYStepCount];
 }
 
 - (void)setStepCount:(NSInteger)stepCount {
-    _stepDate = [NSDate date];
+    self.stepData = [NSDate date];
     [[NSUserDefaults standardUserDefaults] setInteger:stepCount forKey:XYStepCount];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -90,7 +100,9 @@ static NSString * const XYStepDateKey = @"stepDate";
 }
 
 - (BOOL)isToday:(NSDate *)date {
-    
+    if (!date) {
+        return NO;
+    }
     NSCalendar *calendar = [NSCalendar currentCalendar];
     int unit = NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear ;
     NSDateComponents *nowCmps = [calendar components:unit fromDate:[NSDate date]];
