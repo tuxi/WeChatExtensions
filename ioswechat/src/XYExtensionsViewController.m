@@ -15,11 +15,15 @@
 #import <CoreLocation/CoreLocation.h>
 #import "FoldersViewController.h"
 #import "XYSuspensionMenu.h"
+#import "SmileAuthenticator.h"
+#import "OSAuthenticatorHelper.h"
+
 #pragma mark *** 微信扩展控制器 ***
 
-@interface XYExtensionsViewController ()
+@interface XYExtensionsViewController () <UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 
 @property (nonatomic, strong) MMTableViewInfo *wx_tableViewInfo;
+@property (nonatomic, strong) UIImagePickerController *pickerViewController;
 
 @end
 
@@ -62,6 +66,7 @@
     [self addModifyWeChatSportsStepsCell];
     [self addModifyCoordinateCell];
     [self addOperationSandBoxCell];
+    [self addPasswordCell];
     
     MMTableView *tableView = [self.wx_tableViewInfo getTableView];
     [tableView reloadData];
@@ -229,6 +234,156 @@
 - (void)backButtonClick {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark - 设置启动密码
+////////////////////////////////////////////////////////////////////////
+
+- (void)addPasswordCell {
+    MMTableViewSectionInfo *sectionInfo = [objc_getClass("MMTableViewSectionInfo") sectionInfoHeader:@"" Footer:nil];
+    [sectionInfo addCell:[self createSetPasswordCell]];
+    BOOL hasPssword = [SmileAuthenticator hasPassword];
+    if (hasPssword) {
+        [sectionInfo addCell:[self createChangePasswordCell]];
+        [sectionInfo addCell:[self createUnlockBackgroundImageCell]];
+        BOOL hasBackgroundImage = [[OSAuthenticatorHelper sharedInstance] hasBackgroundImage];
+        if (hasBackgroundImage) {
+            [sectionInfo addCell:[self createClearUnlockBackgroundImageCell]];
+        }
+        
+    }
+    [self.wx_tableViewInfo addSection:sectionInfo];
+}
+
+- (MMTableViewCellInfo *)createSetPasswordCell {
+    BOOL hasPassword = [SmileAuthenticator hasPassword];
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo") switchCellForSel:@selector(passwordSwitch:) target:self title:@"设置启动密码" on:hasPassword];
+    
+    return cellInfo;
+}
+
+- (MMTableViewCellInfo *)createChangePasswordCell {
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo") normalCellForSel:@selector(changePassword:) target:self title:@"修改密码" accessoryType:1];
+    
+    return cellInfo;
+}
+
+- (MMTableViewCellInfo *)createUnlockBackgroundImageCell {
+    
+    NSString *title = @"修改解锁页背景图片";
+    MMTableViewCellInfo *cellInfo = nil;
+    BOOL hasBackgroundImage = [[OSAuthenticatorHelper sharedInstance] hasBackgroundImage];
+    if (!hasBackgroundImage) {
+        cellInfo = [objc_getClass("MMTableViewCellInfo") switchCellForSel:@selector(setUnlockBackgroundImage:) target:self title:title on:hasBackgroundImage];
+    }
+    else {
+       cellInfo = [objc_getClass("MMTableViewCellInfo") normalCellForSel:@selector(setUnlockBackgroundImage:) target:self title:title accessoryType:1];
+    }
+    
+    
+    return cellInfo;
+}
+
+
+- (MMTableViewCellInfo *)createClearUnlockBackgroundImageCell {
+    MMTableViewCellInfo *cellInfo = [objc_getClass("MMTableViewCellInfo") normalCellForSel:@selector(clearBackgroundImage:) target:self title:@"清除解锁背景图片" accessoryType:1];
+    
+    return cellInfo;
+}
+
+/// 清除背景图片
+- (void)clearBackgroundImage:(id)obj {
+    [[OSAuthenticatorHelper sharedInstance] clearBackgroundImage];
+    [self reloadTableViewData];
+}
+
+- (void)changePassword:(id)sender {
+    [SmileAuthenticator sharedInstance].securityType = INPUT_THREE;
+    [[SmileAuthenticator sharedInstance] presentAuthViewControllerAnimated:TRUE showNavigation:TRUE];
+}
+
+- (void)passwordSwitch:(UISwitch *)passwordSwitch {
+    if (passwordSwitch.on) {
+        [SmileAuthenticator sharedInstance].securityType = INPUT_TWICE;
+    } else {
+        [SmileAuthenticator sharedInstance].securityType = INPUT_ONCE;
+    }
+    
+    [[SmileAuthenticator sharedInstance] presentAuthViewControllerAnimated:TRUE showNavigation:TRUE];
+    [self reloadTableViewData];
+}
+
+/// 设置解锁页背景图片
+- (void)setUnlockBackgroundImage:(id)obj {
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"请选择图片来源" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    //从照相机拍照
+    UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"照相机" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            self.pickerViewController = [[UIImagePickerController alloc] init];
+            self.pickerViewController.delegate = self;//设置UIImagePickerController的代理，同时要遵循UIImagePickerControllerDelegate，UINavigationControllerDelegate协议
+//            self.pickerViewController.allowsEditing = YES;//设置拍照之后图片是否可编辑，如果设置成可编辑的话会在代理方法返回的字典里面多一些键值。PS：如果在调用相机的时候允许照片可编辑，那么用户能编辑的照片的位置并不包括边角。
+            self.pickerViewController.sourceType = UIImagePickerControllerSourceTypeCamera;//UIImagePicker选择器的数据来源，UIImagePickerControllerSourceTypeCamera说明数据来源于摄像头
+            [self presentViewController:self.pickerViewController animated:YES completion:nil];
+        }else{
+            
+            NSLog(@"哎呀,没有摄像头");
+        }
+        
+    }];
+    
+    //从手机相册选取
+    UIAlertAction *photoAction = [UIAlertAction actionWithTitle:@"相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+            self.pickerViewController = [[UIImagePickerController alloc]init];
+            self.pickerViewController.delegate = self;
+//            self.pickerViewController.allowsEditing = YES;//是否可以对原图进行编辑
+            
+            //设置图片选择器的数据来源为手机相册
+            self.pickerViewController.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            [self presentViewController:self.pickerViewController animated:YES completion:nil];
+        }
+        else{
+            
+            NSLog(@"图片库不可用");
+            
+        }
+    }];
+    
+    //取消
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    
+    [alertC addAction:cameraAction];
+    [alertC addAction:photoAction];
+    [alertC addAction:cancelAction];
+    [self presentViewController:alertC animated:YES completion:nil];
+    
+    [self reloadTableViewData];
+}
+
+- (void)disclosureSwitchChanged:(UISwitch *)sw {
+    [self passwordSwitch:sw];
+}
+
+#pragma mark - UIImagePickerControllerDelegate
+/// 拍照/选择图片结束
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    //获取图片
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];//原始图片
+//    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];//编辑后的图片
+    
+    [[OSAuthenticatorHelper sharedInstance] saveImage:image];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self reloadTableViewData];
+}
+
+/// 取消拍照/选择图片
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self reloadTableViewData];
+}
+
     
 ////////////////////////////////////////////////////////////////////////
 #pragma mark - Alert

@@ -4,11 +4,17 @@
 #import "ExceptionUtils.h"
 #import "XYSuspensionMenu.h"
 #import "FoldersViewController.h"
+#import "OSAuthenticatorHelper.h"
+
+@interface MainTabBarController : UITabBarController <SmileAuthenticatorDelegate>
+
+@end
+
 
 %hook MicroMessengerAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
+    BOOL res = %orig;
     [ExceptionUtils configExceptionHandler];
 if ([UIDevice currentDevice].systemVersion.floatValue < 11.0f) {
 
@@ -57,11 +63,45 @@ if ([UIDevice currentDevice].systemVersion.floatValue < 11.0f) {
     [item1.hypotenuseButton setTitle:@"操作\n 沙盒" forState:UIControlStateNormal];
     [menuView showWithCompetion:NULL];
 
+    [[OSAuthenticatorHelper sharedInstance] initAuthenticator];
+    return res;
+}
 
-    return %orig;
+- (void)applicationWillResignActive:(UIApplication *)application {
+    %orig;
+    [[OSAuthenticatorHelper sharedInstance] applicationWillResignActiveWithShowCoverImageView];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    %orig;
+    [[OSAuthenticatorHelper sharedInstance] applicationDidBecomeActiveWithRemoveCoverImageView];
 }
 %end
 
+%hook MMTabBarController
+
+- (void)viewDidLoad {
+    %orig;
+    [SmileAuthenticator setDelegate:self];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    %orig;
+    if ([SmileAuthenticator hasPassword]) {
+        [SmileAuthenticator sharedInstance].securityType = INPUT_TOUCHID;
+        [[SmileAuthenticator sharedInstance] presentAuthViewControllerAnimated:NO];
+    }
+}
+
+%new
+- (void)AuthViewControllerDismissed:(UIViewController*)previousPresentedVC {
+
+    if (previousPresentedVC) {
+        [self presentViewController:previousPresentedVC animated:YES completion:nil];
+    }
+}
+
+%end
 
 %hook NewSettingViewController
 - (void)reloadTableData {
