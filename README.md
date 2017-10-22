@@ -265,7 +265,16 @@ _THEOS_PLATFORM_DPKG_DEB_COMPRESSION ?= lzma
 _THEOS_PLATFORM_DPKG_DEB_COMPRESSION ?= xz
 ```
 
-
+问题3:
+2017年10月22日使用WeChat 6.5.19做实验，签名后安装，只要到进入app时就闪退了，问题如下:
+```
+*** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'Use of the class <INPreferences: 0x1744399a0> from an app requires the entitlement com.apple.developer.siri. Did you enable the Siri capability in your Xcode project?'
+```
+进入`WeChat.app/Pluglns`中，发现比WeChat 6.5.18多了两个文件:`WeChatSiriExtension`和`WeChatSiriExtensionUI`，
+通过终端命令`otool` 输出这两个包内可执行文件 的load commands，发现`cryptid`这个对应的value都是1也就是加密状态，以下为执行为的命令，要先进入包内:
+`otool -l WeChatSiriExtensionUI | grep -B 2 crypt`
+`otool -l WeChatSiriExtension | grep -B 2 crypt`
+由于手上没有越狱设备，无法测试能否砸壳，所以暂时将这两个包从Pluglns目录中删掉，重新签名运行后还是报这个错，暂时放弃此版本
 
 
 

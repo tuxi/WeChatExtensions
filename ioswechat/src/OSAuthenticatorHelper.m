@@ -35,8 +35,6 @@
     [self configureForFirstLaunchAddCoverImage];
     
     [SmileAuthenticator sharedInstance].rootVC = [UIApplication sharedApplication].delegate.window.rootViewController;
-    
-    //customize
     [SmileAuthenticator sharedInstance].passcodeDigit = 4;
     [SmileAuthenticator sharedInstance].tintColor = [[UIColor greenColor] colorWithAlphaComponent:0.8];
     [SmileAuthenticator sharedInstance].touchIDIconName = @"my_Touch_ID";
