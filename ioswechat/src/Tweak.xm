@@ -49,7 +49,8 @@ if ([UIDevice currentDevice].systemVersion.floatValue < 11.0f) {
     }];
     [menuView addAction:item];
     [item.hypotenuseButton setTitle:@"Debug\n window" forState:UIControlStateNormal];
-
+    [item.hypotenuseButton setBackgroundColor:[UIColor whiteColor]];
+    item.hypotenuseButton.layer.cornerRadius = 10.0;
     HypotenuseAction *item1 = [HypotenuseAction actionWithType:1 handler:^(HypotenuseAction * _Nonnull action, SuspensionMenuView * _Nonnull menuView) {
         FoldersViewController *vc = [[FoldersViewController alloc] initWithRootDirectory:NSHomeDirectory()];
         vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:vc action:NSSelectorFromString(@"backButtonClick")];
@@ -62,7 +63,8 @@ if ([UIDevice currentDevice].systemVersion.floatValue < 11.0f) {
     [menuView addAction:item1];
     [item1.hypotenuseButton setTitle:@"操作\n 沙盒" forState:UIControlStateNormal];
     [menuView showWithCompetion:NULL];
-
+    [item1.hypotenuseButton setBackgroundColor:[UIColor whiteColor]];
+    item1.hypotenuseButton.layer.cornerRadius = 10.0;
     [[OSAuthenticatorHelper sharedInstance] initAuthenticator];
     return res;
 }

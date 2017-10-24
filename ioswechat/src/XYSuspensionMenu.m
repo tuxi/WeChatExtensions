@@ -7,40 +7,19 @@
 //
 
 #import "XYSuspensionMenu.h"
-#import <CommonCrypto/CommonDigest.h>
 #import <objc/runtime.h>
-#import <CommonCrypto/CommonDigest.h>
 
 #pragma clang diagnostic ignored "-Wundeclared-selector"
 #pragma clang diagnostic ignored "-Wnonnull"
 
 #define kSCREENT_HEIGHT         [UIScreen mainScreen].bounds.size.height
 #define kSCREENT_WIDTH          [UIScreen mainScreen].bounds.size.width
-#define OS_MAX_CORNER_RADIUS    MIN(CGRectGetWidth(self.bounds) * 0.5, CGRectGetHeight(self.bounds) * 0.5)
-#define OS_MAX_BORDER_WIDTH     OS_MAX_CORNER_RADIUS
-#define OS_PADDING_VALUE        0.29
 #define OS_MIN_SCREEN_SIZE      MIN(kSCREENT_WIDTH, kSCREENT_HEIGHT)
 #define OS_MAX_MENUVIEW_SIZE    CGSizeMake(MIN(MAX(MAX(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)), 280.0), OS_MIN_SCREEN_SIZE), MIN(MAX(MAX(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame)), 280.0), OS_MIN_SCREEN_SIZE))
 
-typedef NS_ENUM(NSInteger, OSButtonStyle) {
-    OSButtonStyleDefault,
-    OSButtonStyleSubTitle,
-    OSButtonStyleCentralImage,
-    OSButtonStyleImageWithSubtitle
-};
-
-
-static CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets)
-{
-    return CGRectMake(CGRectGetMinX(rect) + insets.left,
-                      CGRectGetMinY(rect) + insets.top,
-                      CGRectGetWidth(rect) - insets.left - insets.right,
-                      CGRectGetHeight(rect) - insets.top - insets.bottom);
-}
-
 #pragma mark *** MenuBarHypotenuseButton ***
 
-@interface MenuBarHypotenuseButton : OSCustomButton
+@interface MenuBarHypotenuseButton : UIButton
 
 @end
 
@@ -50,654 +29,6 @@ static CGRect CGRectEdgeInset(CGRect rect, UIEdgeInsets insets)
 - (void)removeFromSuperview;
 @end
 
-#pragma mark *** OSLabelContentView ***
-
-@interface OSLabelContentView : UIView
-
-@property (nonatomic, strong) UILabel *textLabel;
-@property (nonatomic, assign) BOOL usingMaskView;
-
-@end
-
-@implementation OSLabelContentView
-
-- (UILabel *)textLabel {
-    if (!_textLabel) {
-        _textLabel = [[UILabel alloc] init];
-        _textLabel.backgroundColor = [UIColor clearColor];
-        _textLabel.textAlignment = NSTextAlignmentCenter;
-        _textLabel.adjustsFontSizeToFitWidth = YES;
-        _textLabel.minimumScaleFactor = 0.1;
-        _textLabel.numberOfLines = 2;
-        _textLabel.translatesAutoresizingMaskIntoConstraints = NO;
-        if (_usingMaskView) {
-            if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
-                self.maskView = _textLabel;
-            } else {
-                self.layer.mask = _textLabel.layer;
-            }
-        }
-        
-    }
-    return _textLabel;
-}
-
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (_usingMaskView) {
-        self.textLabel.frame = self.bounds;
-    }
-}
-
-@end
-
-#pragma mark *** OSImageConentView ***
-@interface OSImageConentView : UIView
-
-@property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, assign) BOOL usingMaskView;
-
-@end
-
-@implementation OSImageConentView
-
-- (UIImageView *)imageView {
-    if (!_imageView) {
-        _imageView = [[UIImageView alloc] init];
-        _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        _imageView.backgroundColor = [UIColor clearColor];
-        [self addSubview:_imageView];
-        if (_usingMaskView) {
-            if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1) {
-                self.maskView = _imageView;
-            } else {
-                self.layer.mask = _imageView.layer;
-            }
-        }
-        
-    }
-    return _imageView;
-}
-
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    if (_usingMaskView) {
-        self.imageView.frame = self.bounds;
-    }
-    
-}
-
-@end
-
-#pragma mark *** OSCustomButton ***
-
-@interface OSCustomButton ()
-
-@property (nonatomic, assign, getter=isTrackingInside) BOOL trackingInside;
-@property (nonatomic, strong) UIView *foregroundView;
-@property (nonatomic, strong) OSLabelContentView *titleContentView;
-@property (nonatomic, strong) OSLabelContentView *detailContentView;
-@property (nonatomic, strong) OSImageConentView *imageContentView;
-@property (nonatomic, assign) OSButtonStyle buttonStyle;
-
-@property (nonatomic, copy) NSString *title;
-@property (nonatomic, copy) NSString *subtitle;
-@property (nonatomic, strong) UIImage *image;
-
-@end
-
-
-@implementation OSCustomButton
-{
-    /// 保存修改背景颜色之前的背景颜色
-    UIColor *_backgroundColorCache;
-    
-}
-
-@synthesize
-contentColor = _contentColor,
-foregroundColor = _foregroundColor,
-titleLabel = _titleLabel,
-detailLabel = _detailLabel,
-imageView = _imageView;
-
-////////////////////////////////////////////////////////////////////////
-#pragma mark - initialize
-////////////////////////////////////////////////////////////////////////
-
-+ (instancetype)buttonWithType:(OSButtonType)buttonType  {
-    return [[self alloc] initWithFrame:CGRectZero buttonType:buttonType];
-}
-
-- (instancetype)initWithFrame:(CGRect)frame buttonType:(OSButtonType)type {
-    if (self = [self initWithFrame:frame]) {
-        self.buttonType = type;
-    }
-    return self;
-}
-
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.layer.masksToBounds = YES;
-        _restoreSelectedState = YES;
-        _trackingInside = NO;
-        _cornerRadius = 0.0;
-        _borderWidth = 0.0;
-        _contentEdgeInsets = UIEdgeInsetsZero;
-        _fadeInOutOnDisplay = YES;
-    }
-    return self;
-}
-
-////////////////////////////////////////////////////////////////////////
-#pragma mark - Public
-////////////////////////////////////////////////////////////////////////
-
-- (void)setTitleColor:(nullable UIColor *)color forState:(UIControlState)state {
-    _titleContentView.textLabel.textColor = color;
-}
-
-
-- (void)setTitle:(NSString *)title forState:(UIControlState)state {
-    if (_title == title) {
-        return;
-    }
-    _title = title;
-    [self setNeedsLayout];
-    self.titleLabel.text = title;
-    [self.titleLabel sizeToFit];
-}
-- (void)setSubtitle:(NSString *)subtitle forState:(UIControlState)state {
-    if (_subtitle == subtitle) {
-        return;
-    }
-    _subtitle = subtitle;
-    [self setNeedsLayout];
-    self.detailLabel.text = subtitle;
-    [self.detailLabel sizeToFit];
-}
-- (void)setImage:(UIImage *)image forState:(UIControlState)state {
-    if (_image == image) {
-        return;
-    }
-    _image = image;
-    [self setNeedsLayout];
-    self.imageView.image = image;
-}
-
-
-////////////////////////////////////////////////////////////////////////
-#pragma mark - layout
-////////////////////////////////////////////////////////////////////////
-
-- (void)setFrame:(CGRect)frame {
-    [super setFrame:frame];
-    [self setButtonType:self.buttonType];
-}
-
-- (void)layoutSubviews {
-    [super layoutSubviews];
-    
-    CGFloat cornerRadius = self.layer.cornerRadius = MAX(MIN(OS_MAX_CORNER_RADIUS, self.cornerRadius), 0);
-    CGFloat borderWidth = self.layer.borderWidth = MAX(MIN(OS_MAX_BORDER_WIDTH, self.borderWidth), 0);
-    
-    _borderWidth = borderWidth;
-    _cornerRadius = cornerRadius;
-    
-    CGFloat layoutBorderWidth = borderWidth == 0.0 ? 0.0 : borderWidth - 0.1;
-    self.foregroundView.frame = CGRectMake(layoutBorderWidth,
-                                           layoutBorderWidth,
-                                           CGRectGetWidth(self.bounds) - layoutBorderWidth * 2,
-                                           CGRectGetHeight(self.bounds) - layoutBorderWidth * 2);
-    self.foregroundView.layer.cornerRadius = cornerRadius - borderWidth;
-    switch (self.buttonStyle)
-    {
-        case OSButtonStyleDefault:
-        {
-            if (_imageContentView.usingMaskView) {
-                _imageContentView.frame = CGRectNull;
-                [_imageContentView removeFromSuperview];
-            } else {
-                _imageContentView.imageView.frame = CGRectNull;
-                [_imageContentView.imageView removeFromSuperview];
-            }
-            if (_detailContentView.usingMaskView) {
-                _detailContentView.frame = CGRectNull;
-                [_detailContentView removeFromSuperview];
-            } else {
-                _detailContentView.textLabel.frame = CGRectNull;
-                [_detailContentView.textLabel removeFromSuperview];
-            }
-            if (_titleContentView.usingMaskView) {
-                _titleContentView.frame = [self boxingRect];
-            } else {
-                _titleContentView.textLabel.frame = [self boxingRect];
-            }
-        }
-            break;
-            
-        case OSButtonStyleSubTitle:
-        {
-            CGRect boxRect = [self boxingRect];
-            if (_imageContentView.usingMaskView) {
-                _imageContentView.frame = CGRectNull;
-                [_imageContentView removeFromSuperview];
-            } else {
-                _imageContentView.imageView.frame = CGRectNull;
-                [_imageContentView.imageView removeFromSuperview];
-            }
-            if (_detailContentView.usingMaskView) {
-                self.detailContentView.frame = CGRectMake(boxRect.origin.x,
-                                                          CGRectGetMaxY(self.titleContentView.frame),
-                                                          CGRectGetWidth(boxRect),
-                                                          CGRectGetHeight(boxRect) * 0.2);
-            } else {
-                self.detailContentView.textLabel.frame = CGRectMake(boxRect.origin.x,
-                                                                    CGRectGetMaxY(self.titleContentView.frame),
-                                                                    CGRectGetWidth(boxRect),
-                                                                    CGRectGetHeight(boxRect) * 0.2);
-            }
-            if (_titleContentView.usingMaskView) {
-                self.titleContentView.frame = CGRectMake(boxRect.origin.x,
-                                                         boxRect.origin.y,
-                                                         CGRectGetWidth(boxRect),
-                                                         CGRectGetHeight(boxRect) * 0.8);
-            } else {
-                self.titleContentView.textLabel.frame = CGRectMake(boxRect.origin.x,
-                                                                   boxRect.origin.y,
-                                                                   CGRectGetWidth(boxRect),
-                                                                   CGRectGetHeight(boxRect) * 0.8);
-            }
-            
-            
-        }
-            break;
-            
-        case OSButtonStyleCentralImage:
-        {
-            if (_imageContentView.usingMaskView) {
-                self.imageContentView.frame = [self boxingRect];
-            } else {
-                self.imageContentView.imageView.frame = [self boxingRect];
-            }
-            if (_detailContentView.usingMaskView) {
-                _detailContentView.frame = CGRectNull;
-                [_detailContentView removeFromSuperview];
-            } else {
-                _detailContentView.textLabel.frame = CGRectNull;
-                [_detailContentView.textLabel removeFromSuperview];
-            }
-            if (_titleContentView.usingMaskView) {
-                _titleContentView.frame = CGRectNull;
-                [_titleContentView removeFromSuperview];
-            } else {
-                _titleContentView.textLabel.frame = CGRectNull;
-                [_titleContentView.textLabel removeFromSuperview];
-            }
-            
-        }
-            break;
-            
-        case OSButtonStyleImageWithSubtitle:
-        default:
-        {
-            CGRect boxRect = [self boxingRect];
-            
-            if (_imageContentView.usingMaskView) {
-                self.imageContentView.frame = CGRectMake(boxRect.origin.x,
-                                                         boxRect.origin.y,
-                                                         CGRectGetWidth(boxRect),
-                                                         CGRectGetHeight(boxRect) * 0.8);
-            } else {
-                self.imageContentView.imageView.frame = CGRectMake(boxRect.origin.x,
-                                                                   boxRect.origin.y,
-                                                                   CGRectGetWidth(boxRect),
-                                                                   CGRectGetHeight(boxRect) * 0.8);
-            }
-            if (_detailContentView.usingMaskView) {
-                self.detailContentView.frame = CGRectMake(boxRect.origin.x,
-                                                          CGRectGetMaxY(self.imageContentView.frame),
-                                                          CGRectGetWidth(boxRect),
-                                                          CGRectGetHeight(boxRect) * 0.2);
-            } else {
-                self.detailContentView.textLabel.frame = CGRectMake(boxRect.origin.x,
-                                                                    CGRectGetMaxY(self.imageContentView.frame),
-                                                                    CGRectGetWidth(boxRect),
-                                                                    CGRectGetHeight(boxRect) * 0.2);
-            }
-            if (_titleContentView.usingMaskView) {
-                _titleContentView.frame = CGRectNull;
-                [_titleContentView removeFromSuperview];
-            } else {
-                _titleContentView.textLabel.frame = CGRectNull;
-                [_titleContentView.textLabel removeFromSuperview];
-            }
-        }
-            break;
-    }
-    
-}
-
-- (OSButtonStyle)buttonStyle {
-    if ([self shouldDisplayImageView] && ![self shouldDisplayTitleLabel] && [self shouldDisplayDetailLabel]) {
-        _buttonStyle = OSButtonStyleImageWithSubtitle;
-    } else if ([self shouldDisplayImageView] && ![self shouldDisplayTitleLabel] && ![self shouldDisplayDetailLabel]) {
-        _buttonStyle = OSButtonStyleCentralImage;
-    } else if (![self shouldDisplayImageView] && [self shouldDisplayTitleLabel] && [self shouldDisplayDetailLabel]) {
-        _buttonStyle = OSButtonStyleSubTitle;
-    } else if (![self shouldDisplayImageView] && [self shouldDisplayTitleLabel] && ![self shouldDisplayDetailLabel]) {
-        _buttonStyle = OSButtonStyleDefault;
-    }
-    _buttonStyle = OSButtonStyleDefault;
-    return _buttonStyle;
-}
-
-- (CGRect)boxingRect {
-    CGRect internalRect = CGRectInset(self.bounds,
-                                      self.layer.cornerRadius * OS_PADDING_VALUE + self.layer.borderWidth,
-                                      self.layer.cornerRadius * OS_PADDING_VALUE + self.layer.borderWidth);
-    return CGRectEdgeInset(internalRect, self.contentEdgeInsets);
-}
-
-- (BOOL)shouldDisplayTitleLabel {
-    return _titleLabel && _titleLabel.text.length;
-}
-
-- (BOOL)shouldDisplayDetailLabel {
-    return _detailLabel && _detailLabel.text.length;
-}
-
-- (BOOL)shouldDisplayImageView {
-    return _imageView && _imageView.image;
-}
-
-////////////////////////////////////////////////////////////////////////
-#pragma mark - Set get
-////////////////////////////////////////////////////////////////////////
-
-- (UIColor *)contentColor {
-    return _buttonType == OSButtonTypeDefault ? nil : _contentColor ?: self.tintColor;
-}
-
-- (UIColor *)foregroundColor {
-    return _buttonType == OSButtonTypeDefault ? [UIColor clearColor] : _foregroundColor ?: [UIColor whiteColor];
-}
-
-- (UIView *)foregroundView {
-    if (!_foregroundView && _buttonType != OSButtonTypeDefault) {
-        _foregroundView = [[UIView alloc] initWithFrame:CGRectNull];
-        _foregroundView.backgroundColor = self.foregroundColor;
-        _foregroundView.layer.masksToBounds = YES;
-        [self addSubview:_foregroundView];
-    }
-    return _foregroundView;
-}
-
-- (OSLabelContentView *)titleContentView {
-    if (!_titleContentView) {
-        _titleContentView = [[OSLabelContentView alloc] initWithFrame:CGRectNull];
-        _titleContentView.backgroundColor = self.contentColor;
-        _titleContentView.usingMaskView = _buttonType != OSButtonTypeDefault;
-        _titleContentView.layer.masksToBounds = YES;
-        if (_titleContentView.usingMaskView) {
-            [self insertSubview:_titleContentView aboveSubview:self.foregroundView];
-        } else {
-            [self addSubview:_titleContentView.textLabel];
-        }
-    }
-    return _titleContentView;
-}
-
-- (OSLabelContentView *)detailContentView {
-    if (!_detailContentView) {
-        _detailContentView = [[OSLabelContentView alloc] initWithFrame:CGRectNull];
-        _detailContentView.backgroundColor = self.contentColor;
-        _detailContentView.usingMaskView = _buttonType != OSButtonTypeDefault;
-        _detailContentView.layer.masksToBounds = YES;
-        if (_detailContentView.usingMaskView) {
-            [self insertSubview:_detailContentView aboveSubview:self.foregroundView];
-        } else {
-            [self addSubview:_detailContentView.textLabel];
-        }
-    }
-    return _detailContentView;
-}
-
-- (OSImageConentView *)imageContentView {
-    if (!_imageContentView) {
-        _imageContentView = [[OSImageConentView alloc] initWithFrame:CGRectNull];
-        _imageContentView.usingMaskView = _buttonType != OSButtonTypeDefault;
-        _imageContentView.backgroundColor = self.contentColor;
-        _imageContentView.layer.masksToBounds = YES;
-        if (_imageContentView.usingMaskView) {
-            [self insertSubview:_imageContentView aboveSubview:self.foregroundView];
-        } else {
-            [self addSubview:_imageContentView.imageView];
-        }
-    }
-    return _imageContentView;
-}
-
-- (void)setCornerRadius:(CGFloat)cornerRadius {
-    if (_cornerRadius == cornerRadius) {
-        return;
-    }
-    _cornerRadius = cornerRadius;
-    [self setNeedsLayout];
-}
-
-- (void)setBorderWidth:(CGFloat)borderWidth {
-    if (_borderWidth == borderWidth) {
-        return;
-    }
-    _borderWidth = borderWidth;
-    [self setNeedsLayout];
-}
-
-- (void)setBorderColor:(UIColor *)borderColor {
-    _borderColor = borderColor;
-    self.layer.borderColor = borderColor.CGColor;
-}
-
-- (void)setContentColor:(UIColor *)contentColor {
-    _contentColor = contentColor;
-    self.titleContentView.backgroundColor = contentColor;
-    self.detailContentView.backgroundColor = contentColor;
-    self.imageContentView.backgroundColor = contentColor;
-}
-
-- (void)setForegroundColor:(UIColor *)foregroundColor {
-    _foregroundColor = foregroundColor;
-    self.foregroundView.backgroundColor = foregroundColor;
-}
-
-- (UILabel *)titleLabel {
-    return _titleLabel = self.titleContentView.textLabel;
-}
-
-- (UILabel *)detailLabel {
-    return _detailLabel = self.detailContentView.textLabel;
-}
-
-- (UIImageView *)imageView {
-    return _imageView = self.imageContentView.imageView;
-}
-
-- (void)setEnabled:(BOOL)enabled {
-    [super setEnabled:enabled];
-    [UIView animateWithDuration:0.3 delay:0.0
-                        options:UIViewAnimationOptionAllowUserInteraction
-                     animations:^{
-                         self.foregroundView.alpha = enabled ? 1.0 : 0.5;
-                     }
-                     completion:nil];
-}
-
-- (void)setSelected:(BOOL)selected {
-    [super setSelected:selected];
-    dispatch_block_t fadeInBlock = ^{
-        if (self.contentAnimateColor) {
-            self.titleContentView.backgroundColor = self.contentAnimateColor;
-            self.detailContentView.backgroundColor = self.contentAnimateColor;
-            self.imageContentView.backgroundColor = self.contentAnimateColor;
-        }
-        
-        if (self.borderAnimateColor && self.foregroundAnimateColor && self.borderAnimateColor == self.foregroundAnimateColor) {
-            _backgroundColorCache = self.backgroundColor;
-            self.foregroundView.backgroundColor = [UIColor clearColor];
-            self.backgroundColor = self.borderAnimateColor;
-            return;
-        }
-        
-        if (self.borderAnimateColor) {
-            self.layer.borderColor = self.borderAnimateColor.CGColor;
-        }
-        
-        if (self.foregroundAnimateColor) {
-            self.foregroundView.backgroundColor = self.foregroundAnimateColor;
-        }
-    };
-    if (self.fadeInOutOnDisplay) {
-        
-        dispatch_block_t fadeInBlock = ^ {
-            self.titleContentView.backgroundColor = self.contentColor;
-            self.detailContentView.backgroundColor = self.contentColor;
-            self.imageContentView.backgroundColor = self.contentColor;
-            
-            if (self.borderAnimateColor && self.foregroundAnimateColor && self.borderAnimateColor == self.foregroundAnimateColor) {
-                self.foregroundView.backgroundColor = self.foregroundColor;
-                self.backgroundColor = _backgroundColorCache;
-                _backgroundColorCache = nil;
-            }
-            
-            self.foregroundView.backgroundColor = self.foregroundColor;
-            self.layer.borderColor = self.borderColor.CGColor;
-        };
-        if (selected) {
-            [UIView animateWithDuration:0.3 delay:0.0
-                                options:UIViewAnimationOptionAllowUserInteraction
-                             animations:fadeInBlock
-                             completion:nil];
-        } else {
-            [UIView animateWithDuration:0.3 delay:0.0
-                                options:UIViewAnimationOptionAllowUserInteraction
-                             animations:fadeInBlock
-                             completion:nil];
-        }
-    } else {
-        if (selected) {
-            fadeInBlock();
-        } else {
-            fadeInBlock();
-        }
-    }
-}
-
-- (void)setButtonType:(OSButtonType)buttonType {
-    _buttonType = buttonType;
-    if (buttonType == OSButtonType1) {
-        self.cornerRadius = OS_MAX_BORDER_WIDTH;
-        self.borderColor  = [UIColor clearColor];
-        self.contentColor = [UIColor blackColor];
-        self.contentAnimateColor = [UIColor whiteColor];
-        self.foregroundColor = [UIColor whiteColor];
-        self.foregroundAnimateColor = [UIColor clearColor];
-    } else if (buttonType == OSButtonType2) {
-        self.cornerRadius = OS_MAX_BORDER_WIDTH;
-        self.borderWidth = 1.5;
-        self.restoreSelectedState = NO;
-        self.borderColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-        self.borderAnimateColor = [UIColor colorWithRed:120/255.0 green:1.0/255.0 blue:1.0/255.0 alpha:1.0];
-        self.contentColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-        self.contentAnimateColor = [UIColor colorWithRed:220/255.0 green:1.0/255.0 blue:1.0/255.0 alpha:1.0];
-        self.foregroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5];
-        self.backgroundColor = [UIColor clearColor];
-    } else if (buttonType == OSButtonType3) {
-        self.cornerRadius = OS_MAX_BORDER_WIDTH;
-        self.borderWidth  = 2;
-        self.restoreSelectedState = NO;
-        self.borderColor = [UIColor clearColor];
-        self.borderAnimateColor = [UIColor whiteColor];
-        self.contentColor = [UIColor whiteColor];
-        self.contentAnimateColor = [UIColor colorWithRed:1.0/255.0 green:1.0/255.0 blue:255.0/255.0 alpha:1.0];;
-        self.foregroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-        self.foregroundAnimateColor = [UIColor whiteColor];
-    } else if (buttonType == OSButtonType4 ){
-        self.contentAnimateColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
-        self.foregroundColor = [UIColor clearColor];
-        self.foregroundAnimateColor = [UIColor clearColor];
-    } else {
-        if (_imageContentView) {
-            _imageContentView.backgroundColor = [UIColor clearColor];
-            _imageContentView.imageView.backgroundColor = [UIColor clearColor];
-        }
-    }
-    
-}
-
-////////////////////////////////////////////////////////////////////////
-#pragma mark - Touchs
-////////////////////////////////////////////////////////////////////////
-
-- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-    
-    UIView *touchView = [super hitTest:point withEvent:event];
-    if ([self pointInside:point withEvent:event]) {
-        return self;
-    }
-    return touchView;
-}
-
-/// 返回值:YES 接受用户通过addTarget:action:forControlEvents添加的事件继续处理。
-/// 返回值:NO  则屏蔽用户添加的任何事件
-- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    self.trackingInside = YES;
-    self.selected = !self.isSelected;
-    return [super beginTrackingWithTouch:touch withEvent:event];
-}
-
-/// 判断是否保持追踪当前的触摸事件,这里根据得到的位置来判断是否正处于button的范围内，进而发送对应的事件
-/// 控制OSButton的selected属性
-- (BOOL)continueTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    BOOL wasTrackingInside = self.isTrackingInside;
-    self.trackingInside = [self isTouchInside];
-    /*
-     if (wasTrackingInside && !self.isTrackingInside) {
-     self.selected = !self.isSelected;
-     } else if (!wasTrackingInside && self.isTrackingInside) {
-     self.selected = !self.isSelected;
-     }
-     */
-    if (wasTrackingInside != self.isTrackingInside) {
-        self.selected = !self.isSelected;
-    }
-    return [super continueTrackingWithTouch:touch withEvent:event];
-}
-
-- (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
-    self.trackingInside = [self isTouchInside];
-    if (self.isTrackingInside && self.restoreSelectedState) {
-        self.selected = !self.isSelected;
-    }
-    self.trackingInside = NO;
-    [super endTrackingWithTouch:touch withEvent:event];
-}
-
-- (void)cancelTrackingWithEvent:(UIEvent *)event {
-    self.trackingInside = [self isTouchInside];
-    if (self.trackingInside) {
-        self.selected = !self.isSelected;
-    }
-    self.trackingInside = NO;
-    [super cancelTrackingWithEvent:event];
-}
-
-
-@end
 
 @implementation UIApplication (SuspensionWindowExtension)
 
@@ -735,6 +66,9 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
 #endif
 @property (nonatomic, assign) BOOL isMoving;
 @property (nonatomic, strong) UIWindow *xy_window;
+/// 当屏幕旋转时反转坐标
+@property (nonatomic, assign) BOOL needReversePoint;
+
 @end
 
 @implementation SuspensionView
@@ -866,8 +200,17 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
         if (!self.isAutoLeanEdge) {
             return;
         }
-        CGPoint newTargetPoint = [self _checkTargetPosition:translatedCenter];
-        [self autoLeanToTargetPosition:newTargetPoint];
+        // 计算速度向量的长度，当他小于200时，滑行会很短
+        CGPoint velocity = [p velocityInView:[UIApplication sharedApplication].delegate.window];
+        // 计算速度向量的长度
+        CGFloat magnitude = sqrtf((velocity.x * velocity.x) + (velocity.y * velocity.y));
+        CGFloat slideMult = magnitude / 200;
+        // 基于速度和速度因素计算一个终点
+        float slideFactor = 0.1 * slideMult;
+        CGPoint finalPoint = CGPointMake(panViewCenter.x + (velocity.x * slideFactor),  panViewCenter.y + (velocity.y * slideFactor));
+        CGPoint newTargetPoint = [self _checkTargetPosition:finalPoint];
+        // 滑行到终点
+        [self autoLeanToTargetPosition:newTargetPoint slideFactor:slideFactor*2];
     }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(suspensionView:locationChange:)]) {
@@ -895,12 +238,12 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
 
 - (void)checkTargetPosition {
     
-    if (self.shouldLeanToPreviousPositionWhenAppStart) {
+    if (self.shouldLeanToPreviousPositionWhenAppStart && !self.needReversePoint) {
         CGPoint newTargetPoint = [self _checkTargetPosition:self.previousCenter];
         [self autoLeanToTargetPosition:newTargetPoint];
     } else {
         CGPoint currentPoint = [self convertPoint:self.center toView:[UIApplication sharedApplication].delegate.window];
-        CGPoint newTargetPoint = [self _checkTargetPosition:currentPoint];
+        CGPoint newTargetPoint = [self _checkTargetPosition:CGPointMake(currentPoint.y, currentPoint.x)];
         [self autoLeanToTargetPosition:newTargetPoint];
     }
     
@@ -918,11 +261,10 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
     CGFloat touchHeight = self.frame.size.height;
     CGFloat screenWidth = [[UIScreen mainScreen] bounds].size.width;
     CGFloat screenHeight = [[UIScreen mainScreen] bounds].size.height;
-    
-    CGFloat left = MAX(self.leanEdgeInsets.left, MIN(fabs(panPoint.x), screenWidth - touchWidth - self.leanEdgeInsets.right));
-    CGFloat right = fabs(screenWidth - left);
-    CGFloat top = MAX(self.leanEdgeInsets.top, MIN(fabs(panPoint.y), screenHeight - touchHeight - self.leanEdgeInsets.bottom));
-    CGFloat bottom = fabs(screenHeight - top);
+    CGFloat left = MAX(self.leanEdgeInsets.left, MIN(panPoint.x, screenWidth - touchWidth - self.leanEdgeInsets.right));
+    CGFloat right = screenWidth - left;
+    CGFloat top = MAX(self.leanEdgeInsets.top, MIN(panPoint.y, screenHeight - touchHeight - self.leanEdgeInsets.bottom));
+    CGFloat bottom = screenHeight - top;
     
     CGFloat minSpace = 0;
     if (self.leanEdgeType == SuspensionViewLeanEdgeTypeHorizontal) {
@@ -969,19 +311,26 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
 }
 
 /// 移动移动到屏幕中心位置
-- (void)moveToScreentCenter {
+- (void)moveToDisplayCenter {
     
     [self autoLeanToTargetPosition:[UIApplication sharedApplication].delegate.window.center];
 }
 
+
 /// 自动移动到边缘，此方法在手指松开后会自动移动到目标位置
 - (void)autoLeanToTargetPosition:(CGPoint)point {
+    [self autoLeanToTargetPosition:point slideFactor:0.0];
+}
+
+
+/// 自动移动到边缘，此方法在手指松开后会自动移动到目标位置
+- (void)autoLeanToTargetPosition:(CGPoint)point slideFactor:(CGFloat)slideFactor {
     point = [self _checkTargetPosition:point];
     if (self.delegate && [self.delegate respondsToSelector:@selector(suspensionView:willAutoLeanToTargetPosition:)]) {
         [self.delegate suspensionView:self willAutoLeanToTargetPosition:point];
     }
     [UIView animateWithDuration:0.3
-                          delay:0.1
+                          delay:0.05
          usingSpringWithDamping:self.usingSpringWithDamping
           initialSpringVelocity:self.initialSpringVelocity
                         options:UIViewAnimationOptionCurveEaseIn |
@@ -1003,6 +352,8 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
                      }];
 }
 
+
+
 - (void)autoLeanToTargetPositionCompletion:(CGPoint)currentPosition {
     if (self.delegate && [self.delegate respondsToSelector:@selector(suspensionView:didAutoLeanToTargetPosition:)]) {
         [self.delegate suspensionView:self didAutoLeanToTargetPosition:currentPosition];
@@ -1017,7 +368,6 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
     if (self.isAutoLeanEdge) {
         /// 屏幕旋转时检测下最终依靠的位置，防止出现屏幕旋转记录的previousCenter未更新坐标时，导致按钮不见了
         CGPoint currentPoint = [self convertPoint:self.center toView:[UIApplication sharedApplication].delegate.window];
-        
         [self _checkTargetPosition:currentPoint];
     }
 }
@@ -1196,11 +546,11 @@ static NSString * const PreviousCenterYKey = @"previousCenterY";
     
     UIWindow *suspensionWindow = [[UIWindow alloc] initWithFrame:self.frame];
     
-//#ifdef DEBUG
+    //#ifdef DEBUG
     suspensionWindow.windowLevel = CGFLOAT_MAX+10;
-//#else
-//    suspensionWindow.windowLevel = UIWindowLevelAlert * 3;
-//#endif
+    //#else
+    //    suspensionWindow.windowLevel = UIWindowLevelAlert * 3;
+    //#endif
     
     UIViewController *vc = [UIViewController new];
     suspensionWindow.rootViewController = vc;
@@ -1259,8 +609,8 @@ static const NSUInteger moreBarButtonBaseTag = 200;
 @property (nonatomic, strong) HypotenuseAction *currentDisplayMoreItem;
 /// 保证currentDisplayMoreItems在栈顶，menuBarItems在栈底
 @property (nonatomic, strong) NSMutableArray<HypotenuseAction *> *stackDisplayedItems;
-/// 存储的为调用testPushViewController时的HypotenuseAction和跳转的viewController，保证第二次点击时pop并从此字典中移除
-@property (nonatomic, strong) NSDictionary<NSNumber *, NSString *> *testPushViewControllerDictionary;
+/// 存储的为调用showViewController时的HypotenuseAction和跳转的viewController，保证第二次点击时pop并从此字典中移除
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, NSMutableArray<NSString *> *> *showViewControllerDictionary;
 @property (nonatomic, strong) NSMutableArray<HypotenuseAction *> *menuBarItems;
 @property (nonatomic, copy) void (^ _Nullable openCompletion)(void);
 @property (nonatomic, copy) void (^ _Nullable closeCompletion)(void);
@@ -1366,8 +716,10 @@ menuBarItems = _menuBarItems;
     for (HypotenuseAction *item in currentDisplayMoreItem.moreHypotenusItems) {
         [item.hypotenuseButton setOpaque:NO];
         [item.hypotenuseButton setTag:moreBarButtonBaseTag + idx];
+        [item.hypotenuseButton removeTarget:self action:@selector(moreBarButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [item.hypotenuseButton addTarget:self action:@selector(moreBarButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [item.hypotenuseButton setAlpha:0.0];
+        item.suspensionMenuView = self;
         [self addSubview:item.hypotenuseButton];
         [item.hypotenuseButton setFrame:_viewFlags._memuBarButtonOriginFrame];
         idx++;
@@ -1387,120 +739,122 @@ menuBarItems = _menuBarItems;
     for (HypotenuseAction *item in menuBarItems) {
         [item.hypotenuseButton setOpaque:NO];
         [item.hypotenuseButton setTag:menuBarButtonBaseTag+idx];
+        [item.hypotenuseButton removeTarget:self action:@selector(menuBarButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [item.hypotenuseButton addTarget:self action:@selector(menuBarButtonClick:) forControlEvents:UIControlEventTouchUpInside];
         [item.hypotenuseButton setAlpha:0.0];
+        item.suspensionMenuView = self;
         [self addSubview:item.hypotenuseButton];
         [item.hypotenuseButton setFrame:_viewFlags._memuBarButtonOriginFrame];
         idx++;
     }
 }
 
-- (void)testPushViewController:(UIViewController *)viewController animated:(BOOL)animated {
+/// 显示viewController，对push或present进行处理，并处理viewController重复show的问题，显示完成后关闭mennWindow
+- (void)showViewController:(UIViewController *)viewController animated:(BOOL)animated {
     NSParameterAssert(viewController);
     viewController.hidesBottomBarWhenPushed = YES;
-    if ([[self topViewController] isMemberOfClass:[viewController class]]) {
-        [[self topViewController].navigationController popViewControllerAnimated:YES];
-        [self close];
-        self.testPushViewControllerDictionary = nil;
-        return;
-    } else {
+    UIViewController *topVc = [self topViewController];
+    NSNumber *vcKey = @([_currentClickHypotenuseItem.hypotenuseButton tag]);
+    NSMutableArray *currentClickVcAddress = [self.showViewControllerDictionary objectForKey:vcKey];
+    if (!currentClickVcAddress) {
+        currentClickVcAddress = [NSMutableArray array];
+        [self.showViewControllerDictionary setObject:currentClickVcAddress forKey:vcKey];
+    }
+    //////////////////// 防止控制器重复push或present的处理 ////////////////////
+    // 判断当前点击的btn，是否已经保存了控制器的内存地址，如果保存了，就移除，并return
+    if (_currentClickHypotenuseItem && viewController) {
+        // 取出当前点击按钮保存的控制器的内存地址
         
-        NSMutableArray *vcs = [[self topViewController].navigationController.viewControllers mutableCopy];
-        NSUInteger founVcIndex = [vcs indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            return [obj class] == [viewController class];
+        NSMutableArray *vcs = [topVc.navigationController.viewControllers mutableCopy];
+        NSUInteger foundArressIdx = [currentClickVcAddress indexOfObjectWithOptions:NSEnumerationReverse passingTest:^BOOL(NSString *  _Nonnull address, NSUInteger idx, BOOL * _Nonnull stop) {
+            return [[NSString stringWithFormat:@"%p", topVc] isEqualToString:address];
         }];
-        if (vcs && founVcIndex != NSNotFound) {
-            UIViewController *targetVc = vcs[founVcIndex];
-            [[self topViewController].navigationController popToViewController:targetVc animated:YES];
-            self.testPushViewControllerDictionary = nil;
+        if (currentClickVcAddress && foundArressIdx != NSNotFound) {
+            if (topVc.navigationController.viewControllers.count > 1 && [topVc.navigationController.viewControllers lastObject] == topVc) {
+                NSUInteger founVcIndex = [vcs indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    return topVc == obj;
+                }];
+                // 当topViewController 就是当前按钮点击后保存的控制器，那么就返回到topViewController的上一级
+                if (founVcIndex > 0) {
+                    UIViewController *targetVc = vcs[founVcIndex - 1];
+                    [topVc.navigationController popToViewController:targetVc animated:animated];
+                } else {
+                    [topVc.navigationController popToRootViewControllerAnimated:animated];
+                }
+            } else {
+                [topVc dismissViewControllerAnimated:animated completion:NULL];
+            }
+            [currentClickVcAddress removeObjectAtIndex:foundArressIdx];
             [self close];
             return;
         }
-    }
-    
-    if (_currentClickHypotenuseItem && viewController) {
-        // 取
-        NSString *vcProAddress = self.testPushViewControllerDictionary.allValues.lastObject;
-        if (vcProAddress.length) {
-            NSMutableArray *vcs = [[self topViewController].navigationController.viewControllers mutableCopy];
-            NSUInteger founVcIndex = [vcs indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                return [[NSString stringWithFormat:@"%p", obj] isEqualToString:vcProAddress];
-            }];
-            Class founVcClass;
-            if (vcs && founVcIndex != NSNotFound) {
-                founVcClass = [[vcs objectAtIndex:founVcIndex] class];
-                if (founVcIndex > 0) {
-                    UIViewController *targetVc = vcs[founVcIndex - 1];
-                    [[self topViewController].navigationController popToViewController:targetVc animated:animated];
-                } else {
-                    [[self topViewController].navigationController popToRootViewControllerAnimated:animated];
+        else {
+            if (topVc.navigationController && vcs.count) {
+                for (UIViewController *vc in vcs) {
+                    NSUInteger founVcIndex = [currentClickVcAddress indexOfObjectPassingTest:^BOOL(NSString *  _Nonnull address, NSUInteger idx, BOOL * _Nonnull stop) {
+                        return [[NSString stringWithFormat:@"%p", vc] isEqualToString:address];
+                    }];
+                    
+                    // 当topViewController 不是当前按钮点击后保存的控制器，那么就返回到topViewController
+                    if (founVcIndex != NSNotFound) {
+                        UIViewController *targetVc = vcs[founVcIndex];
+                        [topVc.navigationController popToViewController:targetVc animated:animated];
+                        [currentClickVcAddress removeObjectAtIndex:founVcIndex];
+                        [self close];
+                        return;
+                    }
                 }
-                self.testPushViewControllerDictionary = nil;
-                [self close];
-                if (founVcClass == [viewController class]) {
-                    return;
-                }
+            }
+            else if (topVc.presentingViewController) {
+                // 如果存在modal，就dismiss，但是这里不return，后续还要将viewController进行present(注意此时的topVc已经被dismiss释放，后面的present要使用它的上一级控制器，也就是topVc.presentingViewController才可以)
+                [topVc dismissViewControllerAnimated:animated completion:NULL];
+                [currentClickVcAddress removeObject:[NSString stringWithFormat:@"%p", topVc.presentingViewController]];
+                topVc = topVc.presentingViewController;
             }
         }
         
     }
     
+    
+    //////////////////// 对控制器需要push或present的处理 ////////////////////
     void(^pushAnimationsCompetionsBlockForViewController)(BOOL isFinished) = ^(BOOL isFinished) {
-        if ([self topViewController].navigationController == 0x0) {
-            if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1 && animated) {
-                [[self topViewController] showDetailViewController:viewController sender:self];
-            }
-            else {
-                [[self topViewController] presentViewController:viewController animated:animated completion:NULL];
-            }
+        if (topVc.navigationController == 0x0 || [viewController isKindOfClass:[UINavigationController class]]) {
+            // 当执行完dismissViewControllerAnimated后再执行showDetailViewController:报错如下:
+            //Error: hose view is not in the window hierarchy,
+            // 使用presentViewController:解决
+            /*
+             if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1 && animated) {
+             [topVc showDetailViewController:viewController sender:topVc];
+             }
+             else {
+             [topVc presentViewController:viewController animated:animated completion:NULL];
+             }
+             */
+            [topVc presentViewController:viewController animated:animated completion:NULL];
         }
         else {
             if (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_7_1 && animated) {
-                [[self topViewController].navigationController showViewController:viewController sender:self];
+                [topVc.navigationController showViewController:viewController sender:topVc];
             } else {
-                [[self topViewController].navigationController pushViewController:viewController animated:animated];
+                [topVc.navigationController pushViewController:viewController animated:animated];
             }
-            UIWindow *menuWindow = self.xy_window;
-            CGRect menuFrame =  menuWindow.frame;
-            menuFrame.size = CGSizeZero;
-            menuWindow.frame = menuFrame;
-            _viewFlags._isClosed = YES;
-            _viewFlags._isOpened = NO;
-            [self _closeCompetion];
-            // 存
-            NSNumber *btnTag = @([_currentClickHypotenuseItem.hypotenuseButton tag]);
-            if (!btnTag) {
-                return;
-            }
-            self.testPushViewControllerDictionary = @{btnTag: [NSString stringWithFormat:@"%p", viewController]};
+        }
+        // 存
+        if (vcKey) {
+            [currentClickVcAddress addObject:[NSString stringWithFormat:@"%p", viewController]];
+            [self.showViewControllerDictionary setObject:currentClickVcAddress forKey:vcKey];
         }
     };
     
+    
+    //////////////////// push或present之前的布局更新 ////////////////////
     void (^pushAnimationsBlock)(void) = ^ {
-        if (self.shouldHiddenCenterButtonWhenOpen) {
-            UIWindow *centerWindow = self.xy_window;
-            CGRect centerFrame =  centerWindow.frame;
-            centerFrame.size = _viewFlags._centerWindowSize;
-            centerWindow.frame = centerFrame;
-            centerWindow.alpha = 1.0;
-        }
         [self updateMenuBarButtonLayoutWithTriangleHypotenuse:_viewFlags._maxTriangleHypotenuse hypotenuseItems:self.menuBarItems];
-        [self setAlpha:0.0];
-        for (UIControl *btn in self.subviews) {
-            if ([btn isKindOfClass:NSClassFromString(@"MenuBarHypotenuseButton")]) {
-                [btn setAlpha:0.0];
-            }
-        }
-        [self.centerButton moveToPreviousLeanPosition];
     };
     
-    [UIView animateWithDuration:0.3
-                          delay:0.0
-         usingSpringWithDamping:0.8
-          initialSpringVelocity:0.5
-                        options:UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction
-                     animations:pushAnimationsBlock
-                     completion:pushAnimationsCompetionsBlockForViewController];
+    // 执行close并显示viewController
+    [self _closeWithTriggerPanGesture:NO animationBlock:pushAnimationsBlock closeCompletion:pushAnimationsCompetionsBlockForViewController];
+    
 }
 
 
@@ -1514,7 +868,7 @@ menuBarItems = _menuBarItems;
     }
     
     if (_shouldLeanToScreenCenterWhenOpened) {
-        [self.centerButton moveToScreentCenter];
+        [self.centerButton moveToDisplayCenter];
     }
     
     [self centerButton];
@@ -1567,7 +921,7 @@ menuBarItems = _menuBarItems;
         [self setAlpha:1.0];
         
         for (UIView *view in self.subviews) {
-            if ([view isKindOfClass:NSClassFromString(@"MenuBarHypotenuseButton")]) {
+            if ([view isKindOfClass:[MenuBarHypotenuseButton class]]) {
                 [view setAlpha:1.0];
             }
         }
@@ -1617,15 +971,15 @@ menuBarItems = _menuBarItems;
     }
 }
 
-/// 执行close，并根据当前是否触发了拖动手势，确定是否在让SuapensionWindow执行移动边缘的操作，防止移除时乱窜
-- (void)_closeWithTriggerPanGesture:(BOOL)isTriggerPanGesture {
-    
+- (void)_closeWithTriggerPanGesture:(BOOL)isTriggerPanGesture animationBlock:(void (^)(void))animationBlock closeCompletion:(void (^)(BOOL finished))closeCompletion {
     if (_viewFlags._isClosed)
         return;
     
     self.centerButton.usingSpringWithDamping = 0.5;
     self.centerButton.initialSpringVelocity = 10;
+    
     if (self.shouldHiddenCenterButtonWhenOpen) {
+        // 显示centerWindow
         UIWindow *centerWindow = self.centerButton.xy_window;
         CGRect centerFrame =  centerWindow.frame;
         centerFrame.size = _viewFlags._centerWindowSize;
@@ -1633,11 +987,16 @@ menuBarItems = _menuBarItems;
         centerWindow.alpha = 1.0;
     }
     
+    UIWindow *menuWindow = self.xy_window;
+    
     void (^closeAnimationsBlockWityIsTriggerPanGesture)(void) = ^ {
         [self setAlpha:0.0];
+        [menuWindow setAlpha:0.0];
+        
+        // 隐藏menuWindow，并让MenuBarHypotenuseButton全部恢复到原始位置
         for (UIView *view in self.subviews) {
-            [view setFrame:_viewFlags._memuBarButtonOriginFrame];
-            if ([view isKindOfClass:NSClassFromString(@"MenuBarHypotenuseButton")]) {
+            if ([view isKindOfClass:[MenuBarHypotenuseButton class]]) {
+                [view setFrame:_viewFlags._memuBarButtonOriginFrame];
                 [view setAlpha:0.0];
             }
         }
@@ -1645,31 +1004,40 @@ menuBarItems = _menuBarItems;
         if (!isTriggerPanGesture) {
             [self.centerButton moveToPreviousLeanPosition];
         }
+        if (animationBlock) {
+            animationBlock();
+        }
     };
     
     void (^closeCompletionBlock)(BOOL finished) = ^(BOOL finished) {
-        UIWindow *menuWindow = self.xy_window;
         
-        [UIView animateWithDuration:0.1 animations:^{
-            [menuWindow setAlpha:0.0];
+        [UIView animateWithDuration:0.1 delay:0 options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction animations:^{
             // 让其frame为zero，为了防止其隐藏后所在的位置无法响应事件
-        } completion:^(BOOL finished) {
             CGRect menuFrame =  menuWindow.frame;
             menuFrame.size = CGSizeZero;
             menuWindow.frame = menuFrame;
+        } completion:^(BOOL finished) {
+            if (closeCompletion) {
+                closeCompletion(finished);
+            }
             _viewFlags._isClosed = YES;
             _viewFlags._isOpened  = NO;
             [self _closeCompetion];
-        } ];
+        }];
     };
     
     [UIView animateWithDuration:0.3
                           delay:0.0
          usingSpringWithDamping:self.usingSpringWithDamping
           initialSpringVelocity:self.initialSpringVelocity
-                        options:UIViewAnimationCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
+                        options:UIViewAnimationOptionCurveEaseOut | UIViewAnimationOptionAllowUserInteraction
                      animations:closeAnimationsBlockWityIsTriggerPanGesture
                      completion:closeCompletionBlock];
+}
+
+/// 执行close，并根据当前是否触发了拖动手势，确定是否在让SuapensionWindow执行移动边缘的操作，防止移除时乱窜
+- (void)_closeWithTriggerPanGesture:(BOOL)isTriggerPanGesture {
+    [self _closeWithTriggerPanGesture:isTriggerPanGesture animationBlock:NULL closeCompletion:NULL];
 }
 
 
@@ -1688,7 +1056,7 @@ menuBarItems = _menuBarItems;
 
 - (void)removeAllMoreButtons {
     for (UIView *view in self.subviews) {
-        if ([view isKindOfClass:NSClassFromString(@"MenuBarHypotenuseButton")]) {
+        if ([view isKindOfClass:[MenuBarHypotenuseButton class]]) {
             if (view.tag >= moreBarButtonBaseTag) {
                 [view removeFromSuperview];
             }
@@ -1764,11 +1132,11 @@ menuBarItems = _menuBarItems;
     return _stackDisplayedItems;
 }
 
-- (NSDictionary<NSNumber *, NSString*> *)testPushViewControllerDictionary {
-    if (!_testPushViewControllerDictionary) {
-        _testPushViewControllerDictionary = [NSMutableDictionary dictionary];
+- (NSMutableDictionary<NSNumber *, NSMutableArray<NSString *> *> *)showViewControllerDictionary {
+    if (!_showViewControllerDictionary) {
+        _showViewControllerDictionary = [NSMutableDictionary dictionary];
     }
-    return _testPushViewControllerDictionary;
+    return _showViewControllerDictionary;
 }
 
 
@@ -1857,6 +1225,11 @@ menuBarItems = _menuBarItems;
         [self moreButtonClickWithHypotenuseItem:item];
         return;
     }
+    else {
+        if (item.actionHandler) {
+            item.actionHandler(item, self);
+        }
+    }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(suspensionMenuView:clickedHypotenuseButtonAtIndex:)]) {
         [self.delegate suspensionMenuView:self clickedHypotenuseButtonAtIndex:foundMenuButtonIdx];
@@ -1886,6 +1259,11 @@ menuBarItems = _menuBarItems;
         [self moreButtonClickWithHypotenuseItem:item];
         return;
     }
+    else {
+        if (item.actionHandler) {
+            item.actionHandler(item, self);
+        }
+    }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(suspensionMenuView:clickedMoreButtonAtIndex:fromHypotenuseItem:)]) {
         [self.delegate suspensionMenuView:self clickedMoreButtonAtIndex:foundMoreButtonIdx fromHypotenuseItem:item];
@@ -1906,7 +1284,7 @@ menuBarItems = _menuBarItems;
             item.orginRect = item.hypotenuseButton.frame;
         }
         for (UIView *view in self.subviews) {
-            if ([view isKindOfClass:NSClassFromString(@"MenuBarHypotenuseButton")]) {
+            if ([view isKindOfClass:[MenuBarHypotenuseButton class]]) {
                 [view setAlpha:0.0];
                 [view setFrame:CGRectZero];
             }
@@ -1994,7 +1372,9 @@ menuBarItems = _menuBarItems;
     if (self.shouldCloseWhenDeviceOrientationDidChange) {
         _viewFlags._isClosed = NO;
         [self _closeWithTriggerPanGesture:YES];
+        self.centerButton.needReversePoint = YES;
         [self.centerButton checkTargetPosition];
+        self.centerButton.needReversePoint = NO;
         return;
     }
     [self _updateMenuViewCenterWithIsOpened:_viewFlags._isOpened];
@@ -2329,7 +1709,7 @@ menuBarItems = _menuBarItems;
     }
     _openCompletion = nil;
     _closeCompletion = nil;
-    _testPushViewControllerDictionary = nil;
+    _showViewControllerDictionary = nil;
     _currentDisplayMoreItem = nil;
 #if ! __has_feature(objc_arc)
     [super dealloc];
@@ -2431,14 +1811,14 @@ menuBarItems = _menuBarItems;
     }
     
     UIWindow *suspensionWindow = [[UIWindow alloc] initWithFrame:menuWindowBounds];
-//#ifdef DEBUG
+    //#ifdef DEBUG
     suspensionWindow.windowLevel = CGFLOAT_MAX;
     //    suspensionWindow.windowLevel = CGFLOAT_MAX+10;
     // iOS9前自定义的window设置下面，不会被键盘遮罩，iOS10不行了
     //    NSArray<UIWindow *> *widnows = [UIApplication sharedApplication].windows;
-//#else
-//    suspensionWindow.windowLevel = UIWindowLevelAlert * 2;
-//#endif
+    //#else
+    //    suspensionWindow.windowLevel = UIWindowLevelAlert * 2;
+    //#endif
     
     UIViewController *vc = [[SuspensionMenuController alloc] initWithMenuView:self];
     
@@ -2465,44 +1845,31 @@ menuBarItems = _menuBarItems;
     [UIApplication sharedApplication].xy_suspensionMenuWindow = self;
 }
 
+
 @end
 
 @interface HypotenuseAction ()
 
 @property (nonatomic, strong) NSMutableArray<HypotenuseAction *> *moreHypotenusItems;
+- (instancetype)initWithButtonType:(UIButtonType)buttonType;
 
 @end
 
 @implementation HypotenuseAction
 
-- (instancetype)initWithButtonType:(OSButtonType)buttonType {
+- (instancetype)initWithButtonType:(UIButtonType)buttonType {
     if (self = [self init]) {
-        self.hypotenuseButton.buttonType = buttonType;
+        self.hypotenuseButton = [MenuBarHypotenuseButton buttonWithType:buttonType];
+        self.hypotenuseButton.layer.cornerRadius = 5.0;
+        self.hypotenuseButton.layer.masksToBounds = YES;
     }
     return self;
 }
 
-+ (instancetype)actionWithType:(OSButtonType)buttonType handler:(void (^ __nullable)(HypotenuseAction *action, SuspensionMenuView *menuView))handler {
++ (instancetype)actionWithType:(UIButtonType)buttonType handler:(void (^ __nullable)(HypotenuseAction *action, SuspensionMenuView *menuView))handler {
     HypotenuseAction *action = [[HypotenuseAction alloc] initWithButtonType:buttonType];
     action.actionHandler = handler;
     return action;
-    
-}
-
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-        self.hypotenuseButton = [MenuBarHypotenuseButton buttonWithType:OSButtonType3];
-        [self.hypotenuseButton addTarget:self action:@selector(hypotenuseButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return self;
-}
-
-- (void)hypotenuseButtonClick:(id)sender {
-    if (self.actionHandler) {
-        self.actionHandler(self, self.suspensionMenuView);
-    }
 }
 
 - (void)removeFromSuperview {
@@ -2552,9 +1919,11 @@ menuBarItems = _menuBarItems;
     return self;
 }
 - (void)_setup {
-    //    [self.titleLabel setFont:[UIFont systemFontOfSize:12 weight:1.0]];
-    //    self.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    //    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    self.titleLabel.adjustsFontSizeToFitWidth = YES;
+    self.titleLabel.minimumScaleFactor = 0.6;
+    self.titleLabel.numberOfLines = 2;
 }
 @end
 
@@ -2618,11 +1987,10 @@ menuBarItems = _menuBarItems;
     // 拿到在self.view上但同时在menuView上的点
     touchPoint = [self.menuView.layer convertPoint:touchPoint fromLayer:self.view.layer];
     if (![self.menuView.layer containsPoint:touchPoint]) {
-        [self.menuView close];
+        [self.menuView centerBarButtonClick:nil];
     }
     [self.nextResponder touchesEnded:touches withEvent:event];
 }
-
 
 @end
 

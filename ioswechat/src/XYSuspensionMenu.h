@@ -11,15 +11,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class SuspensionView, SuspensionMenuView, MenuBarHypotenuseButton, HypotenuseAction;
-
-typedef NS_ENUM(NSInteger, OSButtonType) {
-    OSButtonTypeDefault,
-    OSButtonType1,
-    OSButtonType2,
-    OSButtonType3,
-    OSButtonType4
+typedef NS_ENUM(NSUInteger, SuspensionViewLeanEdgeType) {
+    SuspensionViewLeanEdgeTypeHorizontal = 1,
+    SuspensionViewLeanEdgeTypeEachSide
 };
+
+@class SuspensionView, SuspensionMenuView, MenuBarHypotenuseButton, HypotenuseAction;
 
 #pragma mark *** Protocol ***
 
@@ -47,40 +44,6 @@ typedef NS_ENUM(NSInteger, OSButtonType) {
 
 @end
 
-#pragma mark *** OSCustomButton ***
-
-@interface OSCustomButton : UIControl
-
-@property (nonatomic, assign) OSButtonType buttonType;
-@property (nonatomic, assign) CGFloat cornerRadius;
-@property (nonatomic, assign) CGFloat borderWidth;
-@property (nonatomic, strong) UIColor *borderColor;
-@property (nonatomic, strong) UIColor *contentColor;
-@property (nonatomic, strong) UIColor *foregroundColor;
-@property (nonatomic, strong) UIColor *borderAnimateColor;
-@property (nonatomic, strong) UIColor *contentAnimateColor;
-@property (nonatomic, strong) UIColor *foregroundAnimateColor;
-@property (nonatomic, assign) BOOL restoreSelectedState;
-@property (nonatomic, assign) BOOL fadeInOutOnDisplay;
-@property (nonatomic, readonly, strong) UILabel *titleLabel;
-@property (nonatomic, readonly, strong) UILabel *detailLabel;
-@property (nonatomic, readonly, strong) UIImageView *imageView;
-@property (nonatomic, assign) UIEdgeInsets contentEdgeInsets;
-
-- (instancetype)initWithFrame:(CGRect)frame;
-+ (instancetype)buttonWithType:(OSButtonType)buttonType;
-- (void)setTitle:(NSString *)title forState:(UIControlState)state;
-- (void)setSubtitle:(NSString *)subtitle forState:(UIControlState)state;
-- (void)setImage:(UIImage *)image forState:(UIControlState)state;
-- (void)setTitleColor:(nullable UIColor *)color forState:(UIControlState)state;
-
-@end
-
-typedef NS_ENUM(NSUInteger, SuspensionViewLeanEdgeType) {
-    SuspensionViewLeanEdgeTypeHorizontal = 1,
-    SuspensionViewLeanEdgeTypeEachSide
-};
-
 @protocol XYSuspensionWindowProtocol <NSObject>
 - (UIWindow *)xy_window;
 - (void)xy_removeWindow;
@@ -94,8 +57,8 @@ typedef NS_ENUM(NSUInteger, SuspensionViewLeanEdgeType) {
 @property (nonatomic, assign, nullable) id<SuspensionViewDelegate> delegate;
 @property (nonatomic, assign, readonly) UIPanGestureRecognizer *panGestureRecognizer;
 #else
-@property (nonatomic, weak, nullable) id<SuspensionViewDelegate> delegate;
 @property (nonatomic, weak, readonly) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, weak, nullable) id<SuspensionViewDelegate> delegate;
 #endif
 
 @property (nonatomic, assign) SuspensionViewLeanEdgeType leanEdgeType;
@@ -110,7 +73,7 @@ typedef NS_ENUM(NSUInteger, SuspensionViewLeanEdgeType) {
 @property (nonatomic, copy, nullable) void (^clickCallBack)(void);
 @property (nonatomic, assign) BOOL shouldLeanToPreviousPositionWhenAppStart;
 
-- (void)moveToScreentCenter;
+- (void)moveToDisplayCenter;
 - (void)moveToPreviousLeanPosition;
 - (void)checkTargetPosition;
 
@@ -135,7 +98,6 @@ typedef NS_ENUM(NSUInteger, SuspensionViewLeanEdgeType) {
 @interface SuspensionWindow : SuspensionView
 
 + (instancetype)showWithFrame:(CGRect)frame;
-- (void)removeFromSuperview;
 
 @end
 
@@ -169,10 +131,10 @@ typedef NS_ENUM(NSUInteger, SuspensionViewLeanEdgeType) {
 
 - (void)addAction:(HypotenuseAction *)action;
 
-- (void)testPushViewController:(UIViewController *)viewController
-                      animated:(BOOL)animated;
-- (void)close;
+- (void)showViewController:(UIViewController *)viewController animated:(BOOL)animated;
+
 - (void)open;
+- (void)close;
 @end
 
 #pragma mark *** SuspensionMenuWindow ***
@@ -181,19 +143,16 @@ typedef NS_ENUM(NSUInteger, SuspensionViewLeanEdgeType) {
 
 @property (nonatomic, assign) BOOL shouldOpenWhenViewWillAppear;
 
-- (void)removeFromSuperview;
-
 @end
 
 #pragma mark *** HypotenuseAction ***
 
 @interface HypotenuseAction : NSObject
 
-@property (nonatomic, strong, readonly) OSCustomButton *hypotenuseButton;
+@property (nonatomic, strong, readonly) UIButton *hypotenuseButton;
 @property (nonatomic, strong, readonly) NSArray<HypotenuseAction *> *moreHypotenusItems;
 @property (nonatomic, assign) CGRect orginRect;
-- (instancetype)initWithButtonType:(OSButtonType)buttonType;
-+ (instancetype)actionWithType:(OSButtonType)buttonType
++ (instancetype)actionWithType:(UIButtonType)buttonType
                        handler:(void (^__nullable)(HypotenuseAction *action, SuspensionMenuView *menuView))handler;
 - (void)addMoreAction:(HypotenuseAction *)action;
 
@@ -215,3 +174,5 @@ typedef NS_ENUM(NSUInteger, SuspensionViewLeanEdgeType) {
 @end
 
 NS_ASSUME_NONNULL_END
+
+

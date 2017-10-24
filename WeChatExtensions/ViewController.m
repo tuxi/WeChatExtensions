@@ -33,31 +33,36 @@
     }];
     [menuView addAction:item];
     [item.hypotenuseButton setTitle:@"Debug\n window" forState:UIControlStateNormal];
-    
+    [item.hypotenuseButton setBackgroundColor:[UIColor whiteColor]];
+    item.hypotenuseButton.layer.cornerRadius = 10.0;
     HypotenuseAction *item1 = [HypotenuseAction actionWithType:1 handler:^(HypotenuseAction * _Nonnull action, SuspensionMenuView * menuView) {
         FoldersViewController *vc = [[FoldersViewController alloc] initWithRootDirectory:NSHomeDirectory()];
         vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:vc action:NSSelectorFromString(@"backButtonClick")];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
-        UIViewController *rootVc = [UIApplication sharedApplication].delegate.window.rootViewController;
-        [rootVc showDetailViewController:navController sender:rootVc];
+//        UIViewController *rootVc = [UIApplication sharedApplication].delegate.window.rootViewController;
+        [menuView showViewController:navController animated:YES];
+//        [rootVc showDetailViewController:navController sender:rootVc];
         [menuView close];
         
     }];
     [menuView addAction:item1];
     [item1.hypotenuseButton setTitle:@"操作\n 沙盒" forState:UIControlStateNormal];
-    
+    [item1.hypotenuseButton setBackgroundColor:[UIColor whiteColor]];
+    item1.hypotenuseButton.layer.cornerRadius = 10.0;
     HypotenuseAction *item3 = [HypotenuseAction actionWithType:1 handler:^(HypotenuseAction * _Nonnull action, SuspensionMenuView * menuView) {
         FoldersViewController *vc = [[FoldersViewController alloc] initWithRootDirectory:NSHomeDirectory()];
         vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:vc action:NSSelectorFromString(@"backButtonClick")];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
-        UIViewController *rootVc = [UIApplication sharedApplication].delegate.window.rootViewController;
-        [rootVc showDetailViewController:navController sender:rootVc];
+//        UIViewController *rootVc = [UIApplication sharedApplication].delegate.window.rootViewController;
+//        [rootVc showDetailViewController:navController sender:rootVc];
+         [menuView showViewController:navController animated:YES];
         [menuView close];
         
     }];
     [menuView addAction:item3];
     [item3.hypotenuseButton setTitle:@"操作\n 沙盒" forState:UIControlStateNormal];
-    
+    [item3.hypotenuseButton setBackgroundColor:[UIColor whiteColor]];
+    item3.hypotenuseButton.layer.cornerRadius = 10.0;
     [menuView showWithCompetion:NULL];
 
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),  ^{
