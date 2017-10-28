@@ -90,7 +90,7 @@
     }
     else {
         self.reversing = YES;
-        
+        self.searchResultType = XYLocationSearchResultTypeSearchPoi;
         // 初始化一个检索请求对象
         MKLocalSearchRequest *request = [[MKLocalSearchRequest alloc] init];
         
@@ -100,37 +100,43 @@
         //设置检索参数
 //        request.region=region;
         request.naturalLanguageQuery = self.searchText;
-        [_search cancel];
+        if (_search) {
+            [_search cancel];
+        }
         _search = [[MKLocalSearch alloc] initWithRequest:request];
         [_search startWithCompletionHandler:^(MKLocalSearchResponse *response, NSError *error) {
             self.reversing = NO;
-            if (self.delegate && [self.delegate respondsToSelector:@selector(locationSearchTableViewModel:searchResultChange:)]) {
-                [self.delegate locationSearchTableViewModel:self searchResultChange:response.mapItems];
+            self.searchResultType = XYLocationSearchResultTypeSearchPoi;
+            if (self.delegate && [self.delegate respondsToSelector:@selector(locationSearchTableViewModel:searchResultChange:error:)]) {
+                [self.delegate locationSearchTableViewModel:self searchResultChange:response.mapItems error:error];
             }
         }];
     }
 }
 
-- (void)fetchNearbyInfoCompletionHandler:(void (^)(NSArray<MKMapItem *> *))completionHandle {
+- (void)fetchNearbyInfoCompletionHandler:(void (^)(NSArray<MKMapItem *> *, NSError *))completionHandle {
     [self fetchNearbyInfoWithCoordinate:CLLocationCoordinate2DMake([XYExtensionConfig sharedInstance].latitude, [XYExtensionConfig sharedInstance].longitude) completionHandler:completionHandle];
 }
 
 /// 根据经纬度检索附近poi
 - (void)fetchNearbyInfoWithCoordinate:(CLLocationCoordinate2D)coordinate
-                    completionHandler:(void (^)(NSArray<MKMapItem *> *))completionHandle {
+                    completionHandler:(void (^)(NSArray<MKMapItem *> *, NSError *))completionHandle {
     self.reversing = YES;
+    self.searchResultType = XYLocationSearchResultTypeNearBy;
+    if (_search) {
+        [_search cancel];
+    }
     CLLocationCoordinate2D location = coordinate;
-    
     MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(location, 1 ,1 );
-    
     MKLocalSearchRequest *requst = [[MKLocalSearchRequest alloc] init];
     requst.region = region;
     requst.naturalLanguageQuery = @"place"; //想要的信息
-    MKLocalSearch *localSearch = [[MKLocalSearch alloc] initWithRequest:requst];
-    [localSearch startWithCompletionHandler:^(MKLocalSearchResponse * _Nullable response, NSError * _Nullable error) {
+    _search = [[MKLocalSearch alloc] initWithRequest:requst];
+    [_search startWithCompletionHandler:^(MKLocalSearchResponse * _Nullable response, NSError * _Nullable error) {
         self.reversing = NO;
+        self.searchResultType = XYLocationSearchResultTypeNearBy;
         if (completionHandle) {
-            completionHandle(response.mapItems);
+            completionHandle(response.mapItems, error);
         }
     }];
 }
@@ -153,6 +159,7 @@
     self.currentName = @"";
     self.currentAddress = @"";
     self.reversing = NO;
+    self.searchResultType = XYLocationSearchResultTypeNotKnow;
 }
 
 

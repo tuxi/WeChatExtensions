@@ -155,9 +155,9 @@
     self.navigationItem.rightBarButtonItem = item;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    [self.viewModel fetchNearbyInfoCompletionHandler:^(NSArray<MKMapItem *> *searchResult) {
+    [self.viewModel fetchNearbyInfoCompletionHandler:^(NSArray<MKMapItem *> *searchResult, NSError *error) {
         self.xy_searchResults = [searchResult mutableCopy];
-        [self.tableView reloadData];
+        [self reloadTableData];
     }];
     
 }
@@ -198,8 +198,15 @@
 
 - (void)startSearch {
     self.xy_searchResults = @[];
-    [self.tableView reloadData];
+    [self reloadTableData];
     [self.viewModel searchFromServer];
+}
+
+- (void)reloadTableData {
+    if (self.viewModel.searchResultType == XYLocationSearchResultTypeSearchPoi && !self.searchBar.text.length) {
+        self.xy_searchResults = @[];
+    }
+    [self.tableView reloadData];
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -266,11 +273,22 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
     if (section == 1) {
-        return @"搜索结果";
+        switch (self.viewModel.searchResultType) {
+            case XYLocationSearchResultTypeNearBy:
+                return @"附近地点";
+                break;
+            case XYLocationSearchResultTypeSearchPoi: {
+                return @"搜索结果";
+                break;
+            }
+            default:
+                break;
+        }
     }
     else {
         return nil;
     }
+    return nil;
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -347,7 +365,7 @@
 
 - (void)locationSearchTableViewModel:(XYLocationSearchTableViewModel *)viewModel searchResultChange:(NSArray *)searchResult {
     self.xy_searchResults = [searchResult mutableCopy];
-    [self.tableView reloadData];
+    [self reloadTableData];
 }
 
 ////////////////////////////////////////////////////////////////////////
