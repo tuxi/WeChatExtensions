@@ -363,7 +363,7 @@
 #pragma mark - XYLocationSearchTableViewModelDelegate
 ////////////////////////////////////////////////////////////////////////
 
-- (void)locationSearchTableViewModel:(XYLocationSearchTableViewModel *)viewModel searchResultChange:(NSArray *)searchResult {
+- (void)locationSearchTableViewModel:(XYLocationSearchTableViewModel *)viewModel searchResultChange:(NSArray *)searchResult error:(NSError *)error {
     self.xy_searchResults = [searchResult mutableCopy];
     [self reloadTableData];
 }
