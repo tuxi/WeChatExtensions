@@ -11,6 +11,8 @@
 #import "XYLocationManager.h"
 #import "XYExtensionConfig.h"
 #import "LocationConverter.h"
+#import "XYLocationSearchViewController.h"
+#import "CLLocation+XYLocationExtensions.h"
 
 #define UIColorHexFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
@@ -34,12 +36,13 @@
 @end
 
 
-@interface XYMapViewController () <MKMapViewDelegate>
+@interface XYMapViewController () <MKMapViewDelegate, XYLocationSearchViewControllerDelegate>
 
 @property (nonatomic, strong) MKMapView *mapView;
 @property (nonatomic, strong) LocationConverter *locManager;
 @property (nonatomic, strong) XYMapBottomBackgroundView *bottomView;
 @property (nonatomic, strong) UIButton *mapCenterBtn;
+@property (nonatomic, strong) UIButton *searchBtn;
 
 @end
 
@@ -76,6 +79,22 @@
     return _mapCenterBtn;
 }
 
+- (UIButton *)searchBtn {
+    if (!_searchBtn) {
+        _searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _searchBtn.titleLabel.font = [UIFont systemFontOfSize:10];
+        [_searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_searchBtn setTitle:@"搜索位置" forState:UIControlStateNormal];
+        [_searchBtn addTarget:self action:@selector(searchBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        _searchBtn.translatesAutoresizingMaskIntoConstraints = NO;
+        _searchBtn.layer.cornerRadius = 50.0*0.5;
+        _searchBtn.layer.masksToBounds = YES;
+        _searchBtn.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3];
+    }
+    return _searchBtn;
+}
+
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -84,6 +103,7 @@
     [self.view addSubview:self.mapView];
     [self.view addSubview:self.bottomView];
     [self.view addSubview:self.mapCenterBtn];
+    [self.view addSubview:self.searchBtn];
     [self setupConstraints];
     
     
@@ -124,6 +144,13 @@
     [self.mapView setCenterCoordinate:self.mapView.userLocation.coordinate animated:YES];
 }
 
+- (void)searchBtnClick {
+    XYLocationSearchViewController *vc = [XYLocationSearchViewController new];
+    vc.delegate = self;
+    [self.navigationController showViewController:vc sender:self];
+}
+
+
 - (void)setupConstraints {
     NSDictionary *viewDict = @{@"bottomView": self.bottomView, @"mapView": self.mapView};
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"|[mapView]|" options:kNilOptions metrics:nil views:viewDict]];
@@ -136,6 +163,11 @@
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.mapCenterBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomView attribute:NSLayoutAttributeTop multiplier:1.0 constant:-10.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.mapCenterBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50.0]];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.mapCenterBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50.0]];
+    
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.searchBtn attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeLeading multiplier:1.0 constant:10.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.searchBtn attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.bottomView attribute:NSLayoutAttributeTop multiplier:1.0 constant:-10.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.searchBtn attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50.0]];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.searchBtn attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1.0 constant:50.0]];
     
     [self.view layoutIfNeeded];
 }
@@ -172,8 +204,7 @@
 //    NSLog(@"%f  %f",mapView.region.span.latitudeDelta,mapView.region.span.longitudeDelta);
 //}
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation
-{
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     //如果是定位的大头针就不用自定义
     if (![annotation isKindOfClass:[XYMyAnotation class]]) {
         return nil;
@@ -193,17 +224,20 @@
     return annoView;
 }
 
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
-{
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     NSLog(@"didSelectAnnotationView--%@",view);
 }
 
 
-- (void)tap:(UITapGestureRecognizer *)tap
-{
+- (void)tap:(UITapGestureRecognizer *)tap {
     [self.view layoutIfNeeded];
     CGPoint touchPoint = [tap locationInView:tap.view];
     CLLocationCoordinate2D coordinate = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    [self updateLocationWithCoordinate:coordinate];
+    
+}
+
+- (void)updateLocationWithCoordinate:(CLLocationCoordinate2D)coordinate {
     [XYExtensionConfig sharedInstance].latitude = coordinate.latitude;
     [XYExtensionConfig sharedInstance].longitude = coordinate.longitude;
     
@@ -237,6 +271,27 @@
     
     [self.mapView addAnnotation:anno];
     [self.mapView setCenterCoordinate:coordinate animated:YES];
+}
+
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark - XYLocationSearchViewControllerDelegate
+////////////////////////////////////////////////////////////////////////
+- (void)locationSearchViewController:(UIViewController *)sender didSelectLocationWithName:(NSString *)name address:(NSString *)address mapItem:(MKMapItem *)mapItm {
+    
+    CLLocationCoordinate2D coordinate;
+    if (mapItm == nil) {
+        coordinate = CLLocationCoordinate2DMake([XYExtensionConfig sharedInstance].latitude, [XYExtensionConfig sharedInstance].longitude);
+    }
+    else {
+        CLLocation *location = [mapItm.placemark performSelector:@selector(location)];
+        coordinate  = location.xy_originalCoordinate;
+    }
+    
+    [self updateLocationWithCoordinate:coordinate];
+    
+//    [self.presentedViewController dismissViewControllerAnimated:YES completion:NULL];
+    [[sender navigationController] popViewControllerAnimated:YES];
 }
 
 

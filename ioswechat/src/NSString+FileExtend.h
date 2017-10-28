@@ -18,5 +18,4 @@
 /// 修改文件时间
 - (BOOL)updateFileModificationDateForFilePath;
 
-
 @end

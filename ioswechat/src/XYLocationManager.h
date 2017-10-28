@@ -10,6 +10,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
 
+FOUNDATION_EXPORT NSNotificationName const XYUpdateLocationsNotification;
+
 @interface XYLocationManager : NSObject <CLLocationManagerDelegate>
 
 + (instancetype)sharedManager;

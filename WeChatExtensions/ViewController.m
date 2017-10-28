@@ -10,8 +10,12 @@
 #import "XYSuspensionMenu.h"
 #import "ExceptionUtils.h"
 #import "FoldersViewController.h"
+#import "XYLocationSearchViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <XYLocationSearchViewControllerDelegate>
+
+@property (weak, nonatomic) IBOutlet UILabel *nameLab;
+@property (weak, nonatomic) IBOutlet UILabel *addressLab;
 
 @end
 
@@ -20,6 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    self.nameLab.textAlignment = NSTextAlignmentCenter;
+    self.addressLab.textAlignment = NSTextAlignmentCenter;
     
     SuspensionMenuWindow *menuView = [[SuspensionMenuWindow alloc] initWithFrame:CGRectMake(0, 0, 300, 300) itemSize:CGSizeMake(50, 50)];
     [menuView.centerButton setImage:[UIImage imageNamed:@"wechatout_callbutton"] forState:UIControlStateNormal];
@@ -53,8 +60,6 @@
         FoldersViewController *vc = [[FoldersViewController alloc] initWithRootDirectory:NSHomeDirectory()];
         vc.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:vc action:NSSelectorFromString(@"backButtonClick")];
         UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
-//        UIViewController *rootVc = [UIApplication sharedApplication].delegate.window.rootViewController;
-//        [rootVc showDetailViewController:navController sender:rootVc];
          [menuView showViewController:navController animated:YES];
         [menuView close];
         
@@ -64,19 +69,6 @@
     [item3.hypotenuseButton setBackgroundColor:[UIColor whiteColor]];
     item3.hypotenuseButton.layer.cornerRadius = 10.0;
     [menuView showWithCompetion:NULL];
-
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(),  ^{
-//        UIViewController *vc = [[UIApplication sharedApplication].delegate.window rootViewController];
-//        CGFloat SUSPENSIONVIEW_WH = 60;
-//        CGRect frame = CGRectMake(CGRectGetWidth([UIScreen mainScreen].bounds) - SUSPENSIONVIEW_WH, CGRectGetHeight([UIScreen mainScreen].bounds)-SUSPENSIONVIEW_WH-SUSPENSIONVIEW_WH, SUSPENSIONVIEW_WH, SUSPENSIONVIEW_WH);
-//        SuspensionView *sv = [vc showSuspensionViewWithFrame:frame];
-//        sv.leanEdgeInsets = UIEdgeInsetsMake(20, 0, 20, 0);
-//        sv.clickCallBack = ^{
-//            [ExceptionUtils openTestWindow];
-//        };
-//        sv.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
-//        [vc setSuspensionImageWithImageNamed:@"Icon" forState:UIControlStateNormal];
-//    });
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -88,6 +80,27 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (IBAction)gotoSearch:(id)sender {
+    
+    XYLocationSearchViewController *vc = [XYLocationSearchViewController new];
+    vc.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+//    [self presentViewController:vc animated:YES completion:NULL];
+}
+
+////////////////////////////////////////////////////////////////////////
+#pragma mark - XYLocationSearchViewControllerDelegate
+////////////////////////////////////////////////////////////////////////
+- (void)locationSearchViewController:(UIViewController *)sender didSelectLocationWithName:(NSString *)name address:(NSString *)address mapItem:(MKMapItem *)mapItm {
+    self.nameLab.text = name;
+    self.addressLab.text = address;
+    
+//    CGFloat l = mapItm.placemark.location.coordinate.longitude;
+    [self.navigationController popViewControllerAnimated:YES];
+//    [self.presentedViewController dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 
 @end

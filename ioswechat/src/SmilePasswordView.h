@@ -18,10 +18,10 @@
 
 @property (nonatomic) NSInteger dotCount;
 
--(instancetype)initWithCircleColor:(UIColor*)circleColor circleCount:(NSInteger)count frame:(CGRect)frame;
+- (instancetype)initWithCircleColor:(UIColor*)circleColor circleCount:(NSInteger)count frame:(CGRect)frame;
 
--(void)shakeAnimationWithCompletion:(dispatch_block_t)completion;
--(void)slideToLeftAnimationWithCompletion:(dispatch_block_t)completion;
+- (void)shakeAnimationWithCompletion:(dispatch_block_t)completion;
+- (void)slideToLeftAnimationWithCompletion:(dispatch_block_t)completion;
 
 
 @end

@@ -6,9 +6,11 @@
 //  Copyright © 2017年 Ossey. All rights reserved.
 //
 
+#import "XYLocationManager.h"
+
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-#import "XYLocationManager.h"
+NSNotificationName const XYUpdateLocationsNotification = @"XYUpdateLocationsNotification";
 
 @interface XYLocationManager () <UIAlertViewDelegate>
 
@@ -62,14 +64,12 @@
     
 }
 
-- (void)startLocation
-{
+- (void)startLocation {
     [_locationManager startUpdatingLocation];
 }
 
 #pragma mark - LocationManager
-- (CLLocationManager *)locationManager
-{
+- (CLLocationManager *)locationManager {
     if (!_locationManager) {
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
@@ -96,10 +96,9 @@
 //}
 
 #pragma mark 跟踪定位代理方法，每次位置发生变化即会执行（只要定位到相应位置）
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     CLLocation *location = [locations lastObject];
-    //取出经纬度
+    // 取出经纬度
     CLLocationCoordinate2D coordinate = location.coordinate;
     _longitude = coordinate.longitude;
     _latitude = coordinate.latitude;
@@ -109,6 +108,8 @@
         self.locationCompleteBlock(_longitude,_latitude);
     }
     [_locationManager stopUpdatingLocation];//停止定位
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:XYUpdateLocationsNotification object:locations];
 }
 
 @end

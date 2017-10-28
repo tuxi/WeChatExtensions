@@ -44,9 +44,52 @@
 		1813E8D11F9BBD10002C661E /* XYSuspensionMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8AB1F9BBD10002C661E /* XYSuspensionMenu.m */; };
 		1813E8DD1F9C5196002C661E /* OSUnlockBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8DC1F9C5196002C661E /* OSUnlockBackgroundView.m */; };
 		182434DF1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png in Resources */ = {isa = PBXBuildFile; fileRef = 182434DE1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png */; };
+		185A8EB41FA4776E006077CE /* XYLocationSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185A8EB31FA4776E006077CE /* XYLocationSearchViewController.m */; };
+		185A8EB71FA47800006077CE /* XYLocationSearchTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185A8EB61FA47800006077CE /* XYLocationSearchTableViewModel.m */; };
+		185A8EB81FA47803006077CE /* XYLocationSearchTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185A8EB61FA47800006077CE /* XYLocationSearchTableViewModel.m */; };
+		185A8EB91FA47997006077CE /* XYLocationSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 185A8EB31FA4776E006077CE /* XYLocationSearchViewController.m */; };
+		185A8EBB1FA47F93006077CE /* XYLocationSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 185A8EBA1FA47F93006077CE /* XYLocationSearch.bundle */; };
+		185A8EBC1FA47F93006077CE /* XYLocationSearch.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 185A8EBA1FA47F93006077CE /* XYLocationSearch.bundle */; };
+		185A8EBD1FA48142006077CE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F0A0EE1F8A4FBC00520154 /* ViewController.m */; };
+		185A8EBE1FA4A14C006077CE /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8731F9BBD10002C661E /* DirectoryWatcher.m */; };
+		185A8EBF1FA4A14C006077CE /* ExceptionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8751F9BBD10002C661E /* ExceptionUtils.m */; };
+		185A8EC01FA4A14C006077CE /* FoldersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8771F9BBD10002C661E /* FoldersViewController.m */; };
+		185A8EC11FA4A14C006077CE /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8791F9BBD10002C661E /* HealthKitManager.m */; };
+		185A8EC21FA4A14C006077CE /* icon_60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E87A1F9BBD10002C661E /* icon_60@2x.png */; };
+		185A8EC31FA4A14C006077CE /* icon_60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E87B1F9BBD10002C661E /* icon_60@3x.png */; };
+		185A8EC41FA4A14C006077CE /* icon_76.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E87C1F9BBD10002C661E /* icon_76.png */; };
+		185A8EC51FA4A14C006077CE /* icon_76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E87D1F9BBD10002C661E /* icon_76@2x.png */; };
+		185A8EC61FA4A14C006077CE /* iPhone 4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E87E1F9BBD10002C661E /* iPhone 4.png */; };
+		185A8EC71FA4A14C006077CE /* iPhone 5.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E87F1F9BBD10002C661E /* iPhone 5.png */; };
+		185A8EC81FA4A14C006077CE /* iPhone 6 Plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E8801F9BBD10002C661E /* iPhone 6 Plus.png */; };
+		185A8EC91FA4A14C006077CE /* iPhone 6.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E8811F9BBD10002C661E /* iPhone 6.png */; };
+		185A8ECA1FA4A14C006077CE /* LocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8831F9BBD10002C661E /* LocationConverter.m */; };
+		185A8ECB1FA4A14C006077CE /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8851F9BBD10002C661E /* MBProgressHUD.m */; };
+		185A8ECC1FA4A14C006077CE /* my_Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E8861F9BBD10002C661E /* my_Logo@2x.png */; };
+		185A8ECD1FA4A14C006077CE /* my_Logo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E8871F9BBD10002C661E /* my_Logo@3x.png */; };
+		185A8ECE1FA4A14C006077CE /* my_Touch_ID@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E8881F9BBD10002C661E /* my_Touch_ID@2x.png */; };
+		185A8ECF1FA4A14C006077CE /* my_Touch_ID@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E8891F9BBD10002C661E /* my_Touch_ID@3x.png */; };
+		185A8ED01FA4A14C006077CE /* NSObject+IvarList.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E88C1F9BBD10002C661E /* NSObject+IvarList.m */; };
+		185A8ED11FA4A14C006077CE /* NSString+FileExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E88E1F9BBD10002C661E /* NSString+FileExtend.m */; };
+		185A8ED21FA4A14C006077CE /* OSAuthenticatorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8901F9BBD10002C661E /* OSAuthenticatorHelper.m */; };
+		185A8ED31FA4A14C006077CE /* OSFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8921F9BBD10002C661E /* OSFileManager.m */; };
+		185A8ED41FA4A14C006077CE /* smile_Touch_ID@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E8931F9BBD10002C661E /* smile_Touch_ID@2x.png */; };
+		185A8ED51FA4A14C006077CE /* smile_Touch_ID@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1813E8941F9BBD10002C661E /* smile_Touch_ID@3x.png */; };
+		185A8ED61FA4A14C006077CE /* SmileAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8961F9BBD10002C661E /* SmileAuthenticator.m */; };
+		185A8ED71FA4A14C006077CE /* SmileKeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8981F9BBD10002C661E /* SmileKeychainWrapper.m */; };
+		185A8ED81FA4A14C006077CE /* SmilePasswordContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E89A1F9BBD10002C661E /* SmilePasswordContainerView.m */; };
+		185A8ED91FA4A14C006077CE /* SmilePasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E89C1F9BBD10002C661E /* SmilePasswordView.m */; };
+		185A8EDA1FA4A14C006077CE /* SmileSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E89E1F9BBD10002C661E /* SmileSettingVC.m */; };
+		185A8EDB1FA4A14C006077CE /* OSUnlockBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8DC1F9C5196002C661E /* OSUnlockBackgroundView.m */; };
+		185A8EDC1FA4A14C006077CE /* XYExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8A31F9BBD10002C661E /* XYExtensionConfig.m */; };
+		185A8EDD1FA4A14C006077CE /* XYExtensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8A51F9BBD10002C661E /* XYExtensionsViewController.m */; };
+		185A8EDE1FA4A14C006077CE /* XYLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8A71F9BBD10002C661E /* XYLocationManager.m */; };
+		185A8EDF1FA4A14C006077CE /* XYMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8A91F9BBD10002C661E /* XYMapViewController.m */; };
+		185A8EE01FA4A14C006077CE /* XYSuspensionMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 1813E8AB1F9BBD10002C661E /* XYSuspensionMenu.m */; };
+		185A8EE21FA4A1EE006077CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18F0A0F01F8A4FBC00520154 /* Main.storyboard */; };
+		185A8EE51FA4CD02006077CE /* CLLocation+XYLocationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 185A8EE41FA4CD02006077CE /* CLLocation+XYLocationExtensions.m */; };
+		185A8EE61FA4CD02006077CE /* CLLocation+XYLocationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 185A8EE41FA4CD02006077CE /* CLLocation+XYLocationExtensions.m */; };
 		18B058EE1F924C39004EF394 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B058ED1F924C39004EF394 /* AppDelegate.m */; };
-		18B058F11F924C39004EF394 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B058F01F924C39004EF394 /* ViewController.m */; };
-		18B058F41F924C39004EF394 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B058F21F924C39004EF394 /* Main.storyboard */; };
 		18B058F61F924C39004EF394 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18B058F51F924C39004EF394 /* Assets.xcassets */; };
 		18B058F91F924C39004EF394 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B058F71F924C39004EF394 /* LaunchScreen.storyboard */; };
 		18B058FC1F924C39004EF394 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B058FB1F924C39004EF394 /* main.m */; };
@@ -129,15 +172,19 @@
 		1813E8DB1F9C5196002C661E /* OSUnlockBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSUnlockBackgroundView.h; sourceTree = "<group>"; };
 		1813E8DC1F9C5196002C661E /* OSUnlockBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSUnlockBackgroundView.m; sourceTree = "<group>"; };
 		182434DE1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "屏幕快照 2017-10-15 上午12.17.25.png"; sourceTree = "<group>"; };
+		185A8EB21FA4776E006077CE /* XYLocationSearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYLocationSearchViewController.h; sourceTree = "<group>"; };
+		185A8EB31FA4776E006077CE /* XYLocationSearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYLocationSearchViewController.m; sourceTree = "<group>"; };
+		185A8EB51FA47800006077CE /* XYLocationSearchTableViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XYLocationSearchTableViewModel.h; sourceTree = "<group>"; };
+		185A8EB61FA47800006077CE /* XYLocationSearchTableViewModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XYLocationSearchTableViewModel.m; sourceTree = "<group>"; };
+		185A8EBA1FA47F93006077CE /* XYLocationSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = XYLocationSearch.bundle; sourceTree = "<group>"; };
+		185A8EE31FA4CD02006077CE /* CLLocation+XYLocationExtensions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CLLocation+XYLocationExtensions.h"; sourceTree = "<group>"; };
+		185A8EE41FA4CD02006077CE /* CLLocation+XYLocationExtensions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+XYLocationExtensions.m"; sourceTree = "<group>"; };
 		18A5AC731F8BE92A0027E7B3 /* insert_dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = insert_dylib; sourceTree = "<group>"; };
 		18A5AC741F8BE92A0027E7B3 /* ioswechat.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = ioswechat.dylib; sourceTree = "<group>"; };
 		18A5AC751F8BE92A0027E7B3 /* libsubstrate.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsubstrate.dylib; sourceTree = "<group>"; };
 		18B058EA1F924C39004EF394 /* WeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18B058EC1F924C39004EF394 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18B058ED1F924C39004EF394 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		18B058EF1F924C39004EF394 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		18B058F01F924C39004EF394 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		18B058F31F924C39004EF394 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18B058F51F924C39004EF394 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		18B058F81F924C39004EF394 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		18B058FA1F924C39004EF394 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -247,6 +294,13 @@
 				1813E8A91F9BBD10002C661E /* XYMapViewController.m */,
 				1813E8AA1F9BBD10002C661E /* XYSuspensionMenu.h */,
 				1813E8AB1F9BBD10002C661E /* XYSuspensionMenu.m */,
+				185A8EB21FA4776E006077CE /* XYLocationSearchViewController.h */,
+				185A8EB31FA4776E006077CE /* XYLocationSearchViewController.m */,
+				185A8EB51FA47800006077CE /* XYLocationSearchTableViewModel.h */,
+				185A8EB61FA47800006077CE /* XYLocationSearchTableViewModel.m */,
+				185A8EE31FA4CD02006077CE /* CLLocation+XYLocationExtensions.h */,
+				185A8EE41FA4CD02006077CE /* CLLocation+XYLocationExtensions.m */,
+				185A8EBA1FA47F93006077CE /* XYLocationSearch.bundle */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -268,9 +322,6 @@
 				18B059011F925E24004EF394 /* 屏幕快照 2017-10-14 下午10.20.53.png */,
 				18B058EC1F924C39004EF394 /* AppDelegate.h */,
 				18B058ED1F924C39004EF394 /* AppDelegate.m */,
-				18B058EF1F924C39004EF394 /* ViewController.h */,
-				18B058F01F924C39004EF394 /* ViewController.m */,
-				18B058F21F924C39004EF394 /* Main.storyboard */,
 				18B058F51F924C39004EF394 /* Assets.xcassets */,
 				18B058F71F924C39004EF394 /* LaunchScreen.storyboard */,
 				18B058FA1F924C39004EF394 /* Info.plist */,
@@ -455,9 +506,24 @@
 			files = (
 				18B058F91F924C39004EF394 /* LaunchScreen.storyboard in Resources */,
 				18B058F61F924C39004EF394 /* Assets.xcassets in Resources */,
-				18B058F41F924C39004EF394 /* Main.storyboard in Resources */,
+				185A8ECD1FA4A14C006077CE /* my_Logo@3x.png in Resources */,
+				185A8ED51FA4A14C006077CE /* smile_Touch_ID@3x.png in Resources */,
+				185A8EC91FA4A14C006077CE /* iPhone 6.png in Resources */,
+				185A8ED41FA4A14C006077CE /* smile_Touch_ID@2x.png in Resources */,
+				185A8EC51FA4A14C006077CE /* icon_76@2x.png in Resources */,
+				185A8EC31FA4A14C006077CE /* icon_60@3x.png in Resources */,
+				185A8EC81FA4A14C006077CE /* iPhone 6 Plus.png in Resources */,
+				185A8ECC1FA4A14C006077CE /* my_Logo@2x.png in Resources */,
+				185A8EC41FA4A14C006077CE /* icon_76.png in Resources */,
+				185A8EE21FA4A1EE006077CE /* Main.storyboard in Resources */,
+				185A8ECE1FA4A14C006077CE /* my_Touch_ID@2x.png in Resources */,
+				185A8EC21FA4A14C006077CE /* icon_60@2x.png in Resources */,
+				185A8EBC1FA47F93006077CE /* XYLocationSearch.bundle in Resources */,
 				182434DF1F927A9E003E33C8 /* 屏幕快照 2017-10-15 上午12.17.25.png in Resources */,
+				185A8ECF1FA4A14C006077CE /* my_Touch_ID@3x.png in Resources */,
+				185A8EC61FA4A14C006077CE /* iPhone 4.png in Resources */,
 				18B059021F925E24004EF394 /* 屏幕快照 2017-10-14 下午10.20.53.png in Resources */,
+				185A8EC71FA4A14C006077CE /* iPhone 5.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,6 +546,7 @@
 				1813E8B31F9BBD10002C661E /* icon_76.png in Resources */,
 				18F0A11A1F8A506E00520154 /* ioswechat.plist in Resources */,
 				1813E8B51F9BBD10002C661E /* iPhone 4.png in Resources */,
+				185A8EBB1FA47F93006077CE /* XYLocationSearch.bundle in Resources */,
 				1813E8BE1F9BBD10002C661E /* my_Touch_ID@3x.png in Resources */,
 				1813E8B81F9BBD10002C661E /* iPhone 6.png in Resources */,
 				1813E8B61F9BBD10002C661E /* iPhone 5.png in Resources */,
@@ -514,9 +581,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				18B058F11F924C39004EF394 /* ViewController.m in Sources */,
+				185A8EDC1FA4A14C006077CE /* XYExtensionConfig.m in Sources */,
+				185A8ED11FA4A14C006077CE /* NSString+FileExtend.m in Sources */,
+				185A8ED21FA4A14C006077CE /* OSAuthenticatorHelper.m in Sources */,
+				185A8EC01FA4A14C006077CE /* FoldersViewController.m in Sources */,
+				185A8EDF1FA4A14C006077CE /* XYMapViewController.m in Sources */,
+				185A8EBD1FA48142006077CE /* ViewController.m in Sources */,
+				185A8EE61FA4CD02006077CE /* CLLocation+XYLocationExtensions.m in Sources */,
+				185A8ED91FA4A14C006077CE /* SmilePasswordView.m in Sources */,
+				185A8ED61FA4A14C006077CE /* SmileAuthenticator.m in Sources */,
 				18B058FC1F924C39004EF394 /* main.m in Sources */,
+				185A8EDB1FA4A14C006077CE /* OSUnlockBackgroundView.m in Sources */,
+				185A8EBE1FA4A14C006077CE /* DirectoryWatcher.m in Sources */,
+				185A8ECB1FA4A14C006077CE /* MBProgressHUD.m in Sources */,
+				185A8EDE1FA4A14C006077CE /* XYLocationManager.m in Sources */,
+				185A8EBF1FA4A14C006077CE /* ExceptionUtils.m in Sources */,
+				185A8EB81FA47803006077CE /* XYLocationSearchTableViewModel.m in Sources */,
+				185A8ED81FA4A14C006077CE /* SmilePasswordContainerView.m in Sources */,
+				185A8ED01FA4A14C006077CE /* NSObject+IvarList.m in Sources */,
 				18B058EE1F924C39004EF394 /* AppDelegate.m in Sources */,
+				185A8ECA1FA4A14C006077CE /* LocationConverter.m in Sources */,
+				185A8ED31FA4A14C006077CE /* OSFileManager.m in Sources */,
+				185A8EE01FA4A14C006077CE /* XYSuspensionMenu.m in Sources */,
+				185A8EDA1FA4A14C006077CE /* SmileSettingVC.m in Sources */,
+				185A8ED71FA4A14C006077CE /* SmileKeychainWrapper.m in Sources */,
+				185A8EDD1FA4A14C006077CE /* XYExtensionsViewController.m in Sources */,
+				185A8EC11FA4A14C006077CE /* HealthKitManager.m in Sources */,
+				185A8EB91FA47997006077CE /* XYLocationSearchViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +625,7 @@
 				1813E8C21F9BBD10002C661E /* OSAuthenticatorHelper.m in Sources */,
 				1813E8CF1F9BBD10002C661E /* XYLocationManager.m in Sources */,
 				18F0A0FA1F8A4FBC00520154 /* main.m in Sources */,
+				185A8EB41FA4776E006077CE /* XYLocationSearchViewController.m in Sources */,
 				18F0A11B1F8A506E00520154 /* Makefile in Sources */,
 				1813E8AE1F9BBD10002C661E /* ExceptionUtils.m in Sources */,
 				1813E8C81F9BBD10002C661E /* SmilePasswordContainerView.m in Sources */,
@@ -546,7 +638,9 @@
 				1813E8D11F9BBD10002C661E /* XYSuspensionMenu.m in Sources */,
 				1813E8C31F9BBD10002C661E /* OSFileManager.m in Sources */,
 				1813E8D01F9BBD10002C661E /* XYMapViewController.m in Sources */,
+				185A8EE51FA4CD02006077CE /* CLLocation+XYLocationExtensions.m in Sources */,
 				18F0A0EC1F8A4FBC00520154 /* AppDelegate.m in Sources */,
+				185A8EB71FA47800006077CE /* XYLocationSearchTableViewModel.m in Sources */,
 				1813E8CD1F9BBD10002C661E /* XYExtensionConfig.m in Sources */,
 				1813E8C11F9BBD10002C661E /* NSString+FileExtend.m in Sources */,
 			);
@@ -555,14 +649,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		18B058F21F924C39004EF394 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18B058F31F924C39004EF394 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		18B058F71F924C39004EF394 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
