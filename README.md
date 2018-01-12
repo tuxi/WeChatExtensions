@@ -170,7 +170,7 @@ warm: 添加的方法需要在@interface中声明
 
 %end
 ```
-- 编写代码完成后，使用`make package`命令对其进行编译，注意:执行命令前先cd到项目文件夹
+- 编写代码完成后，使用`make package`命令对其进行编译，注意:执行命令前先cd到项目文件夹 （使用`make package messages=yes`查看详情信息）
 如果是在之前编写的基础上行修改，则需要重新编译, 需要先使用`make clean`，清理make, make package生成的文件
 执行完成后，会在项目多两个文件夹:`.theos`和`obj`，那么在`.theos`->`obj`->`debug`中有一个`WeChatPlugin.dylib`就是我们生成的dylib动态库;
 
@@ -289,6 +289,168 @@ _THEOS_PLATFORM_DPKG_DEB_COMPRESSION ?= xz
 `otool -l WeChatSiriExtensionUI | grep -B 2 crypt`
 `otool -l WeChatSiriExtension | grep -B 2 crypt`
 由于手上没有越狱设备，无法测试能否砸壳，所以暂时将这两个包从Pluglns目录中删掉，重新签名运行后还是报这个错，暂时放弃此版本
+
+问题4: 缺少`IO-Compress-Lzma`导致的一系列问题
+
+##### 为什么安装`IO-Compress-Lzma`
+由于换了新电脑，导致有些开发环境需要重新配置，今天在安装配置Theos后遇到一件非常恶心的事情：
+使用`nic.pl`创建一个Theos项目后，运行`make package`时，总是报错，错误信息如下:
+```
+swaedeMBP:videotweak swae$ make package
+> Making all for tweak VideoTweak…
+==> Preprocessing Tweak.xm…
+==> Compiling Tweak.xm (armv7)…
+==> Linking tweak VideoTweak (armv7)…
+==> Preprocessing Tweak.xm…
+==> Compiling Tweak.xm (arm64)…
+==> Linking tweak VideoTweak (arm64)…
+==> Merging tweak VideoTweak…
+==> Signing VideoTweak…
+> Making stage for tweak VideoTweak…
+Can't locate IO/Compress/Lzma.pm in @INC (you may need to install the IO::Compress::Lzma module) (@INC contains: /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/darwin-thread-multi-2level /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1 /usr/local/Cellar/perl/5.26.1/lib/perl5/5.26.1/darwin-thread-multi-2level /usr/local/Cellar/perl/5.26.1/lib/perl5/5.26.1 /usr/local/lib/perl5/site_perl/5.26.1/darwin-thread-multi-2level /usr/local/lib/perl5/site_perl/5.26.1) at /opt/theos/bin/dm.pl line 12.
+BEGIN failed--compilation aborted at /opt/theos/bin/dm.pl line 12.
+make: *** [internal-package] Error 2
+```
+- 实际上我在第一次使用`Theos `时也遇到过lzma的这种错误，第一次遇到错误如下:
+
+```
+> Making stage for tweak ioswechat…
+dpkg-deb: error: obsolete compression type 'lzma'; use xz instead
+Type dpkg-deb --help for help about manipulating *.deb files;
+Type dpkg --help for help about installing and deinstalling packages.
+make: *** [internal-package] Error 2
+
+```
+那一次我查找了一些资料后发现，这个错误是dpkg引起的，随着版本的升级，打包格式发生了变化
+```
+dpkg-deb: error: obsolete compression type 'lzma'; use xz instead
+```
+解决方案是按以下路径找到该文件修改其内容
+```
+/opt/theos/makefiles/package/deb.mk
+```
+找到第六行
+```
+_THEOS_PLATFORM_DPKG_DEB_COMPRESSION ?= lzma
+```
+将其改为
+```
+_THEOS_PLATFORM_DPKG_DEB_COMPRESSION ?= xz
+```
+
+-  解决过程：
+我安装上面的解决方法却依旧无法解决，而且我在Google和stackoverflow上也寻找不到答案；
+仔细查看问题`Can't locate IO/Compress/Lzma.pm in @INC (you may need to install the IO::Compress::Lzma module)`，其实就是缺少`IO::Compress::Lzma`，经过1个小时时间安装完成后，解决了我的问题;
+
+##### 安装`IO::Compress::Lzma`
+- 1.进入[cpn](http://search.cpan.org/dist/IO-Compress-Lzma/lib/IO/Compress/Xz.pm)下载[[IO-Compress-Lzma-2.074.tar.gz](http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/IO-Compress-Lzma-2.074.tar.gz)
+](http://www.cpan.org/authors/id/P/PM/PMQS/IO-Compress-Lzma-2.074.tar.gz)
+- 2.mac上双击解压，或者终端执行`tar zxvf IO-Compress-Lzma-2.074.tar.gz`
+- 3.`cd IO-Compress-Lzma-2.074`
+- 4. 根据`README`安装依赖，文章下面记录的有安装依赖的包，这里就算已经安装过了：
+```
+* Perl 5.006 or better.
+* Compress::Raw::Lzma
+* IO::Compress
+```
+- 5.编译`IO::Compress::Lzma`, 依次执行下面:
+```
+perl Makefile.PL
+make
+make test
+```
+- 6.安装
+```
+make install
+```
+安装完成:
+```
+swaedeMBP:IO-Compress-Lzma-2.074 swae$ make install
+Manifying 4 pod documents
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/.DS_Store
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/auto/.DS_Store
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/auto/IO/.DS_Store
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/.DS_Store
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Compress/.DS_Store
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Compress/Lzma.pm
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Compress/Xz.pm
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Compress/Adapter/Lzma.pm
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Compress/Adapter/Xz.pm
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Uncompress/UnLzma.pm
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Uncompress/UnXz.pm
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Uncompress/Adapter/UnLzma.pm
+Installing /usr/local/Cellar/perl/5.26.1/lib/perl5/site_perl/5.26.1/IO/Uncompress/Adapter/UnXz.pm
+ifeq ($(_THEOS_PACKAGE_FORMAT_LOADED),)
+Installing /usr/local/Cellar/perl/5.26.1/share/man/man3/IO::Compress::Lzma.3
+ifeq ($(_THEOS_PACKAGE_FORMAT_LOADED),)
+Installing /usr/local/Cellar/perl/5.26.1/share/man/man3/IO::Compress::Xz.3
+Installing /usr/local/Cellar/perl/5.26.1/share/man/man3/IO::Uncompress::UnLzma.3
+Installing /usr/local/Cellar/perl/5.26.1/share/man/man3/IO::Uncompress::UnXz.3
+Appending installation info to /usr/local/Cellar/perl/5.26.1/lib/perl5/5.26.1/darwin-thread-multi-2level/perllocal.pod
+```
+
+##### 重新编译Theos项目
+```
+make clean
+make package
+```
+最后我又遇见一个`make package`发生的问题:
+```
+swaedeMBP:videotweak swae$ make package
+> Making all for tweak VideoTweak…
+==> Preprocessing Tweak.xm…
+==> Compiling Tweak.xm (armv7)…
+==> Linking tweak VideoTweak (armv7)…
+==> Preprocessing Tweak.xm…
+==> Compiling Tweak.xm (arm64)…
+==> Linking tweak VideoTweak (arm64)…
+==> Merging tweak VideoTweak…
+==> Signing VideoTweak…
+> Making stage for tweak VideoTweak…
+ERROR: package name has characters that aren't lowercase alphanums or '-+.'.
+make: *** [internal-package] Error 255
+```
+解决方法:
+参考http://bbs.iosre.com/t/theos/2049/15中某位同学的评论，这里直接粘贴:
+```
+[@snakeninny](http://bbs.iosre.com/u/snakeninny) 谢谢你告诉我使用 `make messages=yes`，看日志得知问题是因为大写问题, 我在运行 `make package install`时遇到上面基本一样的错误，
+但是通过打印运行log信息来看，`make package install messages=yes`，遇到错误是：包名的字符不是小写。如下所示，而且当前项目的包名是：com.victor.iOSScreenShotTest
+随即，我删掉，重新创建一个项目，包名是: com.victor.iosscreenshottest
+`ERROR: package name has characters that aren't lowercase alphanums or '-+.'. make: *** [internal-package] Error 255` `
+
+然后就运行正常了，再次感谢~~ ![:smile:](http://upload-images.jianshu.io/upload_images/2135374-04728acf9a5a4521.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240 ":smile:")
+
+```
+
+##### 安装`IO::Compress::Lzma`的依赖包
+```
+Before you can build IO-Compress-Lzma you need to have the following
+installed on your system:
+
+* Perl 5.006 or better.
+* Compress::Raw::Lzma
+* IO::Compress
+```
+- 安装`Perl ` 执行下面即可
+```curl -L http://xrl.us/installperlosx | bash```
+-  安装  `Compress::Raw::Lzma`
+`使用cpanm`安装 , 执行：
+```cpanm Compress::Raw::Lzma```
+进入[cpan](http://search.cpan.org/~pmqs/Compress-Raw-Lzma-2.074/lib/Compress/Raw/Lzma.pm)下载[Compress-Raw-Lzma-2.074.tar.gz](http://search.cpan.org/CPAN/authors/id/P/PM/PMQS/Compress-Raw-Lzma-2.074.tar.gz)；
+下载完成后, 依次执行下面：
+```
+tar zxvf Compress-Raw-Lzma-2.074.tar.gz
+cd Compress-Raw-Lzma-2.074
+perl Makefile.PL
+make
+make test
+make install
+```
+此处参考http://blog.csdn.net/tty521/article/details/54301705
+- 安装`IO::Compress`
+实际上我就没有主动安装他，不过没有安装他也没问题，所以就没有安装
+
+
 
 
 
