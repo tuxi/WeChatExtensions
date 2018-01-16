@@ -179,11 +179,11 @@ warm: 添加的方法需要在@interface中声明
 结果中的一段`/Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate (offset 24)`
 可以看到这里还有对CydiaSubstrate的依赖，这是不行的 , 这个是theos在越狱机上特有的, 在非越狱机上需要更改此依赖
 - 修改依赖，将libsubstrate.dylib文件(该文件应该在/opt/thoes/lib/目录下),拷贝到与你生成的的.dylib一个目录下,通过下面的指令修改依赖,
-`cd /Users/mofeini/Desktop/weChat/Project/wechatplugin/.theos/obj/debug
-`
-`
+```cd /Users/mofeini/Desktop/weChat/Project/wechatplugin/.theos/obj/debug
+```
+```
 install_name_tool -change /Library/Frameworks/CydiaSubstrate.framework/CydiaSubstrate @loader_path/libsubstrate.dylib WeChatPlugin.dylib
-`
+```
 然后重新查看`otool -L WeChatPlugin.dylib`：
 会发现依赖已经修改成`@loader_path/libsubstrate.dylib (offset 24)`
 
@@ -451,7 +451,9 @@ make install
 实际上我就没有主动安装他，不过没有安装他也没问题，所以就没有安装
 
 
-
+#### Tweak 调试项目
+1.在tweak项目的makefile顶部添加DEBUG=1来开启debug，设置为0或者删除关闭debug。
+也可以在make的时候带入参数：`make package install DEBUG=1`
 
 
 
