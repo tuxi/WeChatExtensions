@@ -95,14 +95,13 @@ nic.pl
 
 #### 创建tweak
 使用theos来创建工程，创建工程也是比较简单的，就是调用我们theos目录中bin下的nic.pl命令。在执行nic.pl命令后，会让你选择新建工程的模板，目前theos中内置的是12套模板。当然我们此处创建的是tweak类型的工程，所有我们选择11
-- 新建工程，执行终端命令:
-`nic.pl`
+1. 新建工程，执行终端命令 `nic.pl`
 然后，终端会显示12套模板，并提示`Choose a Template (required): `，我们输入`11`回车
-接下来会提示项目名`Project Name (required): `，输入项目名`wechatplugin`，回车
-该 deb 包的名字：`Package Name [com.yourcompany.wechatplugin]:` 输入`com.ossey.WeChatPlugin`回车
-作者`Author/Maintainer Name [Swae]:` 输入你的名
-tweak 作用对象的 bundle identifier（比如微信为com.tencent.xin）：`[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: ` 输入`com.tencent.xin`回车
-tweak 安装完成后需要重启的应用名`[iphone/tweak] List of applications to terminate upon installation (space-separated, '-' for none) [SpringBoard]`,（比如微信为WeChat）
+2. 提示项目名`Project Name (required): `，输入项目名`wechatplugin`，回车
+3. 该 deb 包的名字：`Package Name [com.yourcompany.wechatplugin]:` 输入`com.ossey.WeChatPlugin`回车
+4. 作者`Author/Maintainer Name [Swae]:` 输入你的名
+5. tweak 作用对象的 bundle identifier（比如微信为com.tencent.xin）：`[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: ` 输入`com.tencent.xin`回车
+6. tweak 安装完成后需要重启的应用名`[iphone/tweak] List of applications to terminate upon installation (space-separated, '-' for none) [SpringBoard]`,（比如微信为WeChat）
 
 #### tweak项目中文件介绍
 
