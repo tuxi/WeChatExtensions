@@ -3,7 +3,7 @@
 //  FileDownloader
 //
 //  Created by Swae on 2017/10/22.
-//  Copyright © 2017年 Ossey. All rights reserved.
+//  Copyright © 2017年 alpface. All rights reserved.
 //
 
 #import "OSUnlockBackgroundView.h"

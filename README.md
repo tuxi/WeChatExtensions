@@ -98,7 +98,7 @@ nic.pl
 1. 新建工程，执行终端命令 `nic.pl`
 然后，终端会显示12套模板，并提示`Choose a Template (required): `，我们输入`11`回车
 2. 提示项目名`Project Name (required): `，输入项目名`wechatplugin`，回车
-3. 该 deb 包的名字：`Package Name [com.yourcompany.wechatplugin]:` 输入`com.ossey.WeChatPlugin`回车
+3. 该 deb 包的名字：`Package Name [com.yourcompany.wechatplugin]:` 输入`com.alpface.WeChatPlugin`回车
 4. 作者`Author/Maintainer Name [Swae]:` 输入你的名
 5. tweak 作用对象的 bundle identifier（比如微信为com.tencent.xin）：`[iphone/tweak] MobileSubstrate Bundle filter [com.apple.springboard]: ` 输入`com.tencent.xin`回车
 6. tweak 安装完成后需要重启的应用名`[iphone/tweak] List of applications to terminate upon installation (space-separated, '-' for none) [SpringBoard]`,（比如微信为WeChat）
@@ -234,7 +234,7 @@ cp -rf /Users/mofeini/Desktop/Theos/weChat/success/Payload/WeChat.app /Users/mof
 他首先将第三方app拷贝替换我们新建工程生成的app，然后对第三方app使用我们的证书进行签名，最后将签名后的第三方app安装至物理机器上，就像是是在运行我们自己编写的app。
 - 4.添加完脚本后，先clean整个工程，然后Run，可以在非越狱机器上
 
-![2017-10-14 下午10.20.53.png](https://github.com/Ossey/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-14%20下午10.20.53.png)
+![2017-10-14 下午10.20.53.png](https://github.com/alpface/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-14%20下午10.20.53.png)
 
 - 错误解决:
 问题1.``` Can't install application
@@ -244,7 +244,7 @@ xxx.app cannot be installed on iPhone. xxx.app does not contain a valid Info.pli
 
 问题2:
 运行app时报错:```dyld: Library not loaded: @rpath/libswiftCore.dylib Referenced from: /var/co```, 如图
-![屏幕快照 2017-10-15 上午12.17.25](https://github.com/Ossey/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-15%20上午12.17.25.png)
+![屏幕快照 2017-10-15 上午12.17.25](https://github.com/alpface/WeChatExtensions/blob/master/WeChat/屏幕快照%202017-10-15%20上午12.17.25.png)
 解决方法：使用ios-app-signer对第三方app进行重新签名生成新的ipa包，然解压ipa，将Run Script中的app路径改成新生成的，然后clean后运行即可
 
 ### 以下是一些错误解决

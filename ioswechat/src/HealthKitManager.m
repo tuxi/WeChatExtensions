@@ -3,7 +3,7 @@
 //  WeChatExtensions
 //
 //  Created by Swae on 2017/10/11.
-//  Copyright © 2017年 Ossey. All rights reserved.
+//  Copyright © 2017年 alpface. All rights reserved.
 //
 
 #import "HealthKitManager.h"
@@ -30,7 +30,7 @@
     {
         if (![HKHealthStore isHealthDataAvailable]) {
             
-            NSError *error = [NSError errorWithDomain: @"com.ossey.healthkit" code: 2 userInfo: [NSDictionary dictionaryWithObject:@"HealthKit is not available in th is Device"                                                                      forKey:NSLocalizedDescriptionKey]];
+            NSError *error = [NSError errorWithDomain: @"com.alpface.healthkit" code: 2 userInfo: [NSDictionary dictionaryWithObject:@"HealthKit is not available in th is Device"                                                                      forKey:NSLocalizedDescriptionKey]];
             if (compltion != nil) {
                 compltion(false, error);
             }

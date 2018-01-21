@@ -3,7 +3,7 @@
 //  WeChatExtensions
 //
 //  Created by Swae on 2017/10/11.
-//  Copyright © 2017年 Ossey. All rights reserved.
+//  Copyright © 2017年 alpface. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
