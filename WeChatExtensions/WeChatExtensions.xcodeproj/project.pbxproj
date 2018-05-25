@@ -1,0 +1,969 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D0CFCC0920B7A4B900971AE3 /* MDConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0CFCC0820B7A4B900971AE3 /* MDConfig.plist */; };
+		D0CFCC1320B7A4B900971AE3 /* libWeChatExtensionsDylib.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CFCC1220B7A4B900971AE3 /* libWeChatExtensionsDylib.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		D0CFCC1820B7A4B900971AE3 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFCC1720B7A4B900971AE3 /* JavaScriptCore.framework */; };
+		D0CFCC1A20B7A4B900971AE3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFCC1920B7A4B900971AE3 /* Foundation.framework */; };
+		D0CFCC1C20B7A4B900971AE3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CFCC1B20B7A4B900971AE3 /* UIKit.framework */; };
+		D0CFCC2120B7A4B900971AE3 /* WeChatExtensionsDylib.mm in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC2020B7A4B900971AE3 /* WeChatExtensionsDylib.mm */; };
+		D0CFCC2420B7A4B900971AE3 /* MDConfigManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC2320B7A4B900971AE3 /* MDConfigManager.h */; };
+		D0CFCC2620B7A4BA00971AE3 /* MDConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC2520B7A4B900971AE3 /* MDConfigManager.m */; };
+		D0CFCC2820B7A4BA00971AE3 /* MDCycriptManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC2720B7A4BA00971AE3 /* MDCycriptManager.h */; };
+		D0CFCC2A20B7A4BA00971AE3 /* MDCycriptManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC2920B7A4BA00971AE3 /* MDCycriptManager.m */; };
+		D0CFCC2C20B7A4BA00971AE3 /* MDMethodTrace.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC2B20B7A4BA00971AE3 /* MDMethodTrace.h */; };
+		D0CFCC2E20B7A4BA00971AE3 /* MDMethodTrace.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC2D20B7A4BA00971AE3 /* MDMethodTrace.m */; };
+		D0CFCC3020B7A4BA00971AE3 /* ANYMethodLog.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC2F20B7A4BA00971AE3 /* ANYMethodLog.h */; };
+		D0CFCC3220B7A4BA00971AE3 /* ANYMethodLog.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC3120B7A4BA00971AE3 /* ANYMethodLog.m */; };
+		D0CFCC3520B7A4BA00971AE3 /* LLDBTools.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC3420B7A4BA00971AE3 /* LLDBTools.h */; };
+		D0CFCC3720B7A4BA00971AE3 /* LLDBTools.mm in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC3620B7A4BA00971AE3 /* LLDBTools.mm */; };
+		D0CFCC3C20B7A4BA00971AE3 /* AntiAntiDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC3B20B7A4BA00971AE3 /* AntiAntiDebug.m */; };
+		D0CFCC3F20B7A4BA00971AE3 /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC3E20B7A4BA00971AE3 /* fishhook.c */; };
+		D0CFCC4120B7A4BA00971AE3 /* fishhook.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC4020B7A4BA00971AE3 /* fishhook.h */; };
+		D0CFCC4320B7A4BA00971AE3 /* WeChatExtensionsDylib.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC4220B7A4BA00971AE3 /* WeChatExtensionsDylib.h */; };
+		D0CFCC4520B7A4BA00971AE3 /* WeChatExtensionsDylib.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC4420B7A4BA00971AE3 /* WeChatExtensionsDylib.m */; };
+		D0CFCCD620B7AA6D00971AE3 /* DirectoryWatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC9420B7AA6300971AE3 /* DirectoryWatcher.h */; };
+		D0CFCCD720B7AA6D00971AE3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC9620B7AA6300971AE3 /* MBProgressHUD.m */; };
+		D0CFCCD820B7AA6D00971AE3 /* SmileAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC9720B7AA6300971AE3 /* SmileAuthenticator.m */; };
+		D0CFCCD920B7AA6D00971AE3 /* CLLocation+XYLocationExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC9920B7AA6300971AE3 /* CLLocation+XYLocationExtensions.m */; };
+		D0CFCCDA20B7AA6D00971AE3 /* XYMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC9A20B7AA6300971AE3 /* XYMapViewController.m */; };
+		D0CFCCDB20B7AA6D00971AE3 /* OSFileManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC9B20B7AA6300971AE3 /* OSFileManager.h */; };
+		D0CFCCDC20B7AA6D00971AE3 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCC9C20B7AA6400971AE3 /* MBProgressHUD.h */; };
+		D0CFCCDD20B7AA6D00971AE3 /* FoldersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCC9D20B7AA6400971AE3 /* FoldersViewController.m */; };
+		D0CFCCDE20B7AA6D00971AE3 /* SmilePasswordView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCA020B7AA6400971AE3 /* SmilePasswordView.h */; };
+		D0CFCCDF20B7AA6D00971AE3 /* XYLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCA120B7AA6400971AE3 /* XYLocationManager.h */; };
+		D0CFCCE020B7AA6D00971AE3 /* SmileAuthenticator.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCA220B7AA6400971AE3 /* SmileAuthenticator.h */; };
+		D0CFCCE120B7AA6D00971AE3 /* ExceptionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCA320B7AA6400971AE3 /* ExceptionUtils.m */; };
+		D0CFCCE220B7AA6D00971AE3 /* NSString+FileExtend.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCA420B7AA6400971AE3 /* NSString+FileExtend.h */; };
+		D0CFCCE320B7AA6D00971AE3 /* XYMapViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCA520B7AA6400971AE3 /* XYMapViewController.h */; };
+		D0CFCCE420B7AA6D00971AE3 /* XYSuspensionMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCA720B7AA6400971AE3 /* XYSuspensionMenu.h */; };
+		D0CFCCE520B7AA6D00971AE3 /* HealthKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCA920B7AA6500971AE3 /* HealthKitManager.m */; };
+		D0CFCCE620B7AA6D00971AE3 /* SmileSettingVC.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCAA20B7AA6500971AE3 /* SmileSettingVC.h */; };
+		D0CFCCE720B7AA6D00971AE3 /* LocationConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCAB20B7AA6500971AE3 /* LocationConverter.h */; };
+		D0CFCCE820B7AA6D00971AE3 /* NSObject+IvarList.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCAC20B7AA6500971AE3 /* NSObject+IvarList.h */; };
+		D0CFCCE920B7AA6D00971AE3 /* OSUnlockBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCAD20B7AA6500971AE3 /* OSUnlockBackgroundView.m */; };
+		D0CFCCEA20B7AA6D00971AE3 /* XYLocationSearchTableViewModel.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCAE20B7AA6500971AE3 /* XYLocationSearchTableViewModel.h */; };
+		D0CFCCEB20B7AA6D00971AE3 /* DirectoryWatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCB120B7AA6600971AE3 /* DirectoryWatcher.m */; };
+		D0CFCCEC20B7AA6D00971AE3 /* LocationConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCB220B7AA6600971AE3 /* LocationConverter.m */; };
+		D0CFCCED20B7AA6D00971AE3 /* XYExtensionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCB320B7AA6600971AE3 /* XYExtensionsViewController.m */; };
+		D0CFCCEE20B7AA6D00971AE3 /* SmilePasswordContainerView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCB420B7AA6600971AE3 /* SmilePasswordContainerView.h */; };
+		D0CFCCEF20B7AA6D00971AE3 /* XYExtensionConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCB520B7AA6600971AE3 /* XYExtensionConfig.m */; };
+		D0CFCCF020B7AA6D00971AE3 /* XYLocationSearchViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCB620B7AA6700971AE3 /* XYLocationSearchViewController.h */; };
+		D0CFCCF120B7AA6D00971AE3 /* SmilePasswordContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCB820B7AA6700971AE3 /* SmilePasswordContainerView.m */; };
+		D0CFCCF220B7AA6D00971AE3 /* SmileSettingVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCBA20B7AA6700971AE3 /* SmileSettingVC.m */; };
+		D0CFCCF320B7AA6D00971AE3 /* SmilePasswordView.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCBC20B7AA6800971AE3 /* SmilePasswordView.m */; };
+		D0CFCCF420B7AA6D00971AE3 /* XYLocationSearchTableViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCBD20B7AA6800971AE3 /* XYLocationSearchTableViewModel.m */; };
+		D0CFCCF520B7AA6D00971AE3 /* NSObject+IvarList.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCBE20B7AA6800971AE3 /* NSObject+IvarList.m */; };
+		D0CFCCF620B7AA6D00971AE3 /* XYExtensionConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCC020B7AA6800971AE3 /* XYExtensionConfig.h */; };
+		D0CFCCF720B7AA6D00971AE3 /* SmileKeychainWrapper.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCC120B7AA6900971AE3 /* SmileKeychainWrapper.h */; };
+		D0CFCCF820B7AA6D00971AE3 /* CLLocation+XYLocationExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCC220B7AA6900971AE3 /* CLLocation+XYLocationExtensions.h */; };
+		D0CFCCF920B7AA6D00971AE3 /* XYSuspensionMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCC320B7AA6900971AE3 /* XYSuspensionMenu.m */; };
+		D0CFCCFA20B7AA6D00971AE3 /* CaptainHook.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCC420B7AA6900971AE3 /* CaptainHook.h */; };
+		D0CFCCFB20B7AA6D00971AE3 /* WeChatHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCC520B7AA6A00971AE3 /* WeChatHeaders.h */; };
+		D0CFCCFC20B7AA6D00971AE3 /* ExceptionUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCC620B7AA6A00971AE3 /* ExceptionUtils.h */; };
+		D0CFCCFD20B7AA6D00971AE3 /* OSFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCC720B7AA6A00971AE3 /* OSFileManager.m */; };
+		D0CFCCFE20B7AA6D00971AE3 /* OSAuthenticatorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCC820B7AA6A00971AE3 /* OSAuthenticatorHelper.m */; };
+		D0CFCCFF20B7AA6D00971AE3 /* SmileKeychainWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCC920B7AA6A00971AE3 /* SmileKeychainWrapper.m */; };
+		D0CFCD0020B7AA6D00971AE3 /* HealthKitManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCCA20B7AA6B00971AE3 /* HealthKitManager.h */; };
+		D0CFCD0120B7AA6D00971AE3 /* OSUnlockBackgroundView.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCCC20B7AA6B00971AE3 /* OSUnlockBackgroundView.h */; };
+		D0CFCD0220B7AA6D00971AE3 /* XYLocationSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCCE20B7AA6B00971AE3 /* XYLocationSearchViewController.m */; };
+		D0CFCD0320B7AA6D00971AE3 /* FoldersViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCCF20B7AA6C00971AE3 /* FoldersViewController.h */; };
+		D0CFCD0420B7AA6D00971AE3 /* OSAuthenticatorHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCD020B7AA6C00971AE3 /* OSAuthenticatorHelper.h */; };
+		D0CFCD0520B7AA6D00971AE3 /* NSString+FileExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCD320B7AA6C00971AE3 /* NSString+FileExtend.m */; };
+		D0CFCD0620B7AA6D00971AE3 /* XYExtensionsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CFCCD420B7AA6C00971AE3 /* XYExtensionsViewController.h */; };
+		D0CFCD0720B7AA6D00971AE3 /* XYLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CFCCD520B7AA6C00971AE3 /* XYLocationManager.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D0CFCC1420B7A4B900971AE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0CFCBF520B7A4B900971AE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0CFCC1120B7A4B900971AE3;
+			remoteInfo = WeChatExtensionsDylib;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D0CFCBFD20B7A4B900971AE3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D0CFCC1320B7A4B900971AE3 /* libWeChatExtensionsDylib.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		D0CFCC0020B7A4B900971AE3 /* WeChatExtensions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeChatExtensions.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0CFCC0320B7A4B900971AE3 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
+		D0CFCC0420B7A4B900971AE3 /* Target.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Target.plist; sourceTree = "<group>"; };
+		D0CFCC0620B7A4B900971AE3 /* quick-resign.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = "quick-resign.sh"; path = "Scripts/quick-resign.sh"; sourceTree = "<group>"; };
+		D0CFCC0820B7A4B900971AE3 /* MDConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = MDConfig.plist; path = Config/MDConfig.plist; sourceTree = "<group>"; };
+		D0CFCC0B20B7A4B900971AE3 /* put ipa or app here */ = {isa = PBXFileReference; lastKnownFileType = text; name = "put ipa or app here"; path = "TargetApp/put ipa or app here"; sourceTree = "<group>"; };
+		D0CFCC0C20B7A4B900971AE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D0CFCC1220B7A4B900971AE3 /* libWeChatExtensionsDylib.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libWeChatExtensionsDylib.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0CFCC1720B7A4B900971AE3 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		D0CFCC1920B7A4B900971AE3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D0CFCC1B20B7A4B900971AE3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D0CFCC1F20B7A4B900971AE3 /* WeChatExtensionsDylib.xm */ = {isa = PBXFileReference; lastKnownFileType = text; name = WeChatExtensionsDylib.xm; path = Logos/WeChatExtensionsDylib.xm; sourceTree = "<group>"; };
+		D0CFCC2020B7A4B900971AE3 /* WeChatExtensionsDylib.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = WeChatExtensionsDylib.mm; path = Logos/WeChatExtensionsDylib.mm; sourceTree = "<group>"; };
+		D0CFCC2320B7A4B900971AE3 /* MDConfigManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MDConfigManager.h; path = Config/MDConfigManager.h; sourceTree = "<group>"; };
+		D0CFCC2520B7A4B900971AE3 /* MDConfigManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MDConfigManager.m; path = Config/MDConfigManager.m; sourceTree = "<group>"; };
+		D0CFCC2720B7A4BA00971AE3 /* MDCycriptManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MDCycriptManager.h; path = Config/MDCycriptManager.h; sourceTree = "<group>"; };
+		D0CFCC2920B7A4BA00971AE3 /* MDCycriptManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MDCycriptManager.m; path = Config/MDCycriptManager.m; sourceTree = "<group>"; };
+		D0CFCC2B20B7A4BA00971AE3 /* MDMethodTrace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MDMethodTrace.h; path = Config/MDMethodTrace.h; sourceTree = "<group>"; };
+		D0CFCC2D20B7A4BA00971AE3 /* MDMethodTrace.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MDMethodTrace.m; path = Config/MDMethodTrace.m; sourceTree = "<group>"; };
+		D0CFCC2F20B7A4BA00971AE3 /* ANYMethodLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ANYMethodLog.h; path = Config/ANYMethodLog.h; sourceTree = "<group>"; };
+		D0CFCC3120B7A4BA00971AE3 /* ANYMethodLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = ANYMethodLog.m; path = Config/ANYMethodLog.m; sourceTree = "<group>"; };
+		D0CFCC3420B7A4BA00971AE3 /* LLDBTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = LLDBTools.h; path = Tools/LLDBTools.h; sourceTree = "<group>"; };
+		D0CFCC3620B7A4BA00971AE3 /* LLDBTools.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = LLDBTools.mm; path = Tools/LLDBTools.mm; sourceTree = "<group>"; };
+		D0CFCC3920B7A4BA00971AE3 /* WeChatExtensionsDylib-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WeChatExtensionsDylib-Prefix.pch"; sourceTree = "<group>"; };
+		D0CFCC3B20B7A4BA00971AE3 /* AntiAntiDebug.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AntiAntiDebug.m; path = AntiAntiDebug/AntiAntiDebug.m; sourceTree = "<group>"; };
+		D0CFCC3E20B7A4BA00971AE3 /* fishhook.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = fishhook.c; path = fishhook/fishhook.c; sourceTree = "<group>"; };
+		D0CFCC4020B7A4BA00971AE3 /* fishhook.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = fishhook.h; path = fishhook/fishhook.h; sourceTree = "<group>"; };
+		D0CFCC4220B7A4BA00971AE3 /* WeChatExtensionsDylib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeChatExtensionsDylib.h; sourceTree = "<group>"; };
+		D0CFCC4420B7A4BA00971AE3 /* WeChatExtensionsDylib.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeChatExtensionsDylib.m; sourceTree = "<group>"; };
+		D0CFCC9420B7AA6300971AE3 /* DirectoryWatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectoryWatcher.h; sourceTree = "<group>"; };
+		D0CFCC9520B7AA6300971AE3 /* icon_60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_60@2x.png"; sourceTree = "<group>"; };
+		D0CFCC9620B7AA6300971AE3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		D0CFCC9720B7AA6300971AE3 /* SmileAuthenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmileAuthenticator.m; sourceTree = "<group>"; };
+		D0CFCC9820B7AA6300971AE3 /* smile_Touch_ID@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smile_Touch_ID@2x.png"; sourceTree = "<group>"; };
+		D0CFCC9920B7AA6300971AE3 /* CLLocation+XYLocationExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+XYLocationExtensions.m"; sourceTree = "<group>"; };
+		D0CFCC9A20B7AA6300971AE3 /* XYMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYMapViewController.m; sourceTree = "<group>"; };
+		D0CFCC9B20B7AA6300971AE3 /* OSFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSFileManager.h; sourceTree = "<group>"; };
+		D0CFCC9C20B7AA6400971AE3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		D0CFCC9D20B7AA6400971AE3 /* FoldersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoldersViewController.m; sourceTree = "<group>"; };
+		D0CFCC9E20B7AA6400971AE3 /* iPhone 4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 4.png"; sourceTree = "<group>"; };
+		D0CFCC9F20B7AA6400971AE3 /* icon_76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_76@2x.png"; sourceTree = "<group>"; };
+		D0CFCCA020B7AA6400971AE3 /* SmilePasswordView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmilePasswordView.h; sourceTree = "<group>"; };
+		D0CFCCA120B7AA6400971AE3 /* XYLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYLocationManager.h; sourceTree = "<group>"; };
+		D0CFCCA220B7AA6400971AE3 /* SmileAuthenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmileAuthenticator.h; sourceTree = "<group>"; };
+		D0CFCCA320B7AA6400971AE3 /* ExceptionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExceptionUtils.m; sourceTree = "<group>"; };
+		D0CFCCA420B7AA6400971AE3 /* NSString+FileExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FileExtend.h"; sourceTree = "<group>"; };
+		D0CFCCA520B7AA6400971AE3 /* XYMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYMapViewController.h; sourceTree = "<group>"; };
+		D0CFCCA620B7AA6400971AE3 /* icon_76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_76.png; sourceTree = "<group>"; };
+		D0CFCCA720B7AA6400971AE3 /* XYSuspensionMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYSuspensionMenu.h; sourceTree = "<group>"; };
+		D0CFCCA820B7AA6500971AE3 /* my_Touch_ID@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_Touch_ID@2x.png"; sourceTree = "<group>"; };
+		D0CFCCA920B7AA6500971AE3 /* HealthKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthKitManager.m; sourceTree = "<group>"; };
+		D0CFCCAA20B7AA6500971AE3 /* SmileSettingVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmileSettingVC.h; sourceTree = "<group>"; };
+		D0CFCCAB20B7AA6500971AE3 /* LocationConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationConverter.h; sourceTree = "<group>"; };
+		D0CFCCAC20B7AA6500971AE3 /* NSObject+IvarList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+IvarList.h"; sourceTree = "<group>"; };
+		D0CFCCAD20B7AA6500971AE3 /* OSUnlockBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSUnlockBackgroundView.m; sourceTree = "<group>"; };
+		D0CFCCAE20B7AA6500971AE3 /* XYLocationSearchTableViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYLocationSearchTableViewModel.h; sourceTree = "<group>"; };
+		D0CFCCAF20B7AA6500971AE3 /* my_Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_Logo@2x.png"; sourceTree = "<group>"; };
+		D0CFCCB020B7AA6600971AE3 /* icon_60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_60@3x.png"; sourceTree = "<group>"; };
+		D0CFCCB120B7AA6600971AE3 /* DirectoryWatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectoryWatcher.m; sourceTree = "<group>"; };
+		D0CFCCB220B7AA6600971AE3 /* LocationConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationConverter.m; sourceTree = "<group>"; };
+		D0CFCCB320B7AA6600971AE3 /* XYExtensionsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYExtensionsViewController.m; sourceTree = "<group>"; };
+		D0CFCCB420B7AA6600971AE3 /* SmilePasswordContainerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmilePasswordContainerView.h; sourceTree = "<group>"; };
+		D0CFCCB520B7AA6600971AE3 /* XYExtensionConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYExtensionConfig.m; sourceTree = "<group>"; };
+		D0CFCCB620B7AA6700971AE3 /* XYLocationSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYLocationSearchViewController.h; sourceTree = "<group>"; };
+		D0CFCCB720B7AA6700971AE3 /* iPhone 6 Plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 6 Plus.png"; sourceTree = "<group>"; };
+		D0CFCCB820B7AA6700971AE3 /* SmilePasswordContainerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmilePasswordContainerView.m; sourceTree = "<group>"; };
+		D0CFCCB920B7AA6700971AE3 /* XYLocationSearch.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = XYLocationSearch.bundle; sourceTree = "<group>"; };
+		D0CFCCBA20B7AA6700971AE3 /* SmileSettingVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmileSettingVC.m; sourceTree = "<group>"; };
+		D0CFCCBB20B7AA6700971AE3 /* my_Logo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_Logo@3x.png"; sourceTree = "<group>"; };
+		D0CFCCBC20B7AA6800971AE3 /* SmilePasswordView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmilePasswordView.m; sourceTree = "<group>"; };
+		D0CFCCBD20B7AA6800971AE3 /* XYLocationSearchTableViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYLocationSearchTableViewModel.m; sourceTree = "<group>"; };
+		D0CFCCBE20B7AA6800971AE3 /* NSObject+IvarList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+IvarList.m"; sourceTree = "<group>"; };
+		D0CFCCC020B7AA6800971AE3 /* XYExtensionConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYExtensionConfig.h; sourceTree = "<group>"; };
+		D0CFCCC120B7AA6900971AE3 /* SmileKeychainWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SmileKeychainWrapper.h; sourceTree = "<group>"; };
+		D0CFCCC220B7AA6900971AE3 /* CLLocation+XYLocationExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+XYLocationExtensions.h"; sourceTree = "<group>"; };
+		D0CFCCC320B7AA6900971AE3 /* XYSuspensionMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYSuspensionMenu.m; sourceTree = "<group>"; };
+		D0CFCCC420B7AA6900971AE3 /* CaptainHook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptainHook.h; sourceTree = "<group>"; };
+		D0CFCCC520B7AA6A00971AE3 /* WeChatHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeChatHeaders.h; sourceTree = "<group>"; };
+		D0CFCCC620B7AA6A00971AE3 /* ExceptionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExceptionUtils.h; sourceTree = "<group>"; };
+		D0CFCCC720B7AA6A00971AE3 /* OSFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSFileManager.m; sourceTree = "<group>"; };
+		D0CFCCC820B7AA6A00971AE3 /* OSAuthenticatorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSAuthenticatorHelper.m; sourceTree = "<group>"; };
+		D0CFCCC920B7AA6A00971AE3 /* SmileKeychainWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmileKeychainWrapper.m; sourceTree = "<group>"; };
+		D0CFCCCA20B7AA6B00971AE3 /* HealthKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthKitManager.h; sourceTree = "<group>"; };
+		D0CFCCCB20B7AA6B00971AE3 /* iPhone 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 5.png"; sourceTree = "<group>"; };
+		D0CFCCCC20B7AA6B00971AE3 /* OSUnlockBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSUnlockBackgroundView.h; sourceTree = "<group>"; };
+		D0CFCCCD20B7AA6B00971AE3 /* my_Touch_ID@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "my_Touch_ID@3x.png"; sourceTree = "<group>"; };
+		D0CFCCCE20B7AA6B00971AE3 /* XYLocationSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYLocationSearchViewController.m; sourceTree = "<group>"; };
+		D0CFCCCF20B7AA6C00971AE3 /* FoldersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoldersViewController.h; sourceTree = "<group>"; };
+		D0CFCCD020B7AA6C00971AE3 /* OSAuthenticatorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSAuthenticatorHelper.h; sourceTree = "<group>"; };
+		D0CFCCD120B7AA6C00971AE3 /* iPhone 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone 6.png"; sourceTree = "<group>"; };
+		D0CFCCD220B7AA6C00971AE3 /* smile_Touch_ID@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "smile_Touch_ID@3x.png"; sourceTree = "<group>"; };
+		D0CFCCD320B7AA6C00971AE3 /* NSString+FileExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FileExtend.m"; sourceTree = "<group>"; };
+		D0CFCCD420B7AA6C00971AE3 /* XYExtensionsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYExtensionsViewController.h; sourceTree = "<group>"; };
+		D0CFCCD520B7AA6C00971AE3 /* XYLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYLocationManager.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D0CFCBFA20B7A4B900971AE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0CFCC0F20B7A4B900971AE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0CFCC1820B7A4B900971AE3 /* JavaScriptCore.framework in Frameworks */,
+				D0CFCC1C20B7A4B900971AE3 /* UIKit.framework in Frameworks */,
+				D0CFCC1A20B7A4B900971AE3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D0CFCBF420B7A4B900971AE3 = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC0220B7A4B900971AE3 /* WeChatExtensions */,
+				D0CFCC1D20B7A4B900971AE3 /* WeChatExtensionsDylib */,
+				D0CFCC1620B7A4B900971AE3 /* Frameworks */,
+				D0CFCC0120B7A4B900971AE3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D0CFCC0120B7A4B900971AE3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC0020B7A4B900971AE3 /* WeChatExtensions.app */,
+				D0CFCC1220B7A4B900971AE3 /* libWeChatExtensionsDylib.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0CFCC0220B7A4B900971AE3 /* WeChatExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC4E20B7A8AB00971AE3 /* src */,
+				D0CFCC0320B7A4B900971AE3 /* icon.png */,
+				D0CFCC0420B7A4B900971AE3 /* Target.plist */,
+				D0CFCC0C20B7A4B900971AE3 /* Info.plist */,
+				D0CFCC0520B7A4B900971AE3 /* Scripts */,
+				D0CFCC0720B7A4B900971AE3 /* Config */,
+				D0CFCC0A20B7A4B900971AE3 /* TargetApp */,
+			);
+			path = WeChatExtensions;
+			sourceTree = "<group>";
+		};
+		D0CFCC0520B7A4B900971AE3 /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC0620B7A4B900971AE3 /* quick-resign.sh */,
+			);
+			name = Scripts;
+			sourceTree = "<group>";
+		};
+		D0CFCC0720B7A4B900971AE3 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC0820B7A4B900971AE3 /* MDConfig.plist */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		D0CFCC0A20B7A4B900971AE3 /* TargetApp */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC0B20B7A4B900971AE3 /* put ipa or app here */,
+			);
+			name = TargetApp;
+			sourceTree = "<group>";
+		};
+		D0CFCC1620B7A4B900971AE3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC1720B7A4B900971AE3 /* JavaScriptCore.framework */,
+				D0CFCC1920B7A4B900971AE3 /* Foundation.framework */,
+				D0CFCC1B20B7A4B900971AE3 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D0CFCC1D20B7A4B900971AE3 /* WeChatExtensionsDylib */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC4220B7A4BA00971AE3 /* WeChatExtensionsDylib.h */,
+				D0CFCC4420B7A4BA00971AE3 /* WeChatExtensionsDylib.m */,
+				D0CFCC1E20B7A4B900971AE3 /* Logos */,
+				D0CFCC2220B7A4B900971AE3 /* Config */,
+				D0CFCC3320B7A4BA00971AE3 /* Tools */,
+				D0CFCC3A20B7A4BA00971AE3 /* AntiAntiDebug */,
+				D0CFCC3D20B7A4BA00971AE3 /* fishhook */,
+				D0CFCC3820B7A4BA00971AE3 /* Supporting Files */,
+			);
+			path = WeChatExtensionsDylib;
+			sourceTree = "<group>";
+		};
+		D0CFCC1E20B7A4B900971AE3 /* Logos */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC1F20B7A4B900971AE3 /* WeChatExtensionsDylib.xm */,
+				D0CFCC2020B7A4B900971AE3 /* WeChatExtensionsDylib.mm */,
+			);
+			name = Logos;
+			sourceTree = "<group>";
+		};
+		D0CFCC2220B7A4B900971AE3 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC2320B7A4B900971AE3 /* MDConfigManager.h */,
+				D0CFCC2520B7A4B900971AE3 /* MDConfigManager.m */,
+				D0CFCC2720B7A4BA00971AE3 /* MDCycriptManager.h */,
+				D0CFCC2920B7A4BA00971AE3 /* MDCycriptManager.m */,
+				D0CFCC2B20B7A4BA00971AE3 /* MDMethodTrace.h */,
+				D0CFCC2D20B7A4BA00971AE3 /* MDMethodTrace.m */,
+				D0CFCC2F20B7A4BA00971AE3 /* ANYMethodLog.h */,
+				D0CFCC3120B7A4BA00971AE3 /* ANYMethodLog.m */,
+			);
+			name = Config;
+			sourceTree = "<group>";
+		};
+		D0CFCC3320B7A4BA00971AE3 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC3420B7A4BA00971AE3 /* LLDBTools.h */,
+				D0CFCC3620B7A4BA00971AE3 /* LLDBTools.mm */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
+		D0CFCC3820B7A4BA00971AE3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC3920B7A4BA00971AE3 /* WeChatExtensionsDylib-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D0CFCC3A20B7A4BA00971AE3 /* AntiAntiDebug */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC3B20B7A4BA00971AE3 /* AntiAntiDebug.m */,
+			);
+			name = AntiAntiDebug;
+			sourceTree = "<group>";
+		};
+		D0CFCC3D20B7A4BA00971AE3 /* fishhook */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCC3E20B7A4BA00971AE3 /* fishhook.c */,
+				D0CFCC4020B7A4BA00971AE3 /* fishhook.h */,
+			);
+			name = fishhook;
+			sourceTree = "<group>";
+		};
+		D0CFCC4E20B7A8AB00971AE3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D0CFCCC420B7AA6900971AE3 /* CaptainHook.h */,
+				D0CFCCC220B7AA6900971AE3 /* CLLocation+XYLocationExtensions.h */,
+				D0CFCC9920B7AA6300971AE3 /* CLLocation+XYLocationExtensions.m */,
+				D0CFCC9420B7AA6300971AE3 /* DirectoryWatcher.h */,
+				D0CFCCB120B7AA6600971AE3 /* DirectoryWatcher.m */,
+				D0CFCCC620B7AA6A00971AE3 /* ExceptionUtils.h */,
+				D0CFCCA320B7AA6400971AE3 /* ExceptionUtils.m */,
+				D0CFCCCF20B7AA6C00971AE3 /* FoldersViewController.h */,
+				D0CFCC9D20B7AA6400971AE3 /* FoldersViewController.m */,
+				D0CFCCCA20B7AA6B00971AE3 /* HealthKitManager.h */,
+				D0CFCCA920B7AA6500971AE3 /* HealthKitManager.m */,
+				D0CFCC9520B7AA6300971AE3 /* icon_60@2x.png */,
+				D0CFCCB020B7AA6600971AE3 /* icon_60@3x.png */,
+				D0CFCCA620B7AA6400971AE3 /* icon_76.png */,
+				D0CFCC9F20B7AA6400971AE3 /* icon_76@2x.png */,
+				D0CFCC9E20B7AA6400971AE3 /* iPhone 4.png */,
+				D0CFCCCB20B7AA6B00971AE3 /* iPhone 5.png */,
+				D0CFCCB720B7AA6700971AE3 /* iPhone 6 Plus.png */,
+				D0CFCCD120B7AA6C00971AE3 /* iPhone 6.png */,
+				D0CFCCAB20B7AA6500971AE3 /* LocationConverter.h */,
+				D0CFCCB220B7AA6600971AE3 /* LocationConverter.m */,
+				D0CFCC9C20B7AA6400971AE3 /* MBProgressHUD.h */,
+				D0CFCC9620B7AA6300971AE3 /* MBProgressHUD.m */,
+				D0CFCCAF20B7AA6500971AE3 /* my_Logo@2x.png */,
+				D0CFCCBB20B7AA6700971AE3 /* my_Logo@3x.png */,
+				D0CFCCA820B7AA6500971AE3 /* my_Touch_ID@2x.png */,
+				D0CFCCCD20B7AA6B00971AE3 /* my_Touch_ID@3x.png */,
+				D0CFCCAC20B7AA6500971AE3 /* NSObject+IvarList.h */,
+				D0CFCCBE20B7AA6800971AE3 /* NSObject+IvarList.m */,
+				D0CFCCA420B7AA6400971AE3 /* NSString+FileExtend.h */,
+				D0CFCCD320B7AA6C00971AE3 /* NSString+FileExtend.m */,
+				D0CFCCD020B7AA6C00971AE3 /* OSAuthenticatorHelper.h */,
+				D0CFCCC820B7AA6A00971AE3 /* OSAuthenticatorHelper.m */,
+				D0CFCC9B20B7AA6300971AE3 /* OSFileManager.h */,
+				D0CFCCC720B7AA6A00971AE3 /* OSFileManager.m */,
+				D0CFCCCC20B7AA6B00971AE3 /* OSUnlockBackgroundView.h */,
+				D0CFCCAD20B7AA6500971AE3 /* OSUnlockBackgroundView.m */,
+				D0CFCC9820B7AA6300971AE3 /* smile_Touch_ID@2x.png */,
+				D0CFCCD220B7AA6C00971AE3 /* smile_Touch_ID@3x.png */,
+				D0CFCCA220B7AA6400971AE3 /* SmileAuthenticator.h */,
+				D0CFCC9720B7AA6300971AE3 /* SmileAuthenticator.m */,
+				D0CFCCC120B7AA6900971AE3 /* SmileKeychainWrapper.h */,
+				D0CFCCC920B7AA6A00971AE3 /* SmileKeychainWrapper.m */,
+				D0CFCCB420B7AA6600971AE3 /* SmilePasswordContainerView.h */,
+				D0CFCCB820B7AA6700971AE3 /* SmilePasswordContainerView.m */,
+				D0CFCCA020B7AA6400971AE3 /* SmilePasswordView.h */,
+				D0CFCCBC20B7AA6800971AE3 /* SmilePasswordView.m */,
+				D0CFCCAA20B7AA6500971AE3 /* SmileSettingVC.h */,
+				D0CFCCBA20B7AA6700971AE3 /* SmileSettingVC.m */,
+				D0CFCCC520B7AA6A00971AE3 /* WeChatHeaders.h */,
+				D0CFCCC020B7AA6800971AE3 /* XYExtensionConfig.h */,
+				D0CFCCB520B7AA6600971AE3 /* XYExtensionConfig.m */,
+				D0CFCCD420B7AA6C00971AE3 /* XYExtensionsViewController.h */,
+				D0CFCCB320B7AA6600971AE3 /* XYExtensionsViewController.m */,
+				D0CFCCA120B7AA6400971AE3 /* XYLocationManager.h */,
+				D0CFCCD520B7AA6C00971AE3 /* XYLocationManager.m */,
+				D0CFCCB920B7AA6700971AE3 /* XYLocationSearch.bundle */,
+				D0CFCCAE20B7AA6500971AE3 /* XYLocationSearchTableViewModel.h */,
+				D0CFCCBD20B7AA6800971AE3 /* XYLocationSearchTableViewModel.m */,
+				D0CFCCB620B7AA6700971AE3 /* XYLocationSearchViewController.h */,
+				D0CFCCCE20B7AA6B00971AE3 /* XYLocationSearchViewController.m */,
+				D0CFCCA520B7AA6400971AE3 /* XYMapViewController.h */,
+				D0CFCC9A20B7AA6300971AE3 /* XYMapViewController.m */,
+				D0CFCCA720B7AA6400971AE3 /* XYSuspensionMenu.h */,
+				D0CFCCC320B7AA6900971AE3 /* XYSuspensionMenu.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D0CFCC1020B7A4B900971AE3 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0CFCCE720B7AA6D00971AE3 /* LocationConverter.h in Headers */,
+				D0CFCCF620B7AA6D00971AE3 /* XYExtensionConfig.h in Headers */,
+				D0CFCCFC20B7AA6D00971AE3 /* ExceptionUtils.h in Headers */,
+				D0CFCD0620B7AA6D00971AE3 /* XYExtensionsViewController.h in Headers */,
+				D0CFCD0020B7AA6D00971AE3 /* HealthKitManager.h in Headers */,
+				D0CFCCFB20B7AA6D00971AE3 /* WeChatHeaders.h in Headers */,
+				D0CFCCE620B7AA6D00971AE3 /* SmileSettingVC.h in Headers */,
+				D0CFCCDB20B7AA6D00971AE3 /* OSFileManager.h in Headers */,
+				D0CFCC2820B7A4BA00971AE3 /* MDCycriptManager.h in Headers */,
+				D0CFCCE020B7AA6D00971AE3 /* SmileAuthenticator.h in Headers */,
+				D0CFCCDF20B7AA6D00971AE3 /* XYLocationManager.h in Headers */,
+				D0CFCD0420B7AA6D00971AE3 /* OSAuthenticatorHelper.h in Headers */,
+				D0CFCCE320B7AA6D00971AE3 /* XYMapViewController.h in Headers */,
+				D0CFCCF820B7AA6D00971AE3 /* CLLocation+XYLocationExtensions.h in Headers */,
+				D0CFCCE820B7AA6D00971AE3 /* NSObject+IvarList.h in Headers */,
+				D0CFCD0320B7AA6D00971AE3 /* FoldersViewController.h in Headers */,
+				D0CFCCE420B7AA6D00971AE3 /* XYSuspensionMenu.h in Headers */,
+				D0CFCCDC20B7AA6D00971AE3 /* MBProgressHUD.h in Headers */,
+				D0CFCCF720B7AA6D00971AE3 /* SmileKeychainWrapper.h in Headers */,
+				D0CFCC4320B7A4BA00971AE3 /* WeChatExtensionsDylib.h in Headers */,
+				D0CFCC2C20B7A4BA00971AE3 /* MDMethodTrace.h in Headers */,
+				D0CFCCF020B7AA6D00971AE3 /* XYLocationSearchViewController.h in Headers */,
+				D0CFCCD620B7AA6D00971AE3 /* DirectoryWatcher.h in Headers */,
+				D0CFCC3520B7A4BA00971AE3 /* LLDBTools.h in Headers */,
+				D0CFCCDE20B7AA6D00971AE3 /* SmilePasswordView.h in Headers */,
+				D0CFCCE220B7AA6D00971AE3 /* NSString+FileExtend.h in Headers */,
+				D0CFCCEA20B7AA6D00971AE3 /* XYLocationSearchTableViewModel.h in Headers */,
+				D0CFCC2420B7A4B900971AE3 /* MDConfigManager.h in Headers */,
+				D0CFCCEE20B7AA6D00971AE3 /* SmilePasswordContainerView.h in Headers */,
+				D0CFCC3020B7A4BA00971AE3 /* ANYMethodLog.h in Headers */,
+				D0CFCD0120B7AA6D00971AE3 /* OSUnlockBackgroundView.h in Headers */,
+				D0CFCCFA20B7AA6D00971AE3 /* CaptainHook.h in Headers */,
+				D0CFCC4120B7A4BA00971AE3 /* fishhook.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D0CFCBFF20B7A4B900971AE3 /* WeChatExtensions */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0CFCC4B20B7A4BA00971AE3 /* Build configuration list for PBXNativeTarget "WeChatExtensions" */;
+			buildPhases = (
+				D0CFCBF920B7A4B900971AE3 /* Sources */,
+				D0CFCBFA20B7A4B900971AE3 /* Frameworks */,
+				D0CFCBFB20B7A4B900971AE3 /* ShellScript */,
+				D0CFCBFC20B7A4B900971AE3 /* Resources */,
+				D0CFCBFD20B7A4B900971AE3 /* CopyFiles */,
+				D0CFCBFE20B7A4B900971AE3 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0CFCC1520B7A4B900971AE3 /* PBXTargetDependency */,
+			);
+			name = WeChatExtensions;
+			productName = WeChatExtensions;
+			productReference = D0CFCC0020B7A4B900971AE3 /* WeChatExtensions.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D0CFCC1120B7A4B900971AE3 /* WeChatExtensionsDylib */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0CFCC4820B7A4BA00971AE3 /* Build configuration list for PBXNativeTarget "WeChatExtensionsDylib" */;
+			buildPhases = (
+				D0CFCC0D20B7A4B900971AE3 /* ShellScript */,
+				D0CFCC0E20B7A4B900971AE3 /* Sources */,
+				D0CFCC0F20B7A4B900971AE3 /* Frameworks */,
+				D0CFCC1020B7A4B900971AE3 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WeChatExtensionsDylib;
+			productName = WeChatExtensionsDylib;
+			productReference = D0CFCC1220B7A4B900971AE3 /* libWeChatExtensionsDylib.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D0CFCBF520B7A4B900971AE3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = xiaoyuan;
+				TargetAttributes = {
+					D0CFCBFF20B7A4B900971AE3 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					D0CFCC1120B7A4B900971AE3 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+				};
+			};
+			buildConfigurationList = D0CFCBF820B7A4B900971AE3 /* Build configuration list for PBXProject "WeChatExtensions" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D0CFCBF420B7A4B900971AE3;
+			productRefGroup = D0CFCC0120B7A4B900971AE3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D0CFCBFF20B7A4B900971AE3 /* WeChatExtensions */,
+				D0CFCC1120B7A4B900971AE3 /* WeChatExtensionsDylib */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D0CFCBFC20B7A4B900971AE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0CFCC0920B7A4B900971AE3 /* MDConfig.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D0CFCBFB20B7A4B900971AE3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = /opt/MonkeyDev/Tools/pack.sh;
+		};
+		D0CFCBFE20B7A4B900971AE3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/MonkeyDev/Tools/pack.sh codesign";
+		};
+		D0CFCC0D20B7A4B900971AE3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/opt/MonkeyDev/bin/md --xcbp-logos";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D0CFCBF920B7A4B900971AE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0CFCC0E20B7A4B900971AE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0CFCCDD20B7AA6D00971AE3 /* FoldersViewController.m in Sources */,
+				D0CFCC4520B7A4BA00971AE3 /* WeChatExtensionsDylib.m in Sources */,
+				D0CFCC2A20B7A4BA00971AE3 /* MDCycriptManager.m in Sources */,
+				D0CFCCF520B7AA6D00971AE3 /* NSObject+IvarList.m in Sources */,
+				D0CFCC3220B7A4BA00971AE3 /* ANYMethodLog.m in Sources */,
+				D0CFCCD920B7AA6D00971AE3 /* CLLocation+XYLocationExtensions.m in Sources */,
+				D0CFCCF920B7AA6D00971AE3 /* XYSuspensionMenu.m in Sources */,
+				D0CFCC2620B7A4BA00971AE3 /* MDConfigManager.m in Sources */,
+				D0CFCCF420B7AA6D00971AE3 /* XYLocationSearchTableViewModel.m in Sources */,
+				D0CFCCF120B7AA6D00971AE3 /* SmilePasswordContainerView.m in Sources */,
+				D0CFCCE920B7AA6D00971AE3 /* OSUnlockBackgroundView.m in Sources */,
+				D0CFCCFD20B7AA6D00971AE3 /* OSFileManager.m in Sources */,
+				D0CFCCED20B7AA6D00971AE3 /* XYExtensionsViewController.m in Sources */,
+				D0CFCCE520B7AA6D00971AE3 /* HealthKitManager.m in Sources */,
+				D0CFCCEB20B7AA6D00971AE3 /* DirectoryWatcher.m in Sources */,
+				D0CFCC3720B7A4BA00971AE3 /* LLDBTools.mm in Sources */,
+				D0CFCC2120B7A4B900971AE3 /* WeChatExtensionsDylib.mm in Sources */,
+				D0CFCCEF20B7AA6D00971AE3 /* XYExtensionConfig.m in Sources */,
+				D0CFCC2E20B7A4BA00971AE3 /* MDMethodTrace.m in Sources */,
+				D0CFCCEC20B7AA6D00971AE3 /* LocationConverter.m in Sources */,
+				D0CFCCD820B7AA6D00971AE3 /* SmileAuthenticator.m in Sources */,
+				D0CFCCD720B7AA6D00971AE3 /* MBProgressHUD.m in Sources */,
+				D0CFCC3F20B7A4BA00971AE3 /* fishhook.c in Sources */,
+				D0CFCCE120B7AA6D00971AE3 /* ExceptionUtils.m in Sources */,
+				D0CFCCFF20B7AA6D00971AE3 /* SmileKeychainWrapper.m in Sources */,
+				D0CFCCF220B7AA6D00971AE3 /* SmileSettingVC.m in Sources */,
+				D0CFCC3C20B7A4BA00971AE3 /* AntiAntiDebug.m in Sources */,
+				D0CFCD0520B7AA6D00971AE3 /* NSString+FileExtend.m in Sources */,
+				D0CFCCF320B7AA6D00971AE3 /* SmilePasswordView.m in Sources */,
+				D0CFCD0720B7AA6D00971AE3 /* XYLocationManager.m in Sources */,
+				D0CFCD0220B7AA6D00971AE3 /* XYLocationSearchViewController.m in Sources */,
+				D0CFCCFE20B7AA6D00971AE3 /* OSAuthenticatorHelper.m in Sources */,
+				D0CFCCDA20B7AA6D00971AE3 /* XYMapViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D0CFCC1520B7A4B900971AE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0CFCC1120B7A4B900971AE3 /* WeChatExtensionsDylib */;
+			targetProxy = D0CFCC1420B7A4B900971AE3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		D0CFCC4620B7A4BA00971AE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D0CFCC4720B7A4BA00971AE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D0CFCC4920B7A4BA00971AE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKW67GFDHM;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(MonkeyDevPath)/Frameworks/**",
+					"$(MonkeyDevPath)/Librarys/**",
+					"$(MonkeyDevTheosPath)/vendor/lib",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WeChatExtensionsDylib/WeChatExtensionsDylib-Prefix.pch";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(MonkeyDevPath)/include",
+					"$(MonkeyDevTheosPath)/vendor/include/**",
+				);
+				INSTALL_PATH = "@executable_path/Frameworks/libWeChatExtensionsDylib.dylib";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(MonkeyDevPath)/Frameworks",
+					"$(MonkeyDevTheosPath)/vendor/lib/**",
+				);
+				MonkeyDevPath = /opt/MonkeyDev;
+				MonkeyDevTheosPath = /opt/theos;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DTHEOS_INSTANCE_NAME=\"\\\"WeChatExtensionsDylib\\\"\"",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_library",
+					"/usr/lib/libc++.dylib",
+					"-weak_library",
+					"/usr/lib/libstdc++.dylib",
+					"-weak_library",
+					"$(MonkeyDevPath)/Frameworks/libsubstrate.dylib",
+					"-lcycript",
+					"-framework",
+					RevealServer,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		D0CFCC4A20B7A4BA00971AE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = NKW67GFDHM;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_BITCODE = NO;
+				EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES = "*.nib *.lproj *.gch (*) .DS_Store CVS .svn .git .hg *.xcodeproj *.xcode *.pbproj *.pbxproj";
+				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(MonkeyDevPath)/Frameworks/**",
+					"$(MonkeyDevPath)/Librarys/**",
+					"$(MonkeyDevTheosPath)/vendor/lib",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WeChatExtensionsDylib/WeChatExtensionsDylib-Prefix.pch";
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(MonkeyDevPath)/include",
+					"$(MonkeyDevTheosPath)/vendor/include/**",
+				);
+				INSTALL_PATH = "@executable_path/Frameworks/libWeChatExtensionsDylib.dylib";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(MonkeyDevPath)/Frameworks",
+					"$(MonkeyDevTheosPath)/vendor/lib/**",
+				);
+				MonkeyDevPath = /opt/MonkeyDev;
+				MonkeyDevTheosPath = /opt/theos;
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DTHEOS_INSTANCE_NAME=\"\\\"WeChatExtensionsDylib\\\"\"",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-weak_library",
+					"/usr/lib/libc++.dylib",
+					"-weak_library",
+					"/usr/lib/libstdc++.dylib",
+					"-weak_library",
+					"$(MonkeyDevPath)/Frameworks/libsubstrate.dylib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D0CFCC4C20B7A4BA00971AE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKW67GFDHM;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = WeChatExtensions/Info.plist;
+				MONKEYDEV_ADD_SUBSTRATE = YES;
+				MONKEYDEV_CLASS_DUMP = NO;
+				MONKEYDEV_INSERT_DYLIB = YES;
+				MONKEYDEV_RESTORE_SYMBOL = NO;
+				MONKEYDEV_TARGET_APP = Optional;
+				PODS_CONFIGURATION_BUILD_DIR = "$BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_BUNDLE_IDENTIFIER = com.alpface.WeChatExtensions;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D0CFCC4D20B7A4BA00971AE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NKW67GFDHM;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = WeChatExtensions/Info.plist;
+				MONKEYDEV_ADD_SUBSTRATE = YES;
+				MONKEYDEV_CLASS_DUMP = NO;
+				MONKEYDEV_INSERT_DYLIB = YES;
+				MONKEYDEV_RESTORE_SYMBOL = NO;
+				MONKEYDEV_TARGET_APP = Optional;
+				PODS_CONFIGURATION_BUILD_DIR = "$BUILD_DIR/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
+				PODS_ROOT = "${SRCROOT}/Pods";
+				PRODUCT_BUNDLE_IDENTIFIER = com.alpface.WeChatExtensions;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D0CFCBF820B7A4B900971AE3 /* Build configuration list for PBXProject "WeChatExtensions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0CFCC4620B7A4BA00971AE3 /* Debug */,
+				D0CFCC4720B7A4BA00971AE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0CFCC4820B7A4BA00971AE3 /* Build configuration list for PBXNativeTarget "WeChatExtensionsDylib" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0CFCC4920B7A4BA00971AE3 /* Debug */,
+				D0CFCC4A20B7A4BA00971AE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0CFCC4B20B7A4BA00971AE3 /* Build configuration list for PBXNativeTarget "WeChatExtensions" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0CFCC4C20B7A4BA00971AE3 /* Debug */,
+				D0CFCC4D20B7A4BA00971AE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D0CFCBF520B7A4B900971AE3 /* Project object */;
+}

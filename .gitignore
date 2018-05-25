@@ -61,3 +61,8 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+WeChatExtensions/WeChatExtensions/TargetApp
+*.app
+*.ipa
+.DS_Store
